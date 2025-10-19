@@ -34,8 +34,7 @@
              <% if s == current_user.school %>
                Done
              <% else %>
-               <%= link_to "Done", mypage_switch_school_path(current_user, s),
-                     data: { turbo_method: :patch } %>
+               <%= link_to "Done", mypage_switch_school_path(current_user, s) %>
              <% end %>
            <% else %>
              Not yet

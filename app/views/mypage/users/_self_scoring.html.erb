@@ -4,7 +4,7 @@ No lessons.
 <% else %>
   <div class="form-group" data-controller="collapse-persist">
     <%= form_with url: mypage_update_scores_path(@user),
-                  method: :patch do |f| %>
+                  method: :get do |f| %>
       <%= render @lessons %>
       <div>
         <%= f.submit "Update your evaluation", class: "btn btn-primary my-3" %>

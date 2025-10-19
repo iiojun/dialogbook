@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     get "comments/create"
     root to: "users#show"
     resources :users,    only: [:edit, :show, :update]
-    patch "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
-    patch "/update_scores/:id", to: "users#update_scores", as: :update_scores
+    get "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
+    get "/update_scores/:id", to: "users#update_scores", as: :update_scores
     resources :schools,  only: [:destroy]
     resources :notes,    only: [:create, :destroy]
     resources :posts,    only: [:create]

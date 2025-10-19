@@ -1,0 +1,26 @@
+<%= form_with model: meeting do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th width="10%">Item</th>
+      <th width="90%">Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "name:" %></td>
+      <td><%= f.text_field :name, 
+              placeholder: "add a name...", style: "width:60%",
+                class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "start_date:" %></td>
+      <td><%= f.datetime_select :start_date, minute_step: 5,
+                class: "form-control" %> UTC</td></tr>
+    </tr>
+    <tr>
+      <td><%= f.label "memo:" %></td>
+      <td><%= f.text_area :memo, 
+              placeholder: "add a memo...", style: "width:100%",
+                class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.submit label, class: "btn btn-primary" %>
+<% end %>

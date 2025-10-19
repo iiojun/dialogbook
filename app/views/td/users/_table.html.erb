@@ -1,0 +1,8 @@
+<% if users&.length == 0 %>
+No users.
+<% else %>
+  <table class="table table-sm table-striped">
+    <%= render "tableheader" %>
+    <%= render users, label: btn %>
+  </table>
+<% end %>

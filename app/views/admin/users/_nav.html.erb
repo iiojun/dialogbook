@@ -1,0 +1,15 @@
+<nav aria-label="breadcrumbs">
+  <ol class="breadcrumb mb-1 bg-white">
+    <li class="breadcrumb-item"><%= link_to "MyPage", root_path %></li>
+    <li class="breadcrumb-item">
+       <%= link_to "[Admin] Projects List", admin_root_path %></li>
+    <li class="breadcrumb-item">
+       <%= school != nil ? (link_to "Project", 
+              edit_admin_project_path(school.project)) : "Project" %></li>
+   
+    <li class="breadcrumb-item">
+       <%= school != nil ? (link_to "School", 
+              edit_admin_project_path(school)) : "School" %></li>
+    <li class="breadcrumb-item">User</li>
+  </ol>
+</nav>

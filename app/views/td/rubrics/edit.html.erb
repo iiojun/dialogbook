@@ -1,0 +1,16 @@
+<%= render "nav", lesson: @rubric.lesson, title: "Edit Rubric" %>
+<h1>Edit a Rubric Item</h1>
+<%= form_with model: [:td, @rubric] do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th width="10%">Item</th>
+      <th width="90%">Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "item:" %></td>
+      <td><%= f.text_area :item, style: "width:100%",
+                                 class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.submit "update", class: "btn btn-primary" %>
+<% end %>

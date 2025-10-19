@@ -1,0 +1,23 @@
+<tr>
+  <td><%= user.id %></td>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= user.role %></td>
+  <td class="text-center"><%= UserSchool.find_by(user: user,
+                             school: current_user.school).registered ?
+                                     "Done" : "Not yet" %></td>
+  <td class="text-center"><% if label == :withdraw %>
+        <% if current_user == user %>N/A<% else %>
+          <%= link_to label,
+                td_users_withdraw_path(uid: user, sid: current_user.school),
+                   class: "btn btn-sm btn-secondary",
+                   data: { turbo_confirm: "Are you sure?",
+                           turbo_method: :get } %>
+        <% end %></td>
+  <% else %>
+    <%= link_to label,
+            td_users_delete_path(uid: user, sid: current_user.school),
+               class: "btn btn-sm btn-secondary",
+               data: { turbo_confirm: "Are you sure?", turbo_method: :get } %>
+  <% end %>
+</tr>

@@ -1,0 +1,21 @@
+<%= render "nav", lesson: nil, title: "Self Scoring" %>
+<h1>Self Scoring</h1>
+<table class="table table-responsive table-bordered table-sm table-striped">
+  <tr><th width="15%">Names \ Items</th> 
+    <% @rubrics.each {|rubric| %>
+      <th width="15%"><%= rubric.item %></th>
+    <% } %>
+  </tr>
+  <% @students&.each {|student| %>
+    <tr>
+      <td><%= student.name %></td>
+      <% @rubrics.each {|rubric| %>
+        <td style="text-align: center;">
+          <%= Score.find_by(user: student, rubric: rubric)&.level %></td>
+      <% } %>
+    </tr>
+  <% } %>
+</table>
+
+<%= link_to "Excel file download", 
+       td_rubrics_path(format: :xlsx), class: "btn btn-primary" %>

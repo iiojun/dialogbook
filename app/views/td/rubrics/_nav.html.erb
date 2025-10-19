@@ -1,0 +1,13 @@
+<nav aria-label="breadcrumbs">
+  <ol class="breadcrumb mb-1 bg-white">
+    <li class="breadcrumb-item"><%= link_to "MyPage",
+                 mypage_user_path(current_user) %></li>
+    <li class="breadcrumb-item"><%= link_to "Lessons (Rubrics) Management",
+                 td_lessons_path %></li>
+    <% if lesson != nil %>
+      <li class="breadcrumb-item"><%= link_to "Edit Lesson",
+                   edit_td_lesson_path(lesson) %></li>
+    <% end %>
+    <li class="breadcrumb-item"><%= title %></li>
+  </ol>
+</nav>

@@ -1,0 +1,12 @@
+<tr>
+  <td><%= lesson.title %>
+  </td>
+  <td><%= link_to "edit", edit_td_lesson_path(lesson),
+                  class: "btn btn-success btn-sm" %>
+  </td>
+  <td><%= link_to "delete", td_lesson_path(lesson), 
+                  class: "btn btn-secondary btn-sm",
+                  data: { turbo_confirm: "Are you sure?",
+                          turbo_method: :delete } %>
+  </td>
+</tr>

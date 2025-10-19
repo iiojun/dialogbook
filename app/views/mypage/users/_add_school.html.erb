@@ -1,0 +1,8 @@
+<p>
+  <%= form_with model: [:mypage, @user], class: "row" do |f| %>
+    <%= f.label :code, "School Code ", class: "col-auto" %>
+    <%= f.text_field :code, class: "form-control w-25 col-auto" %>
+    <%= f.submit "Add", class: "btn btn-primary ms-2 col-auto" %>
+  <% end %>
+</p>
+<br />

@@ -1,0 +1,12 @@
+<tr>
+  <td><%= rubric.item  %>
+  </td>
+  <td><%= link_to "edit", edit_td_rubric_path(rubric),
+                  class: "btn btn-success btn-sm" %>
+  </td>
+  <td><%= link_to "delete", td_rubric_path(rubric), 
+                  class: "btn btn-secondary btn-sm",
+                  data: { turbo_confirm: "Are you sure?",
+                          turbo_method: :delete } %>
+  </td>
+</tr>

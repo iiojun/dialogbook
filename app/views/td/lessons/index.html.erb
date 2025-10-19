@@ -1,0 +1,26 @@
+<%= render "td/nav", title: "Lessons (Rubrics) Management" %>
+<h1>Lessons List</h1>
+<p>
+<% if @lessons&.length == 0 %>
+No lessons.
+<% else %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th>Lessons</th>
+      <th width="5%">Edit</th>
+      <th width="5%">Delete</th>
+    </tr>
+    <%= render @lessons %>
+  </table>
+<% end %>
+</p>
+
+<h1>Create a New Lesson</h1>
+<%= render "form", lesson: [:td, Lesson.new], label: "create" %>
+
+<% if @rubrics.length > 0 %>
+  <br /><hr />
+  <h1>Self-evaluation Scores</h1>
+  <%= link_to "show scores", td_rubrics_path, class: "btn btn-primary" %>
+<% end %>
+

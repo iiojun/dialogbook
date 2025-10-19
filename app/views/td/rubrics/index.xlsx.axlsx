@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+
+header = ["Names \ Items"]
+@rubrics.each { |rubric| header.push(rubric.item) }
+
+wb.add_worksheet(name: "Self-evaluation scores") do |sheet|
+  sheet.add_row(header)
+  @students.each do |student|
+    levels = [ student.name ]
+    @rubrics.each { |rubric|
+      levels.push(Score.find_by(user: student, rubric: rubric)&.level)
+    }
+    sheet.add_row(levels)
+  end
+end

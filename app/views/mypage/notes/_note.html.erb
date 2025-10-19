@@ -1,0 +1,17 @@
+<li>
+<b><%= note.title %> : </b>
+<%= note.message %>
+<% if note.url&.length > 0 %>
+  <%= link_to "#{octicon 'link', height: 16, 
+        class: 'right left', 'aria-label': 'link'}".html_safe,
+        note.url,  target: :_blank %>
+  <%= link_to note.url, note.url, target: :_blank,
+         class: "text-primary"  %>
+<% end %>
+<% if note.user == current_user # it can be deleted by only person who posted %>
+   <%= link_to "#{octicon 'x-circle', height: 16,
+           class: 'right left', 'aria-label': 'x-circle'}".html_safe,
+           mypage_note_path(note),
+           data: { turbo_confirm: "Are you sure?", turbo_method: :delete } %>
+<% end %>
+</li>

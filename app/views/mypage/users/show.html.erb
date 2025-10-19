@@ -1,0 +1,68 @@
+<nav aria-label="breadcrumbs">
+  <ol class="breadcrumb mb-1 bg-white">
+    <li class="breadcrumb-item">MyPage</li> 
+    <li class="breadcrumb-item">
+      <%= link_to "[edit my profile]", edit_mypage_user_path(current_user) %>
+    </li>
+  </ol>
+</nav>
+<h1><%= @user.name %>'s MyPage</h1>
+<% if @user.school == nil # the case when school is not assigned %>
+  <div class="mb-3">
+  You are not participating in any classes. Please add or choose your school.
+  </div>
+  <h2>School list</h2>
+    <%= render "school_list" %>
+  <h2>kschool</h2>
+    <%= render "add_school" %>
+<% else %>
+  <div class="mb-3">
+  Your school is 
+  <span class="text-primary">
+    <%= @user.school.name %> (<%= @user.school.project.year %>)</span>
+  </div>
+<div data-controller="tab-persist">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" data-bs-toggle="tab" 
+           data-bs-target="#dialog" href="#dialog"
+           aria-selected="true" role="tab">Dialog</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-bs-toggle="tab"
+           data-bs-target="#meetings" href="#meetings"
+           aria-selected="false" tabindex="-1" role="tab">Meetings</a>
+    </li>
+    <% if current_user.is_teacher? %>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab"
+             data-bs-target="#td" href="#td" 
+             aria-selected="false" tabindex="-1" role="tab">Dashboard</a>
+      </li>
+    <% else %>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab"
+             data-bs-target="#lessons" href="#lessons" 
+             aria-selected="false" tabindex="-1" role="tab">Lessons</a>
+      </li>
+    <% end %>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade show active mt-2" id="dialog" role="tabpanel">
+      <%= render partial: "dialog" %>
+    </div>
+    <div class="tab-pane fade mt-2" id="meetings" role="tabpanel">
+      <%= render partial: "next_meeting" %>
+    </div>
+    <% if current_user.is_teacher? %>
+      <div class="tab-pane fade mt-2" id="td" role="tabpanel">
+        <%= render partial: "teachers_dashboard" %>
+      </div>
+    <% else %>
+      <div class="tab-pane fade mt-2" id="lessons" role="tabpanel">
+        <%= render partial: "self_scoring" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

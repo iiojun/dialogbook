@@ -1,0 +1,20 @@
+<%= form_with model: [:td, model] do |f| %>
+  <table class="col-auto">
+       <tr><th style="width: 15%;"></th>
+           <th style="width: 85%;"></th></tr>
+    <tr>
+      <th>title:</th>
+      <td><%= f.text_field :title, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>message: &nbsp;</th>
+      <td><%= f.text_field :message, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>url:</th>
+      <td><%= f.text_field :url, class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.hidden_field :mid, { value: model.meeting.id } %>
+  <%= f.submit label, class: "btn btn-primary mt-2" %>
+<% end %>

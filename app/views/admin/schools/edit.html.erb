@@ -1,0 +1,41 @@
+<%= render "nav", project: @school.project %>
+<h1>School Dashboard</h1>
+<h2>School information</h2>
+<%= render "admin/schools/form",
+      model: [:admin, @school], label: "Update", 
+      pid: @school.project.id %>
+
+<h2>Member list</h2>
+<p>
+  <% if @school.users&.length == 0 %>
+    Not yet registered
+  <% else %>
+    <table class="table table-sm table-striped">
+      <tr><th width="10%">User ID</th>
+          <th width="20%">Name</th>
+          <th >E-mail</th>
+          <th width="10%">Role</th>
+          <th width="10%">Registered</th>
+          <th width="5%">Edit</th>
+          <th width="5%">Delete</th></tr>
+       <% @school.users&.each { |u| %>
+       <tr>
+         <td><%= u.id %></td>
+         <td><%= u.name %></td>
+         <td><%= u.email %></td>
+         <td><%= u.role %></td>
+         <td><%= UserSchool.find_by(user: u, school: @school).registered ?
+                   "Done" : "Not yet" %></td>
+         <td><%= link_to "edit", edit_admin_user_path(u),
+                   class: "btn btn-sm btn-success" %></td>
+         <td><%= link_to "delete", admin_user_path(u, sid: @school),
+                   class: "btn btn-sm btn-secondary",
+                   data: { turbo_confirm: "Are you sure?",
+                           turbo_method: :delete } %></td>
+       </tr>
+       <% } %>
+    </table>
+    NOTE: DELETE means removing the relationship between the user and this class. The user is not deleted from the app. If you want to remove the user permanently, please use the Auth0 dashboard.
+  <% end %>
+</p>
+

@@ -1,0 +1,15 @@
+<p>
+  <%= form_with model: model do |f| %>
+    <table>
+       <tr><td style="width: 10%;" ><%= f.label "name" %>&nbsp;</td>
+           <td style="width: 90%;" >
+               <%= f.text_field :name, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "address" %>&nbsp;</td>
+           <td><%= f.text_field :address, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "memo" %>&nbsp;</td>
+           <td><%= f.text_field :memo, class: "form-control" %></td></tr>
+    </table>
+    <%= f.hidden_field :pid, { value: pid } %>
+    <%= f.submit label, class: "btn btn-primary mt-3" %>
+  <% end %>
+</p>

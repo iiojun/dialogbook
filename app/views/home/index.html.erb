@@ -1,0 +1,16 @@
+<div class="text-center">
+<h1>Welcome to the Dialogbook</h1>
+
+To begin with, click the following button to sign in to the system.
+
+<% if user_signed_in? %>
+  <%= button_to "Sign out", sign_out_path, method: :get,
+        data: { turbo: false }, class: "btn btn-danger" %>
+  Welcome to <%= current_user.email %>
+<% else %>
+  <%= button_to "Click This Sign-in-Button to Start",
+        "/auth/auth0", method: :post,
+        data: { turbo: false }, class: "btn btn-primary mt-2" %>
+<% end %>
+<%= image_tag "cover.png", width: "100%;", class: "mt-3", alt: "cover image" %>
+</div>

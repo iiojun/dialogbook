@@ -1,0 +1,23 @@
+<%= render "nav", school: @user.school %>
+<h1>User Management</h1>
+<h2>Edit the user</h2>
+<p>
+  <%= form_with model: [:admin, @user] do |f| %>
+    <table>
+       <tr><td style="width: 10%;" ><%= f.label "name" %>&nbsp;</td>
+           <td style="width: 90%;" >
+               <%= f.text_field :name, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "nickname" %>&nbsp;</td>
+           <td><%= f.text_field :nickname, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "picture" %>&nbsp;</td>
+           <td><%= f.text_field :picture, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "role" %>&nbsp;</td>
+           <td><%= f.select :role,
+                [["teacher", "teacher"], ["student", "student"]],
+                { selected: (@user.is_teacher? ? "teacher" : "student") } %>
+           </td></tr>
+    </table>
+    <%= f.submit "Update", class: "btn btn-primary mt-3" %>
+  <% end %>
+</p>
+

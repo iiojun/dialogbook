@@ -1,0 +1,21 @@
+<%= render "nav", meeting: nil, title: "Edit Meeting" %>
+<h1>Edit a Meeting</h1>
+<%= render "form", meeting: [:td, @meeting], label: "update" %>
+<br />
+
+<h1>Notes List</h1>
+<% if @meeting.notes&.length == 0 %>
+  No notes.
+<% else %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th width="20%">Title</th>
+      <th>Message</th>
+      <th width="10%">User</th>
+      <th>URL</th>
+      <th width="5%">Edit</th>
+      <th width="5%">Delete</th>
+    </tr>
+    <%= render @meeting.notes %>
+  </table>
+<% end %>

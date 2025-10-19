@@ -1,0 +1,36 @@
+<nav aria-label="breadcrumbs">
+  <ol class="breadcrumb mb-1 bg-white">
+    <li class="breadcrumb-item">
+      <% if @user.name == nil %>
+        MyPage
+      <% else %>
+        <%= link_to "MyPage", mypage_user_path(@user) %>
+      <% end %></li> 
+    <li class="breadcrumb-item">
+      [edit my profile]
+    </li>
+  </ol>
+</nav>
+<h1>Edit My Profile</h1>
+<p>
+  <% if @user.name == nil or @user.name == "" %>
+    <div class="text-danger">
+      User's name must be filled in.
+    </div>
+  <% end %>
+  <%= form_with model: [:mypage, @user] do |f| %>
+    <table>
+       <tr><td width="15%" ><%= f.label "name" %>&nbsp;</td>
+           <td><%= f.text_field :name, required: true, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "nickname" %>&nbsp;</td>
+           <td><%= f.text_field :nickname, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "picture" %>&nbsp;</td>
+           <td><%= f.text_field :picture, class: "form-control" %></td></tr>
+    </table>
+    <%= f.submit "Update", class: "btn btn-primary mt-3" %>
+  <% end %>
+</p>
+<h2>School list</h2>
+  <%= render "school_list" %>
+<h2>Add school</h2>
+  <%= render "add_school" %>

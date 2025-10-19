@@ -1,0 +1,32 @@
+<%= render "admin/nav" %>
+<h1>Dialogbook's Dashboard</h1>
+<% if @projects != nil %>
+<h2>Project list</h2>
+<p>
+  <% if @projects.length == 0 %>
+    No projects
+  <% else %>
+    <table class="table table-sm table-striped">
+      <tr><th width="5%">Year</th>
+          <th >Projects</th>
+          <th width="5%">Edit</th>
+          <th width="5%">Delete</th></tr>
+      <% @projects.each { |p| %>
+      <tr>
+         <td><%= p.year %></td>
+         <td><%= p.name %></td>
+         <td><%= link_to "edit", edit_admin_project_path(p),
+                   class: "btn btn-sm btn-success" %></td>
+         <td><%= link_to "delete", admin_project_path(p),
+                   class: "btn btn-sm btn-secondary",
+                   data: { turbo_confirm: "Are you sure?",
+                           turbo_method: :delete } %></td>
+      </tr>
+      <% } %>
+    </table>
+  <% end %>
+</p>
+<% end %>
+<h2>Register a new project</h2>
+<%= render "admin/projects/form",
+      model: [:admin, Project.new], label: "Register" %>

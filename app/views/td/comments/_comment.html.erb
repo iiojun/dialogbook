@@ -1,0 +1,5 @@
+<div class="ps-5">
+  <div><span class="fw-bold"><%= comment.user.name %></span> : 
+     <%= local_time(comment.created_at) %></div>
+  <div><%= simple_format(h(comment.body)) %></div>
+</div>

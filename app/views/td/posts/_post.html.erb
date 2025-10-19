@@ -1,0 +1,8 @@
+<% if post.body != "" %>
+<div>
+  <div><span class="fw-bold"><%= post.user.name %></span> : 
+     <%= local_time(post.created_at) %></div>
+  <div><%= simple_format(h(post.body)) %></div>
+    <%= render @comments[post] %>
+</div>
+<% end %>

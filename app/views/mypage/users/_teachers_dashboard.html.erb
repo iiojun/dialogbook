@@ -1,0 +1,42 @@
+<h2 class="mt-3">Teacher's Dashboard</h2>
+<div class="list-group mb-5">
+  <%= link_to "#{octicon 'people', height: 24, 
+                         class: 'right left', 'aria-label': 'people'} &nbsp;
+               #{content_tag :span, 'User accounts management', 
+                             class: 'text-primary'} &raquo;".html_safe,
+              td_users_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'mortar-board', height: 24, 
+                         class: 'right left', 'aria-label': 'mortar-board'} &nbsp;
+               #{content_tag :span, 'Lessons (Rubrics) management', 
+                             class: 'text-primary'} &raquo;".html_safe,
+              td_lessons_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'calendar', height: 24, 
+                         class: 'right left', 'aria-label': 'calendar'} &nbsp;
+               #{content_tag :span, 'Meetings management', 
+                             class: 'text-primary'} &raquo;".html_safe,
+              td_meetings_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'comment-discussion', height: 24, class: 'right left',
+                         'aria-label': 'comment-discssion'} &nbsp;
+               #{content_tag :span, 'All comments in my school', 
+                             class: 'text-primary'} &raquo;".html_safe,
+              td_school_path(@user.school),
+                         class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'checklist', height: 24, 
+                         class: 'right left', 'aria-label': 'checklist'} &nbsp;
+               #{content_tag :span, 'Check list to manage your course [Not yet implemented]', 
+                             class: 'text-secondary'} &raquo;".html_safe,
+          root_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'download', height: 24, 
+                         class: 'right left', 'aria-label': 'download'} &nbsp;
+               #{content_tag :span, 'Data download (experimental)', 
+                   class: 'text-primary'} &raquo;".html_safe,
+          td_api_users_path, class: 'list-group-item list-group-item-action' %>
+  <% if @user.is_admin? %>
+    <%= link_to "#{octicon 'list-unordered', height: 24, 
+                           class: 'right left', 'aria-label': 'download'} &nbsp;
+                 #{content_tag :span, 'Projects list', 
+                     class: 'text-primary'} &raquo;".html_safe,
+            admin_root_path, class: 'list-group-item list-group-item-action' %>
+  <% end %>
+</div>
+</div>

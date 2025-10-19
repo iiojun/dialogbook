@@ -1,0 +1,14 @@
+<%= form_with model: lesson do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th width="10%">Item</th>
+      <th width="90%">Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "title:" %></td>
+      <td><%= f.text_field :title, class: "form-control",
+              placeholder: "add a title...", style: "width:100%" %></td>
+    </tr>
+  </table>
+  <%= f.submit label, class: "btn btn-primary" %>
+<% end %>

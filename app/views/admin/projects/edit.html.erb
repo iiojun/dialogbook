@@ -1,0 +1,36 @@
+<%= render "nav" %>
+<h1>Project Dashboard</h1>
+<h2>Project information</h2>
+<%= render "admin/projects/form",
+      model: [:admin, @project], label: "Update" %>
+
+<h2>School list</h2>
+<p>
+  <% if @project.schools&.length == 0 %>
+    Not yet registered
+  <% else %>
+    <table class="table table-sm table-striped mb-3">
+      <tr><th >Schools</th>
+          <th width="5%">Code</th>
+          <th width="5%">Edit</th>
+          <th width="5%">Delete</th></tr>
+       <% @project.schools.order(name: :asc).each { |s| %>
+       <tr>
+         <td><%= s.name %></td>
+         <td><%= s.code %></td>
+         <td><%= link_to "edit", edit_admin_school_path(s),
+                   class: "btn btn-sm btn-success" %></td>
+         <td><%= link_to "delete", admin_school_path(s),
+                   class: "btn btn-sm btn-secondary",
+                   data: { turbo_confirm: "Are you sure?",
+                           turbo_method: :delete } %></td>
+       </tr>
+       <% } %>
+    </table>
+  <% end %>
+</p>
+
+<h2>Register a new school</h2>
+<%= render "admin/schools/form",
+      model: [:admin, School.new], label: "Register", 
+      pid: @project.id %>

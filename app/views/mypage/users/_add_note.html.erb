@@ -1,0 +1,18 @@
+<%= form_with model: [ :mypage, Note.new ] do |f| %> 
+  <table class="col-auto">
+    <tr>
+      <th>title:</th>
+      <td><%= f.text_field :title, size: 30, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>message: &nbsp;</th>
+      <td><%= f.text_field :message, size: 30, class: "form-control" %></td>
+    </tr>
+    <tr>
+      <th>url:</th>
+      <td><%= f.text_field :url, size: 30, class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.hidden_field :mid, { value: @meeting.id } %>
+  <%= f.submit "Add", class: "btn btn-primary mt-2" %>
+<% end %>

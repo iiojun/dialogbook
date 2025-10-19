@@ -1,0 +1,25 @@
+<p>
+<div class="btn btn-light button-sm" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#lesson<%= lesson.id %>" 
+        aria-expanded="false" aria-controls="#lesson<%= lesson.id %>">
+  <%= lesson.title %>
+</div>
+<div class="collapse mb-3" id="lesson<%= lesson.id %>">
+  <div class="card card-body">
+    <% @rubrics = lesson.rubrics %>
+    <% if @rubrics.length > 0 %>
+      <%= render @rubrics %>
+    <% else %>
+      There are no rubric items provided yet.
+    <% end %>
+    <h4>comments</h4>
+    <div>
+      <% post = @posts.find_by(lesson: lesson, user: current_user) %>
+      <%= fields_for "posts[]", post do |f| %>
+        <%= f.text_area :body, placeholder: "Add your comment",
+                               class: "form-control", rows: 3 %>
+        <%= f.hidden_field :lesson, { value: lesson.id } %>
+      <% end %>
+    </div>
+  </div>
+</div>

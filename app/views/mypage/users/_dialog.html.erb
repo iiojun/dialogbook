@@ -1,0 +1,9 @@
+<% if current_user.is_teacher? %>
+  <h2>New Comments</h2>
+  <% if @posts&.length == 0 %>
+    No new comments are posted.
+  <% end %>
+<% else %>
+  <h2>My Comments</h2>
+<% end %>
+<%= render @posts %>

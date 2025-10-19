@@ -1,0 +1,13 @@
+# .erdconfig
+attributes: foreign_keys, primary_keys, content
+filetype: png
+title: Dialogbook ERD
+orientation: vertical
+inheritance: false
+direct: true
+notation: simple
+graphviz:
+  layout: neato
+  rankdir: LR
+  splines: line
+

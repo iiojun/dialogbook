@@ -1,0 +1,32 @@
+<%= render "nav", title: "Edit Lesson" %>
+
+<h1>Edit a Lesson</h1>
+<%= render "form", lesson: [:td, @lesson], label: "update" %>
+<br />
+
+<h1>Rubrics List</h1>
+<p>
+  <% if @rubrics&.length == 0 %>
+    No rubrics.
+  <% else %>
+    <table class="table table-sm table-striped">
+      <tr>
+        <th>Rubric items</th>
+        <th width="5%">Edit</th>
+        <th width="5%">Delete</th>
+      </tr>
+      <%= render @rubrics %>
+    </table>
+  <% end %>
+</p>
+
+<h1>Create a New Rubric Item</h1>
+<%= form_with model: [:td, Rubric.new] do |f| %>
+  <%= f.hidden_field :lid, { value: @lesson.id } %>
+  <%= f.text_area :item, placeholder: "add a new rubric item...", 
+                  style: "width:100%",
+                  class: "form-control" %>
+  <%= f.submit "create", class: "btn btn-primary mt-2" %>
+<% end %>
+
+<br />

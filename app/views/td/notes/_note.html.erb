@@ -1,0 +1,14 @@
+<tr>
+<td><%= note.title %></td>
+<td><%= note.message %></td>
+<td><%= note.user.name %></td>
+<td><%= note.url %></td>
+<td><%= link_to "edit", edit_td_note_path(note),
+                  class: "btn btn-success btn-sm" %>
+</td>
+<td><%= link_to "delete", td_note_path(note),
+                  class: "btn btn-secondary btn-sm",
+                  data: { turbo_confirm: "Are you sure?",
+                          turbo_method: :delete }  %>
+</td>
+</tr>

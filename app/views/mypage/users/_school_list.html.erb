@@ -1,0 +1,52 @@
+<p>
+  <% if current_user.schools.length == 0 %>
+    No schools
+  <% else %>
+    <% if current_user.school == nil %>
+      <span class="text-danger"> 
+        Click "Done" in the registered column to assign your school.
+      </span>
+      <% if current_user.is_student? %>
+        If you don't have any schools showing "Done" link,
+        please wait until your teacher gives you a permission to participate.
+      <% end %>
+    <% end %>
+    <table class="table table-sm table-striped">
+      <tr><th width="5%">Year</th>
+          <th >Schools</th>
+          <% if current_user.school != nil %>
+            <th width="5%">Current</th>
+          <% end %>
+          <th width="5%">Code</th>
+          <th width="10%">Registered</th>
+          <th width="5%">Delete</th></tr>
+      <% current_user.schools.sort_by { |s| 
+             s.project.year }.reverse.each { |s| %>
+      <tr>
+         <td><%= s.project.year %></td>
+         <td><%= s.name %></td>
+         <% if current_user.school != nil %>
+           <td class="text-center"><%= "✔︎" if s == current_user.school %></td>
+         <% end %>
+         <td class="text-center"><%= s.code %>
+         <td class="text-center">
+           <% if UserSchool.find_by(user: current_user, school: s).registered %>
+             <% if s == current_user.school %>
+               Done
+             <% else %>
+               <%= link_to "Done", mypage_switch_school_path(current_user, s),
+                     data: { turbo_method: :patch } %>
+             <% end %>
+           <% else %>
+             Not yet
+           <% end %></td>
+         <td><%= link_to "delete", mypage_school_path(s),
+                   class: "btn btn-sm btn-secondary",
+                   data: { turbo_confirm: "Are you sure?",
+                           turbo_method: :delete } %></td>
+      </tr>
+      <% } %>
+    </table>
+  <% end %>
+</p>
+

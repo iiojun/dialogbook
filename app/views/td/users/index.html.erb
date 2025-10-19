@@ -1,0 +1,10 @@
+<%= render "td/nav", title: "Users Management" %>
+<h1>Users List</h1>
+<h2>Approved</h2>
+<%= render "table", users: @users_app.order(id: :asc), btn: :withdraw %>
+<h2>Requested</h2>
+<%= render "table", users: @users_req.order(id: :asc), btn: :delete %>
+<% if @users_req&.length > 0 %>
+  <%= button_to "Approve", td_users_approve_path, method: :get,
+        data: { turbo: false }, class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,40 @@
+<h2>Next meeting</h2>
+<% if @meeting %>
+  <div class="btn btn-light button-sm">
+    <%= @meeting.name %>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      Date: <%= local_time(@meeting.start_date) %>
+      <% if @meeting.notes %>
+        <ul><%= render @meeting.notes %></ul>
+      <% end %>
+      <h4>Add a note</h4>
+      <div>
+        <%= render "add_note" %>
+      </div>
+    </div>
+  </div>
+<% else %>
+No meetings are scheduled.
+<% end %>
+<h2 class="mt-3">Past meetings</h2>
+<% if @past_meetings&.length > 0 %>
+  <% @past_meetings&.each { |pm| %>
+    <div class="btn btn-secondary button-sm">
+      <%= pm.name %>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        Date: <%= local_time(pm.start_date) %>
+        <% if pm.notes %>
+          <ul><%= render pm.notes %></ul>
+        <% end %>
+      </div>
+    </div>
+  <% } %>
+<% else %>
+<div class="mb-5">
+No past meetings.
+</div>
+<% end %>

@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 u = User.find(1)
-u.name = "Jun IIO"
+u.name = "SET YOUR NAME HERE"
 u.role = "teacher,admin"
 u.save
 p = Project.create(

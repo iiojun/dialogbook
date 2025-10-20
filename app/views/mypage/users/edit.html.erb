@@ -1,3 +1,4 @@
+<% if @user.name != nil %>
 <nav aria-label="breadcrumbs">
   <ol class="breadcrumb mb-1 bg-white">
     <li class="breadcrumb-item">
@@ -12,25 +13,30 @@
   </ol>
 </nav>
 <h1>Edit My Profile</h1>
+<% else %>
+<h1>Enter Your Name</h1>
+<% end %>
 <p>
   <% if @user.name == nil or @user.name == "" %>
     <div class="text-danger">
-      User's name must be filled in.
+      * mandatory
     </div>
   <% end %>
   <%= form_with model: [:mypage, @user] do |f| %>
     <table>
-       <tr><td width="15%" ><%= f.label "name" %>&nbsp;</td>
+       <tr><td width="15%" ><%= f.label "name (*)" %>&nbsp;</td>
            <td><%= f.text_field :name, required: true, class: "form-control" %></td></tr>
        <tr><td><%= f.label "nickname" %>&nbsp;</td>
            <td><%= f.text_field :nickname, class: "form-control" %></td></tr>
        <tr><td><%= f.label "picture" %>&nbsp;</td>
            <td><%= f.text_field :picture, class: "form-control" %></td></tr>
     </table>
-    <%= f.submit "Update", class: "btn btn-primary mt-3" %>
+    <%= f.submit (@user.name != nil ? "Update" : "Start"), class: "btn btn-primary mt-3" %>
   <% end %>
 </p>
-<h2>School list</h2>
-  <%= render "school_list" %>
-<h2>Add school</h2>
-  <%= render "add_school" %>
+<% if @user.name != nil %>
+  <h2>School list</h2>
+    <%= render "school_list" %>
+  <h2>Add school</h2>
+    <%= render "add_school" %>
+<% end %>

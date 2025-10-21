@@ -16,12 +16,12 @@ class Mypage::UsersController < Mypage::ApplicationController
                      &.order("start_date desc")
 
       # preparing user's comments for every lesson
-      @posts = @user.prepare_posts
+      if @user.is_teacher?
+        @posts = @user.is_teacher?
+          ? Post.joins(:user).where(users: {school: @school}, 
+              need_response: true).order("updated_at desc")
+          : @user.prepare_posts
 
-      @posts = (@user.is_teacher?) ?
-        Post.joins(:user).where(users: {school: @school}, need_response: true)
-            .order("updated_at desc") :
-        Post.where(user: @user).order("updated_at desc")
       @comments = {}
       @posts&.each { |p|
         @comments[p] = Comment.where(post: p).order("created_at asc")

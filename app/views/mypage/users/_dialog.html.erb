@@ -6,4 +6,6 @@
 <% else %>
   <h2>My Comments</h2>
 <% end %>
-<%= render @posts %>
+<% if @posts != nil %>
+  <%= render @posts %>
+<% end %>

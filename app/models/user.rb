@@ -65,7 +65,8 @@ class User < ApplicationRecord
 
     if school.lessons.length > 0
       # get a set of posts which belong to the user's school
-      posts = Post.joins(:lesson).where(lesson: { school: school })
+      posts = Post.joins(:lesson)
+                  .where(lesson: { school: school }, user: self)
                   .order("created_at asc")
       # if user's posts has already been prepared, return posts
       return self.posts if school.lessons.length == posts.length

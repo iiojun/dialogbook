@@ -1,4 +1,4 @@
-<h2>Next meeting</h2>
+<h2>Next activity</h2>
 <% if @meeting %>
   <div class="btn btn-light button-sm">
     <%= @meeting.name %>
@@ -16,9 +16,9 @@
     </div>
   </div>
 <% else %>
-No meetings are scheduled.
+No activities are scheduled.
 <% end %>
-<h2 class="mt-3">Past meetings</h2>
+<h2 class="mt-3">Past activities</h2>
 <% if @past_meetings&.length > 0 %>
   <% @past_meetings&.each { |pm| %>
     <div class="btn btn-secondary button-sm">
@@ -35,6 +35,6 @@ No meetings are scheduled.
   <% } %>
 <% else %>
 <div class="mb-5">
-No past meetings.
+No past activities.
 </div>
 <% end %>

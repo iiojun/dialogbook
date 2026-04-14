@@ -51,10 +51,29 @@ class Td::UsersController < Td::ApplicationController
     end
   end
 
+  def edit
+    p = user_params
+    @user = User.find(p[:id])
+  end
+
+  def update
+    p = user_params
+    new_role = p[:role].to_s + (p[:admin] ? ",#{p[:admin]}" : '')
+    user = User.find(p[:id])
+    user.role = new_role
+    # add all schools if the user is promoted to an administrator
+    user.schools = School.all if user.is_admin?
+    user.save
+    for us in UserSchool.where(user: user)
+      us.registered = true
+      us.save
+    end
+    redirect_to td_users_path
+  end
 
   private
 
   def user_params
-    params.permit(:uid, :sid)
+    params.permit(:uid, :sid, :id, :admin, :role)
   end
 end

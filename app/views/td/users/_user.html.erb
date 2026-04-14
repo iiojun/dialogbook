@@ -2,7 +2,11 @@
   <td><%= user.id %></td>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
-  <td><%= user.role %></td>
+  <% if current_user.is_admin? %>
+    <td><%= link_to user.role, edit_td_user_path(id: user) %></td>
+  <% else %>
+    <td><%= user.role %></td>
+  <% end %>
   <td class="text-center"><%= UserSchool.find_by(user: user,
                              school: current_user.school).registered ?
                                      "Done" : "Not yet" %></td>

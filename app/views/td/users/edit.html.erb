@@ -1,2 +1,29 @@
-<h1>Td::Users#edit</h1>
-<p>Find me in app/views/td/users/edit.html.erb</p>
+<%= render "td/nav2", title: "User's Roles" %>
+<h1>Edit User's Roles</h1>
+<%= form_with model: [:td, @user], local: true do |f| %>
+  <div data-controller="role">
+    <table class="table table-sm table-striped text-start">
+      <tr><th>Role</th></tr>
+      <tr data-role-target="adminRow">
+        <td><%= check_box_tag "admin", "admin", @user.is_admin?,
+                  data: { role_target: "admin" } %> &nbsp;
+            <span data-role-target="adminLabel">Admin</span></td>
+      </tr>
+
+      <tr>
+        <td><%= radio_button_tag "role", "teacher", @user.is_teacher?,
+                  data: { action: "change->role#toggle", 
+                          role_target: "role" } %> &nbsp;
+            Teacher</td>
+      </tr>
+
+      <tr>
+        <td><%= radio_button_tag "role", "student", @user.is_student?,
+                  data: { action: "change->role#toggle",
+                          role_target: "role" } %> &nbsp;
+        Student</td>
+      </tr>
+    </table>
+  </div>
+  <%= f.submit "Update Roles", class: "btn btn-primary" %>
+<% end %>

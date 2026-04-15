@@ -2,7 +2,7 @@
   <td><%= user.id %></td>
   <td><%= user.name %></td>
   <td><%= user.email %></td>
-  <% if current_user.is_admin? %>
+  <% if current_user.is_admin? && label == :withdraw && current_user != user %>
     <td><%= link_to user.role, edit_td_user_path(id: user) %></td>
   <% else %>
     <td><%= user.role %></td>

@@ -1,5 +1,8 @@
 <%= render "td/nav2", title: "User's Roles" %>
 <h1>Edit User's Roles</h1>
+<p>
+  Set <%= @user.name %>'s role. Note: The admin role cannot be turned on for student users.
+</p>
 <%= form_with model: [:td, @user], local: true do |f| %>
   <div data-controller="role">
     <table class="table table-sm table-striped text-start">

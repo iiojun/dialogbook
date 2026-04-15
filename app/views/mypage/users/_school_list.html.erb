@@ -34,15 +34,19 @@
              <% if s == current_user.school %>
                Done
              <% else %>
-               <%= link_to "Done", mypage_switch_school_path(current_user, s) %>
+               <%= link_to "Done", 
+                     mypage_switch_school_path(id: current_user, sid: s) %>
              <% end %>
            <% else %>
              Not yet
            <% end %></td>
-         <td><%= link_to "delete", mypage_school_path(s),
+         <td>
+           <%= link_to "delete", 
+                   mypage_delete_school_path(id: current_user, sid: s),
                    class: "btn btn-sm btn-secondary",
                    data: { turbo_confirm: "Are you sure?",
-                           turbo_method: :delete } %></td>
+                           turbo_method: :delete } %>
+         </td>
       </tr>
       <% } %>
     </table>

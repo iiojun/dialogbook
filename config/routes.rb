@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     root to: "users#show"
     resources :users,    only: [:edit, :show, :update]
     get "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
+    delete "/:id/delete_school/:sid", to: "users#delete_school", as: :delete_school
     get "/update_scores/:id", to: "users#update_scores", as: :update_scores
-    resources :schools,  only: [:destroy]
     resources :notes,    only: [:create, :destroy]
     resources :posts,    only: [:create]
     resources :comments, only: [:create]

@@ -112,12 +112,20 @@ class Mypage::UsersController < Mypage::ApplicationController
   end
 
   def switch_school
-    u = User.find(params[:id])
     s = School.find(params[:sid])
-    u.school = s
-    u.save
+    current_user.school = s
+    current_user.save
     flash[:notice] = "School was changed to #{s.name} (#{s.project.year})."
-    redirect_to edit_mypage_user_path(u)
+    redirect_to edit_mypage_user_path(current_user)
+  end
+
+  def delete_school
+    s = School.find(params[:sid])
+    current_user.schools.delete(s)
+    current_user.school = nil if current_user.school == s
+    current_user.save
+    flash[:notice] = "#{s.name} (#{s.project.year}) was successfully deleted."
+    redirect_to edit_mypage_user_path(current_user)
   end
 
   private

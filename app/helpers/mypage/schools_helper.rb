@@ -1,2 +1,0 @@
-module Mypage::SchoolsHelper
-end

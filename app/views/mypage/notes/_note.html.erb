@@ -1,5 +1,5 @@
 <li>
-<b><%= note.title %> : </b>
+<b><%= note.title %> (<%= note.user.name %>) : </b>
 <%= note.message %>
 <% if note.url&.length > 0 %>
   <%= link_to "#{octicon 'link', height: 16, 

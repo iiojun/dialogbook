@@ -1,6 +1,7 @@
 <% if post.body != "" %>
 <div>
-  <div><span class="fw-bold"><%= post.user.name %></span> : 
+  <div><span class="fw-bold"><%= post.user.name %> @
+                             <%= post.lesson.title %> : </span> 
      <%= local_time(post.created_at) %></div>
   <div><%= simple_format(h(post.body)) %></div>
     <%= render @comments[post] %>

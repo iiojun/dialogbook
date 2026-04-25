@@ -67,16 +67,16 @@ class User < ApplicationRecord
       # get a set of posts which belong to the user's school
       posts = Post.joins(:lesson)
                   .where(lesson: { school: school }, user: self)
-                  .order("created_at asc")
-      # if user's posts has already been prepared, return posts
-      return self.posts if school.lessons.length == posts.length
+                  .order("created_at desc")
 
       # add new posts to fill in the comments for lessons
-      school.lessons.each { |l|
-        next if Post.find_by(lesson: l, user: self) != nil
-        self.posts << Post.create(lesson: l, user: self, body: "",
-                                  need_response: false)
-      }
+      if school.lessons.length != posts.length
+        school.lessons.each { |l|
+          next if Post.find_by(lesson: l, user: self) != nil
+          posts << Post.create(lesson: l, user: self, body: "",
+                               need_response: false)
+        }
+      end
     end
     posts
   end

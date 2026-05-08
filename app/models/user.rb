@@ -73,9 +73,11 @@ class User < ApplicationRecord
       if school.lessons.length != posts.length
         school.lessons.each { |l|
           next if Post.find_by(lesson: l, user: self) != nil
-          posts << Post.create(lesson: l, user: self, body: "",
-                               need_response: false)
+          Post.create(lesson: l, user: self, body: "", need_response: false)
         }
+        posts = Post.joins(:lesson)
+                    .where(lesson: { school: school }, user: self)
+                    .order("created_at desc")
       end
     end
     posts

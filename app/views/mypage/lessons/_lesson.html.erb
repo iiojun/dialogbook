@@ -14,7 +14,7 @@
     <% end %>
     <h4>comments</h4>
     <div>
-      <% post = @posts.find_by(lesson: lesson, user: current_user) %>
+      <% post = Post.new(lesson: lesson, user: current_user) %>
       <%= fields_for "posts[]", post do |f| %>
         <%= f.text_area :body, placeholder: "Add your comment",
                                class: "form-control", rows: 3 %>

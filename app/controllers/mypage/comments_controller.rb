@@ -3,7 +3,7 @@ class Mypage::CommentsController < Mypage::ApplicationController
     p = comment_params
     body = p[:body]
     msg = null_check(body: body)
-    if (msg.length > 0)
+    if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else
       c = Comment.create(body: body)

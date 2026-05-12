@@ -17,14 +17,18 @@ class Mypage::UsersController < Mypage::ApplicationController
 
       # preparing user's comments for every lesson
       @posts = @user.is_teacher? ?
-        Post.joins(:user).where(users: {school: @school}, 
-            need_response: true).order("updated_at desc") :
-        @user.prepare_posts
-
+        # for the teacher's case
+        Post.joins(:user).where(users: {school: @school}, need_response: true)
+            .order("updated_at desc") :
+        # for teh student's case
+        Post.joins(:user).where(users: {school: @school}, user: @user)
+            .order("updated_at desc")
       @comments = {}
       @posts&.each { |p|
         @comments[p] = Comment.where(post: p).order("created_at asc")
       }
+
+      # preparing user's scores for every lesson
       @scores = @user.prepare_scores&.order("created_at asc")
     end
   end
@@ -89,25 +93,12 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   def update_posts
     p = posts_params
-    p.each { |key, msg|
-      lesson = Lesson.find(msg[:lesson].to_i)
-      post = Post.find_by(user: current_user, lesson: lesson)
-      if post == nil
-        Post.create(body: msg[:body],
-          user: current_user, lesson: lesson,
-          need_response: (msg[:body] != ""))
-      else  
-        # the case if the message was modified...
-        if post.body != msg[:body]
-          # first time the comment changed from initial status ("")
-          if post.body == ""
-            post.created_at = Time.now
-          end
-          post.body = msg[:body]
-          post.need_response = true if msg[:body] != ""
-          post.save
-        end
-      end
+    p.each { |p|
+      next if p[:body] == ""
+      lesson = Lesson.find(p[:lesson].to_i)
+      post = Post.create(body: p[:body], user: current_user,
+                         lesson: lesson, need_response: true)
+      post.save
     }
   end
 
@@ -139,6 +130,6 @@ class Mypage::UsersController < Mypage::ApplicationController
   end
 
   def posts_params
-    params.require(:posts).permit!
+    params.permit(posts: [:body, :lesson])[:posts]
   end
 end

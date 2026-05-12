@@ -58,7 +58,7 @@ class Td::UsersController < Td::ApplicationController
 
   def update
     p = user_params
-    new_role = p[:role].to_s + (p[:admin] ? ",#{p[:admin]}" : '')
+    new_role = p[:role].to_s + (p[:admin] ? ",#{p[:admin]}" : "")
     user = User.find(p[:id])
     user.role = new_role
     # add all schools if the user is promoted to an administrator

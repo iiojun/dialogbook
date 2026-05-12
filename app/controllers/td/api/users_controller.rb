@@ -3,10 +3,10 @@ class Td::Api::UsersController < ApplicationController
     users = User.where(school: current_user.school)
                 .includes(posts: {comments: :user},
                           scores: {rubric: :lesson})
-    hash = {} 
+    hash = {}
     users.each { |user|
       # handling posts related to the user
-      p_ary = [] 
+      p_ary = []
       user.posts.each { |post|
         c_ary = []
         post.comments.each { |comment|

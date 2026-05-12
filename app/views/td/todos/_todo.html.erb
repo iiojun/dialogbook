@@ -1,0 +1,27 @@
+<tr
+  data-controller="todo"
+  data-todo-id-value="<%= todo.id %>"
+  data-todo-target="row"
+  class="<%= "done-row" if todo.done %>"
+>
+  <td class="text-start">
+    <input
+      type="checkbox"
+      <%= "checked" if todo.done %>
+      data-action="change->todo#toggle"
+    >
+  </td>
+
+  <td class="text-start"><%= todo.title %></td>
+  <td class="text-start"><%= todo.memo %></td>
+  <td class="text-end"><%= link_to "edit",
+                  edit_td_todo_path(todo),
+                  class: "btn btn-success btn-sm" %>
+  </td>
+  <td class="text-end"><%= link_to "delete",
+                  td_todo_path(todo), 
+                  class: "btn btn-secondary btn-sm",
+                  data: { turbo_confirm: "Are you sure?",
+                          turbo_method: :delete }  %>
+  </td>
+</tr>

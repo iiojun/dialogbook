@@ -23,14 +23,14 @@
                          class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'checklist', height: 24, 
                          class: 'right left', 'aria-label': 'checklist'} &nbsp;
-               #{content_tag :span, 'Check list to manage your course [Not yet implemented]', 
-                             class: 'text-secondary'} &raquo;".html_safe,
-          root_path, class: 'list-group-item list-group-item-action' %>
+               #{content_tag :span, 'Check list to manage your course', 
+                             class: 'text-primary'} &raquo;".html_safe,
+              td_todos_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'download', height: 24, 
                          class: 'right left', 'aria-label': 'download'} &nbsp;
                #{content_tag :span, 'Data download (experimental)', 
                    class: 'text-primary'} &raquo;".html_safe,
-          td_api_users_path, class: 'list-group-item list-group-item-action' %>
+              td_api_users_path, class: 'list-group-item list-group-item-action' %>
   <% if @user.is_admin? %>
     <%= link_to "#{octicon 'list-unordered', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;

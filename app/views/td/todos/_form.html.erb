@@ -1,0 +1,21 @@
+<%= form_with model: todo do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th width="10%">Item</th>
+      <th width="90%">Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "name:" %></td>
+      <td><%= f.text_field :title, 
+              placeholder: "add a title...", style: "width:60%",
+                class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "memo:" %></td>
+      <td><%= f.text_area :memo, 
+              placeholder: "add a memo...", style: "width:100%",
+                class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.submit label, class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= render "td/nav", title: "Check List" %>
+<h1>Check (ToDo) List</h1>
+<p>
+<% if @todos&.length == 0 %>
+ No todo items.
+<% else %>
+  <table class="table table-sm table-striped">
+    <%= render "tableheader" %>
+    <%= render @todos %>
+  </table>
+<% end %>
+</p>
+
+<h1>Create a New Todo Item</h1>
+<%= render "form", todo: [:td, Todo.new], label: "create" %>

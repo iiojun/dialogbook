@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resources :meetings,   except: [:new, :show]
     resources :notes,      only: [:destroy, :edit, :update]
     resources :schools,    only: [:show]
+    resources :todos,      except: [:new, :show]
+    patch "/todos/:id/toggle", to: "todos#toggle"
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]

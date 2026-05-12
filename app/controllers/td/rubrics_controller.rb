@@ -32,9 +32,6 @@ class Td::RubricsController < Td::ApplicationController
     redirect_to edit_td_lesson_path(l.id)
   end
 
-  def edit
-  end
-
   def update
     p = rubric_params
     item = p[:item]

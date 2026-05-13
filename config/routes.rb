@@ -31,7 +31,8 @@ Rails.application.routes.draw do
     resources :notes,      only: [:destroy, :edit, :update]
     resources :schools,    only: [:show]
     resources :todos,      except: [:new, :show]
-    patch "/todos/:id/toggle", to: "todos#toggle"
+    patch "/todos/:id/toggle",  to: "todos#toggle"
+    post "/todos/load_default", to: "todos#load_default"
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]

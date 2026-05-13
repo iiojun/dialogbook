@@ -1,5 +1,6 @@
 class Td::TodosController < Td::ApplicationController
-  before_action :set_todo, only: [ :edit, :update, :destroy, :toggle ]
+  before_action :set_todo, only: [ :edit, :update, :destroy, 
+                                   :toggle ]
   def index
     @todos = Todo.where(project: current_user.school.project)
                  .order("position asc")
@@ -11,10 +12,9 @@ class Td::TodosController < Td::ApplicationController
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else
-      t = Todo.create(position: position, 
-                      title: title, 
-                      memo: memo)
-      current_user.school.project.todos << t
+      current_user.school.project.todos
+                  .create!(position: position, 
+                           title: title, memo: memo)
       flash[:notice] = "A new todo item was added."
     end
     redirect_to td_todos_path
@@ -49,10 +49,13 @@ class Td::TodosController < Td::ApplicationController
   end
 
   def toggle
-    @todo.update(
-      done: params[:done]
-    )
+    @todo.update(done: params[:done])
     head :ok
+  end
+
+  def load_default
+    Todo.load_template!(current_user.school.project)
+    redirect_to td_todos_path
   end
 
   private

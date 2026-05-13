@@ -1,0 +1,23 @@
+- title: Decide the date and time
+  position: 10
+  memo: Confirm the date and time of collaboration classes. Three times needed.
+
+- title: Recruiting participants
+  position: 20
+  memo: Deliver the concent forms to participants, and correct them.
+
+- title: 1st collaboration
+  position: 30
+  memo: Conduct the first collaboration classes
+
+- title: 2nd collaboration
+  position: 40
+  memo: Conduct the second collaboration classes
+
+- title: 3rd collaboration
+  position: 50
+  memo: Conduct the third collaboration classes
+
+- title: Reflection
+  position: 60
+  memo: Prepare the presentation materials for SPICE conference.

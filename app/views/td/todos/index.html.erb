@@ -4,6 +4,11 @@
 <% if @todos&.length == 0 %>
   <% next_pos = 1 %>
  No todo items.
+  <%= button_to "Load Default",
+        td_todos_load_default_path,
+        class: "btn btn-primary",
+        method: :post %>
+
 <% else %>
   <table class="table table-sm table-striped">
     <%= render "tableheader" %>

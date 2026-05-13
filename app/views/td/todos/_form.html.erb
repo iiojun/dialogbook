@@ -1,11 +1,16 @@
 <%= form_with model: todo do |f| %>
   <table class="table table-sm table-striped">
     <tr>
-      <th width="10%">Item</th>
-      <th width="90%">Field</th>
+      <th class="text-start" width="1%">Item</th>
+      <th>Field</th>
     </tr>
     <tr>
-      <td><%= f.label "name:" %></td>
+      <td><%= f.label "order:" %></td>
+      <td><%= f.number_field :position, step: 1, min: 1,
+                style: "width:10%",
+                class: "form-control" %></td>
+    </tr>
+      <td><%= f.label "title:" %></td>
       <td><%= f.text_field :title, 
               placeholder: "add a title...", style: "width:60%",
                 class: "form-control" %></td>

@@ -2,16 +2,18 @@ class Td::TodosController < Td::ApplicationController
   before_action :set_todo, only: [ :edit, :update, :destroy, :toggle ]
   def index
     @todos = Todo.where(project: current_user.school.project)
-                 .order("created_at asc")
+                 .order("position asc")
   end
 
   def create
-    (title, memo, done) = set_parameters
+    (position, title, memo, done) = set_parameters
     msg = null_check(title: title)
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else
-      t = Todo.create(title: title, memo: memo)
+      t = Todo.create(position: position, 
+                      title: title, 
+                      memo: memo)
       current_user.school.project.todos << t
       flash[:notice] = "A new todo item was added."
     end
@@ -22,11 +24,12 @@ class Td::TodosController < Td::ApplicationController
   end
 
   def update
-    (title, memo, done) = set_parameters
-    msg = null_check(title: title)
+    (position, title, memo, done) = set_parameters
+    msg = null_check(position, title: title)
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else
+      @todo.position = position
       @todo.title = title
       @todo.memo = memo
       @todo.done = done
@@ -58,11 +61,12 @@ class Td::TodosController < Td::ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :memo, :done)
+    params.require(:todo)
+          .permit(:position, :title, :memo, :done)
   end
 
   def set_parameters
     p = todo_params
-    [p[:title], p[:memo], p[:done]]
+    [p[:position].to_i, p[:title], p[:memo], p[:done]]
   end
 end

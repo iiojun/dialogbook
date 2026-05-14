@@ -1,23 +1,128 @@
-- title: Decide the date and time
-  position: 10
-  memo: Confirm the date and time of collaboration classes. Three times needed.
+- title: "Get support: Talk with the authority"
+  position: 100
+  memo: The teacher must consult with the head of the department and the Principal/Director before or during the preparation and share that you have a plan to conduct a SMILE. 
 
-- title: Recruiting participants
-  position: 20
-  memo: Deliver the concent forms to participants, and correct them.
+- title: "Get support: Contact with WILL"
+  position: 110
+  memo: To keep the SMILE project sustainable, WILL ask you for a small monetary contribution from the school. In some situations, we may waive it. Please get in touch with WILL.
 
-- title: 1st collaboration
-  position: 30
-  memo: Conduct the first collaboration classes
+- title: "Get support: Talk with your colleagues"
+  position: 120
+  memo: We recommend that the teachers talk with their colleagues about conducting a SMILE project. They may be interested and even work with you as a team or help you conduct the collaboration classes.
 
-- title: 2nd collaboration
-  position: 40
-  memo: Conduct the second collaboration classes
+- title: "Preperation: SNS for connection and appointment"
+  position: 200
+  memo: It is recommended that you share your account on an SNS (e.g., LINE, WhatsApp, Messenger, etc.) with the SMILE project teachers and make a LINE group (or others). This connection can be used as a bypass in collaboration classes. Have you set up an SNS group?
 
-- title: 3rd collaboration
-  position: 50
-  memo: Conduct the third collaboration classes
+- title: "Preperation: Shared document folder"
+  position: 210
+  memo: Keep the record of the meeting (possibly on Google Document) and share them on the SNS group.
 
-- title: Reflection
-  position: 60
-  memo: Prepare the presentation materials for SPICE conference.
+- title: "Preperation: Meeting schedule"
+  position: 220
+  memo: Regular meetings (e.g., once a month) will help you set up collaboration classes and grow the partnership. Make sure of the time & date of the next meeting and put them in your own calendar. 
+
+- title: "Preperation: Online meeting tool"
+  position: 230
+  memo: Set up an online meeting tool, such as Zoom/Webex, for the next meeting and share it on the SNS group with the teachers.
+
+- title: "Groups: Participants levels"
+  position: 300
+  memo: The level of schools must be the same (i.e., e.g., senior high students meet senior high students), and the school year should be the same (i.e., the same graders should meet).
+
+- title: "Groups: Number of students"
+  position: 310
+  memo: Control the number of students so that you can make groups with 2 students from each school, or 2 students from one school and 3 students from another.
+
+- title: "Groups: Arrangement of group members"
+  position: 320
+  memo: Make groups using the framework on the sheet "URLs, Themes, and Groups." The template table on "URLs, Themes, and Groups" is for a typical SMILE project, with two sessions with 12 groups. Each group has two or three members from one school; and one collaboration class consists of two sessions.
+
+- title: "Date and times: Decide and confirm the schedule"
+  position: 330
+  memo: "Decide the dates and times of the collaboration classes. Note the time differences: Japan, Korea←(one hour)→ Taiwan, Malaysia ←(one hour)→ Vietnam, Thailand, West Indonesia"
+
+- title: "Date and times: Trial/greeting session"
+  position: 340
+  memo: Decide whether to have a trial/greeting before the three classes.
+
+- title: "Contents: Themes of the collabo classes"
+  position: 400
+  memo: Decide The themes of the collaboration class. They should be set up early so that the students can prepare for them.
+
+- title: "Contents: Addtional classes"
+  position: 410
+  memo: Consider the preparation and wrap-up classes. They are useful.
+
+- title: "Contents: Utilizing Dialogbook"
+  position: 420
+  memo: URLs of the materials for the group activities and reflections can be shared on the Spreadsheet, but using Dialogbook is more effective (see Manual for Dialogbook).
+
+- title: "Operation: Conducting small group activities"
+  position: 500
+  memo: Decide or confirm who and how to make small groups in the collaboration class, and who sets online-meeting rooms and host the conference (to control BREAKOUT function).
+
+- title: "Operation: Recording videos"
+  position: 510
+  memo: Confirm whether and how to record the main room and small room activities (if needed).
+
+- title: "Operation: Internet connections"
+  position: 520
+  memo: Check the use of the internet restriction and connection. The wifi connection is vital for online collaboration.
+
+- title: "Operation: Acoustic environment"
+  position: 530
+  memo: Make sure the collaboration class will be conducted in a proper space. 
+
+- title: "Operation: Setting up your class in Dialogbook"
+  position: 540
+  memo: Invite your students (set the students' account) to the Dialogbook. Set the lessons and rubrics, and activities information.
+
+- title: "Personal and Institutional PR: Taking pictures"
+  position: 600
+  memo: Discuss and decide whether and how students are allowed to take pictures.
+
+- title: "Personal and Institutional PR: Record the achievements"
+  position: 610
+  memo: Discuss how teachers record the achievements in the collaboration classes.
+
+- title: "Personal and Institutional PR: SNS issues"
+  position: 620
+  memo: Discuss with the partner teachers and decide whether teachers should encourage students connect each other outside of the class.
+
+- title: "The 1st collaboration class: Preparation"
+  position: 700
+  memo: Prepare the group arrangement and others for the 1st session.
+
+- title: "The 1st collaboration class: Supporting students"
+  position: 710
+  memo: MC/conductor should control the opening, sessions,and closing of each collaboration class. SNS as a bypass during the collaboration classes.
+
+- title: "The 1st collaboration class: Reflection"
+  position: 720
+  memo: Keep the records of the sessions. Online reflection meetings between teachers or reflection classes for students should be held if needed.
+
+- title: "The 2nd collaboration class: Preparation"
+  position: 800
+  memo: Prepare the group arrangement and others for the 2nd session.
+
+- title: "The 2nd collaboration class: Supporting students"
+  position: 810
+  memo: MC/conductor should control the opening, sessions,and closing of each collaboration class. SNS as a bypass during the collaboration classes.
+
+- title: "The 2nd collaboration class: Reflection"
+  position: 820
+  memo: Keep the records of the sessions. Online reflection meetings between teachers or reflection classes for students should be held if needed.
+
+- title: "The 3rd collaboration class: Preparation"
+  position: 900
+  memo: Prepare the group arrangement and others for the 3rd session.
+
+- title: "The 3rd collaboration class: Supporting students"
+  position: 910
+  memo: MC/conductor should control the opening, sessions,and closing of each collaboration class. SNS as a bypass during the collaboration classes.
+
+- title: "The 3rd collaboration class: Reflection"
+  position: 920
+  memo: Keep the records of the sessions. Online reflection meetings between teachers or reflection classes for students should be held if needed.
+

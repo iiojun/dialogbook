@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get "/users/approve",  to: "users#approve"
     get "/users/withdraw", to: "users#withdraw"
     get "/users/delete",   to: "users#delete"
-    resources :users,      only: [:index, :edit, :update]
+    resources :users,      only: [:index, :create, :edit, :update]
     resources :lessons,    except: [:new, :show]
     resources :rubrics,    except: [:new, :show]
     resources :meetings,   except: [:new, :show]

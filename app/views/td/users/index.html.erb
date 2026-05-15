@@ -8,3 +8,5 @@
   <%= button_to "Approve", td_users_approve_path, method: :get,
         data: { turbo: false }, class: "btn btn-primary" %>
 <% end %>
+<h1>Create a New User</h1>
+<%= render "form", todo: [:td, User.new], label: "create" %>

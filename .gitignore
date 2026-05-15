@@ -35,3 +35,6 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Auth0 secrets
+config/auth0.yml

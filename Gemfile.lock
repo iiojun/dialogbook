@@ -503,6 +503,7 @@ DEPENDENCIES
   caxlsx_rails
   dartsass-rails
   debug
+  faraday
   importmap-rails
   jbuilder
   kamal

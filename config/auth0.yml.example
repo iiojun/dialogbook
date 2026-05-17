@@ -1,0 +1,5 @@
+development:
+  domain: YOUR_DOMAIN
+  client_id: YOUR_CLIENT_ID
+  client_secret: YOUR_CLIENT_SECRET
+  auth0_connection: Username-Password-Authentication

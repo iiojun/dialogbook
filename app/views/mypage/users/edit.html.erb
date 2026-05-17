@@ -26,10 +26,12 @@
     <table>
        <tr><td width="15%" ><%= f.label "name (*)" %>&nbsp;</td>
            <td><%= f.text_field :name, required: true, class: "form-control" %></td></tr>
+<!--
        <tr><td><%= f.label "nickname" %>&nbsp;</td>
            <td><%= f.text_field :nickname, class: "form-control" %></td></tr>
        <tr><td><%= f.label "picture" %>&nbsp;</td>
            <td><%= f.text_field :picture, class: "form-control" %></td></tr>
+-->
     </table>
     <%= f.submit (@user.name != nil ? "Update" : "Start"), class: "btn btn-primary mt-3" %>
   <% end %>

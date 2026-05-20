@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     #get "/certificates/issue/:uid/:sid", to: "certificates#issue",
     #                                     as: :issue_certificate
     #get "/certificates/:id/revoke", to: "certificates#revoke", as: :revoke_certificate
+    get "/certificates/download_all", to: "certificates#download_all"
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]

@@ -2,6 +2,7 @@ class School < ApplicationRecord
   belongs_to :project
   has_many :user_schools, dependent: :destroy
   has_many :users, through: :user_schools
+  has_many :certificates, through: :user_schools
   has_many :lessons, dependent: :destroy
 
   after_create :set_code

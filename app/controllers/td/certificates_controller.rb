@@ -32,6 +32,22 @@ class Td::CertificatesController < ApplicationController
     end
   end
 
+def download_all
+  certificates = current_user.school.certificates
+
+  if certificates.length > 0
+    send_data(
+      pdf = BulkCertificatePdfGenerator.new(certificates).generate,
+      filename: "certificates.pdf",
+      type: "application/pdf",
+      disposition: "attachment"
+    )
+  else
+    flash[:warning] = "certificates not found."
+    redirect_to td_certificates_path
+  end
+end
+
   private
 
   def certificate_params

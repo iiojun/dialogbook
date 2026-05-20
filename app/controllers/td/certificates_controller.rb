@@ -14,7 +14,7 @@ class Td::CertificatesController < ApplicationController
       flash[:notice] = "User #{user_school.user.name}'s certificate was issued."
       redirect_to td_certificates_path
     rescue ActiveRecord::RecordNotFound
-      flash[:warning] = "something wrong (record not found)."
+      flash[:alert] = "something wrong (record not found)."
       redirect_to td_certificates_path
     end
   end
@@ -27,7 +27,7 @@ class Td::CertificatesController < ApplicationController
       flash[:notice] = "User #{c.user_school.user.name}'s certificate was revoked."
       redirect_to td_certificates_path
     rescue ActiveRecord::RecordNotFound
-      flash[:warning] = "something wrong (record not found)."
+      flash[:alert] = "something wrong (record not found)."
       redirect_to td_certificates_path
     end
   end
@@ -43,7 +43,7 @@ def download_all
       disposition: "attachment"
     )
   else
-    flash[:warning] = "certificates not found."
+    flash[:alert] = "certificates not found."
     redirect_to td_certificates_path
   end
 end

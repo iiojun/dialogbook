@@ -1,2 +1,13 @@
-<h1>Td::Certificates#index</h1>
-<p>Find me in app/views/td/certificates/index.html.erb</p>
+<%= render "td/nav", title: "Issue Certificates" %>
+<h1>Certificates</h1>
+<% if @users&.length == 0 %>
+No users.
+<% else %>
+  <table class="table table-sm table-striped">
+    <%= render "tableheader" %>
+    <% @users.each { |user| %>
+      <%= render "user", user: user, 
+            cert: user.certificate_for(user.school) %>
+    <% } %>
+  </table>
+<% end %>

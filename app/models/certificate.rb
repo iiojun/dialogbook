@@ -8,21 +8,9 @@ class Certificate < ApplicationRecord
   }
 
   before_validation :set_uuid, on: :create
-  before_validation :set_certificate_number, on: :create
+  after_create_commit :set_certificate_number!
 
   validates :uuid, presence: true, uniqueness: true
-  validates :certificate_number, presence: true, uniqueness: true
-
-  def certified?
-    certificate.present?
-  end
-
-  def issue_certificate!
-    create_certificate!(
-      issued_at: Time.current,
-      status: :issued
-    )
-  end
 
   private
 
@@ -30,13 +18,10 @@ class Certificate < ApplicationRecord
     self.uuid ||= SecureRandom.uuid
   end
 
-  def set_certificate_number
+  def set_certificate_number!
     return if certificate_number.present?
 
-    year = Time.current.year
-    sequence = Certificate.count + 1
-
-    self.certificate_number =
-      format("SMILE-%d-%05d", year, sequence)
+    number = format("SMILE-%d-%06d", Time.current.year, id)
+    update_column(:certificate_number, number)
   end
 end

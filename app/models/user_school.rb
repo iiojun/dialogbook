@@ -29,4 +29,17 @@ class UserSchool < ApplicationRecord
     self.save
     remove_user_school
   end
+
+  def certified?
+    certificate.present?
+  end
+
+  def issue_certificate!
+    return certificate if certified?
+
+    create_certificate!(
+      issued_at: Time.current,
+      status: :issued
+    )
+  end
 end

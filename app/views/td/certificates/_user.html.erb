@@ -1,0 +1,21 @@
+<tr>
+  <td><%= user.id %></td>
+  <td><%= user.name %></td>
+  <td><%= cert ? cert.certificate_number : "---" %></td>
+  <td><%= cert ? cert.issued_at.to_date : "---" %></td>
+  <td class="text-end" width="1%">
+      <% if cert == nil %>
+        <%= link_to :issue,
+           td_certificates_path(uid: user, sid: current_user.school),
+                      class: "btn btn-sm btn-primary",
+                      data: { turbo_confirm: 
+                                "Issue a certificate for #{user.name}",
+                              turbo_method: :post } %>
+      <% else %>
+        <%= link_to :revoke,
+           td_certificate_path(cert),
+                      class: "btn btn-sm btn-danger",
+                      data: { turbo_confirm: "Are you sure?",
+                              turbo_method: :delete } %>
+      <% end %>
+</tr>

@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # candidate schools in which the user has permission to participate
   has_many :user_schools, dependent: :destroy
   has_many :schools, through: :user_schools
+  has_many :certificates, through: :user_schools
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -56,6 +57,10 @@ class User < ApplicationRecord
       }
     end
     scores
+  end
+
+  def certificate_for(school)
+    user_schools.find_by(school: school)&.certificate
   end
 
   private

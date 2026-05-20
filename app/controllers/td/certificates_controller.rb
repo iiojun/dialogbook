@@ -32,21 +32,39 @@ class Td::CertificatesController < ApplicationController
     end
   end
 
-def download_all
-  certificates = current_user.school.certificates
-
-  if certificates.length > 0
-    send_data(
-      pdf = BulkCertificatePdfGenerator.new(certificates).generate,
-      filename: "certificates.pdf",
-      type: "application/pdf",
-      disposition: "attachment"
-    )
-  else
-    flash[:alert] = "certificates not found."
-    redirect_to td_certificates_path
+  def bulk_issue
+    begin
+      user_schools = UserSchool.where(school: current_user.school)
+                               .where.missing(:certificate)
+                               .order(:user_id)
+      if user_schools.length == 0
+        flash[:alert] = "No need to issue new certificates."
+      else
+        user_schools.each { |us| us.issue_certificate! }
+        flash[:notice] = "Certificates were issued."
+      end
+      redirect_to td_certificates_path
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "something wrong."
+      redirect_to td_certificates_path
+    end
   end
-end
+
+  def download_all
+    certificates = current_user.school.certificates
+
+    if certificates.length > 0
+      send_data(
+        pdf = BulkCertificatePdfGenerator.new(certificates).generate,
+        filename: "certificates.pdf",
+        type: "application/pdf",
+        disposition: "attachment"
+      )
+    else
+      flash[:alert] = "certificates not found."
+      redirect_to td_certificates_path
+    end
+  end
 
   private
 

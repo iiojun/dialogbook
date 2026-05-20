@@ -1,6 +1,5 @@
 module Auth0
   class SendPasswordResetEmail
-
     def initialize(email:)
       @email = email
     end

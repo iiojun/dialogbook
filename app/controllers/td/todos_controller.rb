@@ -1,5 +1,5 @@
 class Td::TodosController < Td::ApplicationController
-  before_action :set_todo, only: [ :edit, :update, :destroy, 
+  before_action :set_todo, only: [ :edit, :update, :destroy,
                                    :toggle ]
   def index
     @todos = Todo.where(project: current_user.school.project)
@@ -13,7 +13,7 @@ class Td::TodosController < Td::ApplicationController
       flash[:alert] = "#{msg} must be filled."
     else
       current_user.school.project.todos
-                  .create!(position: position, 
+                  .create!(position: position,
                            title: title, memo: memo)
       flash[:notice] = "A new todo item was added."
     end

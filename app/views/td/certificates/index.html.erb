@@ -12,6 +12,12 @@ No users.
   </table>
 <% end %>
 
+<h2>Bulk issue</h2>
+<%= link_to "Bulk Issue", td_certificates_bulk_issue_path,
+      class: "btn btn-primary mt-1 mb-3",
+      data: { turbo_confirm: "Issue all certificates, OK?",
+              turbo_method: :post } %>
+
 <h2>Download certificate PDFs</h2>
 <%= link_to "Download", td_certificates_download_all_path,
       class: "btn btn-primary mt-1" %>

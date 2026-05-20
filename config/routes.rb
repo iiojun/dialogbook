@@ -34,9 +34,10 @@ Rails.application.routes.draw do
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
     resources :certificates, only: [:index, :create, :destroy]
-    #get "/certificates/issue/:uid/:sid", to: "certificates#issue",
-    #                                     as: :issue_certificate
-    #get "/certificates/:id/revoke", to: "certificates#revoke", as: :revoke_certificate
+    # get "/certificates/issue/:uid/:sid", to: "certificates#issue",
+    #                                      as: :issue_certificate
+    # get "/certificates/:id/revoke", to: "certificates#revoke", as: :revoke_certificate
+    post "/certificates/bulk_issue",  to: "certificates#bulk_issue"
     get "/certificates/download_all", to: "certificates#download_all"
 
     namespace :api, { format: "json" } do

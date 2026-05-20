@@ -3,7 +3,6 @@ require "json"
 
 module Auth0
   class Client
-
     def management_token
       Rails.cache.fetch("auth0_management_token", expires_in: 23.hours) do
         response = Faraday.post(
@@ -30,6 +29,5 @@ module Auth0
         }
       )
     end
-
   end
 end

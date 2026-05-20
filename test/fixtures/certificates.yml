@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_school: one
+  issued_at: 2026-05-19 17:35:59
+  certificate_number: MyString
+  uuid: MyString
+  status: 1
+
+two:
+  user_school: two
+  issued_at: 2026-05-19 17:35:59
+  certificate_number: MyString
+  uuid: MyString
+  status: 1

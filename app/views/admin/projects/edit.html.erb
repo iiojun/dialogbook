@@ -10,14 +10,16 @@
     Not yet registered
   <% else %>
     <table class="table table-sm table-striped mb-3">
-      <tr><th >Schools</th>
-          <th width="5%">Code</th>
-          <th width="5%">Edit</th>
-          <th width="5%">Delete</th></tr>
+      <tr><th class="text-start">Schools</th>
+          <th class="text-start" width="5%">Code</th>
+          <th class="text-center" width="1%">Paid</th>
+          <th class="text-end" width="1%"></th>
+          <th class="text-end" width="1%"></th></tr>
        <% @project.schools.order(name: :asc).each { |s| %>
        <tr>
-         <td><%= s.name %></td>
-         <td><%= s.code %></td>
+         <td class="text-start"><%= s.name %></td>
+         <td class="text-start"><%= s.code %></td>
+         <td class="text-center"><%= "✔︎" if s.paid %></td>
          <td><%= link_to "edit", edit_admin_school_path(s),
                    class: "btn btn-sm btn-success" %></td>
          <td><%= link_to "delete", admin_school_path(s),

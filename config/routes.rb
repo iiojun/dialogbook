@@ -21,10 +21,10 @@ Rails.application.routes.draw do
 
   # Teacher's Dashboard
   namespace :td do
+    resources :users,      only: [:index, :create, :edit, :update]
     get "/users/approve",  to: "users#approve"
     get "/users/withdraw", to: "users#withdraw"
     get "/users/delete",   to: "users#delete"
-    resources :users,      only: [:index, :create, :edit, :update]
     resources :lessons,    except: [:new, :show]
     resources :rubrics,    except: [:new, :show]
     resources :meetings,   except: [:new, :show]
@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :todos,      except: [:new, :show]
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
+    resources :certificates, only: [:index]
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]

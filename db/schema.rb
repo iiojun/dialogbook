@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_13_011311) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_19_103559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "certificates", force: :cascade do |t|
+    t.bigint "user_school_id", null: false
+    t.datetime "issued_at"
+    t.string "certificate_number"
+    t.string "uuid", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_number"], name: "index_certificates_on_certificate_number", unique: true
+    t.index ["user_school_id"], name: "index_certificates_on_user_school_id"
+    t.index ["uuid"], name: "index_certificates_on_uuid", unique: true
+  end
 
   create_table "comments", force: :cascade do |t|
     t.bigint "post_id", null: false
@@ -89,6 +102,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_13_011311) do
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "paid", default: false
     t.index ["project_id"], name: "index_schools_on_project_id"
   end
 
@@ -137,6 +151,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_13_011311) do
     t.index ["school_id"], name: "index_users_on_school_id"
   end
 
+  add_foreign_key "certificates", "user_schools"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "lessons", "schools"

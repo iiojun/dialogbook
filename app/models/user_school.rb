@@ -1,8 +1,11 @@
 class UserSchool < ApplicationRecord
   belongs_to :user
   belongs_to :school
+  has_one :certificate, dependent: :destroy
 
   before_destroy :remove_user_school
+
+  delegate :issued?, to: :certificate, allow_nil: true
 
   def remove_user_school
     u = self.user

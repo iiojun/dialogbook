@@ -9,7 +9,7 @@
        <tr><td><%= f.label "memo" %>&nbsp;</td>
            <td><%= f.text_field :memo, class: "form-control" %></td></tr>
        <tr><td><%= f.label "paid" %>&nbsp;</td>
-           <td><%= f.check_box :paid %></td></tr>
+           <td><%= f.check_box :paid %>&nbsp; Participation fee received</td></tr>
     </table>
     <%= f.hidden_field :pid, { value: pid } %>
     <%= f.submit label, class: "btn btn-primary mt-3" %>

@@ -5,19 +5,25 @@ No users.
 <% else %>
   <table class="table table-sm table-striped">
     <%= render "tableheader" %>
+    <% n_cert = 0 %>
     <% @users.each { |user| %>
-      <%= render "user", user: user, 
-            cert: user.certificate_for(user.school) %>
+      <% cert = user.certificate_for(user.school) %>
+      <%= render "user", user: user, cert: cert %>
+      <% n_cert += cert ? 1 : 0 %>
     <% } %>
   </table>
+
+  <% if @users.length > n_cert %>
+    <h2>Bulk issue</h2>
+      <%= link_to "Bulk Issue", td_certificates_bulk_issue_path,
+            class: "btn btn-primary mt-1 mb-3",
+            data: { turbo_confirm: "Issue all certificates, OK?",
+                    turbo_method: :post } %>
+  <% end %>
+
+  <% if n_cert > 0 %>
+    <h2>Download certificate PDFs</h2>
+      <%= link_to "Download", td_certificates_download_all_path,
+            class: "btn btn-primary mt-1" %>
+  <% end %>
 <% end %>
-
-<h2>Bulk issue</h2>
-<%= link_to "Bulk Issue", td_certificates_bulk_issue_path,
-      class: "btn btn-primary mt-1 mb-3",
-      data: { turbo_confirm: "Issue all certificates, OK?",
-              turbo_method: :post } %>
-
-<h2>Download certificate PDFs</h2>
-<%= link_to "Download", td_certificates_download_all_path,
-      class: "btn btn-primary mt-1" %>

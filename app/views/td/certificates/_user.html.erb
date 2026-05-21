@@ -7,7 +7,7 @@
       <% if cert == nil %>
         <%= link_to :issue,
            td_certificates_path(uid: user, sid: current_user.school),
-                      class: "btn btn-sm btn-primary",
+                      class: "btn btn-sm btn-success",
                       data: { turbo_confirm: 
                                 "Issue a certificate for #{user.name}",
                               turbo_method: :post } %>

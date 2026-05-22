@@ -14,8 +14,9 @@
       <% else %>
         <%= link_to :revoke,
            td_certificate_path(cert),
-                      class: "btn btn-sm btn-danger",
+                      class: "btn btn-sm btn-secondary",
                       data: { turbo_confirm: "Are you sure?",
                               turbo_method: :delete } %>
       <% end %>
+  </td>
 </tr>

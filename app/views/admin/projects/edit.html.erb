@@ -4,13 +4,13 @@
 <%= render "admin/projects/form",
       model: [:admin, @project], label: "Update" %>
 
-<h2>School list</h2>
+<h2>Class list</h2>
 <p>
   <% if @project.schools&.length == 0 %>
     Not yet registered
   <% else %>
     <table class="table table-sm table-striped mb-3">
-      <tr><th class="text-start">Schools</th>
+      <tr><th class="text-start">Classes</th>
           <th class="text-start" width="5%">Code</th>
           <th class="text-center" width="1%">Paid</th>
           <th class="text-end" width="1%"></th>
@@ -32,7 +32,7 @@
   <% end %>
 </p>
 
-<h2>Register a new school</h2>
+<h2>Register a new class</h2>
 <%= render "admin/schools/form",
       model: [:admin, School.new], label: "Register", 
       pid: @project.id %>

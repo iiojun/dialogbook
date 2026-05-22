@@ -9,15 +9,15 @@
 <h1><%= @user.name %>'s MyPage</h1>
 <% if @user.school == nil # the case when school is not assigned %>
   <div class="mb-3">
-  You are not participating in any classes. Please add or choose your school.
+  You are not participating in any classes. Please add or choose your class.
   </div>
-  <h2>School list</h2>
+  <h2>Class list</h2>
     <%= render "school_list" %>
-  <h2>Add a school</h2>
+  <h2>Add a class</h2>
     <%= render "add_school" %>
 <% else %>
   <div class="mb-3">
-  Your school is 
+  Your class is 
   <span class="text-primary">
     <%= @user.school.name %> (<%= @user.school.project.year %>)</span>
   </div>

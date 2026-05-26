@@ -34,7 +34,9 @@ class Td::CertificatesController < ApplicationController
 
   def bulk_issue
     begin
-      user_schools = UserSchool.where(school: current_user.school)
+      user_schools = UserSchool.joins(:user)
+                               .where(users: { role: "student" })
+                               .where(school: current_user.school)
                                .where.missing(:certificate)
                                .order(:user_id)
       if user_schools.length == 0

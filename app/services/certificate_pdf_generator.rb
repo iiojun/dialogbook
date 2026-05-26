@@ -27,15 +27,16 @@ class CertificatePdfGenerator
     canvas.text(name, at: [x, y])
 
     # Date
-    canvas.font("Helvetica", size: 14)
+    canvas.font("Helvetica", size: 20)
     canvas.text(
       I18n.l(@certificate.issued_at.to_date),
-      at: [500, 160]
+      at: [495, 165]
     )
     # Number
+    canvas.font("Helvetica", size: 14)
     canvas.text(
       @certificate.certificate_number,
-      at: [550, 100]
+      at: [640, 60]
     )
 
     io = StringIO.new

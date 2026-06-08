@@ -44,6 +44,11 @@
                  #{content_tag :span, 'Projects list', 
                      class: 'text-primary'} &raquo;".html_safe,
             admin_root_path, class: 'list-group-item list-group-item-action' %>
+    <%= link_to "#{octicon 'trophy', height: 24, 
+                           class: 'right left', 'aria-label': 'download'} &nbsp;
+                 #{content_tag :span, 'Certificates list', 
+                     class: 'text-primary'} &raquo;".html_safe,
+            admin_certificates_path, class: 'list-group-item list-group-item-action' %>
   <% end %>
 </div>
 </div>

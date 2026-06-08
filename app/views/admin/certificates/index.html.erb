@@ -1,0 +1,18 @@
+<%= render "nav" %>
+<h1>Dialogbook's Dashboard</h1>
+<% if @certificates != nil %>
+<h2>Certificates list</h2>
+<p>
+  <% if @certificates.length == 0 %>
+    No certificates
+  <% else %>
+    <table class="table table-sm table-striped">
+      <%= render "tableheader" %>
+      <% @certificates.each { |cert| %>
+        <%= render "cert", cert: cert %>
+      <% } %>
+    </table>
+  <% end %>
+</p>
+<% end %>
+

@@ -11,8 +11,8 @@
       <% @certificates.each { |cert| %>
         <%= render "cert", cert: cert %>
       <% } %>
-      <% paginate @certificates %>
     </table>
+    <% paginate @certificates %>
   <% end %>
 </p>
 <% end %>

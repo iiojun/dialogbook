@@ -8,9 +8,7 @@
   <% else %>
     <table class="table table-sm table-striped">
       <%= render "tableheader" %>
-      <% @certificates.each { |cert| %>
-        <%= render "cert", cert: cert %>
-      <% } %>
+      <%= render partial: "cert", collection: @certificates, as: :cert %>
     </table>
     <%= paginate @certificates %>
   <% end %>

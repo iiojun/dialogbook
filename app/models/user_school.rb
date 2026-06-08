@@ -38,6 +38,7 @@ class UserSchool < ApplicationRecord
     return certificate if certified?
 
     create_certificate!(
+      name: self.user.name,
       issued_at: Time.current,
       status: :issued
     )

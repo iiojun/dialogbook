@@ -15,7 +15,7 @@ class CertificatePdfGenerator
     name = @certificate.user_school.user.name
     font_name = "Helvetica"
     font_size = 36
-    y = 300
+    y = 280
 
     canvas.font(font_name, size: font_size, variant: :bold)
     # calculate the text width
@@ -30,13 +30,13 @@ class CertificatePdfGenerator
     canvas.font("Helvetica", size: 20)
     canvas.text(
       I18n.l(@certificate.issued_at.to_date),
-      at: [495, 165]
+      at: [455, 145]
     )
     # Number
     canvas.font("Helvetica", size: 14)
     canvas.text(
       @certificate.certificate_number,
-      at: [640, 60]
+      at: [580, 50]
     )
 
     io = StringIO.new

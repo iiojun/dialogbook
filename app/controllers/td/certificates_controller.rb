@@ -4,6 +4,7 @@ class Td::CertificatesController < ApplicationController
                  .where(schools: { id: current_user.school.id })
                  .where(user_schools: { registered: true })
                  .where(users: { role: "student" })
+                 .order(users: { id: :asc })
   end
 
   def create

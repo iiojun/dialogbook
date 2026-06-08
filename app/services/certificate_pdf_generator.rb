@@ -12,7 +12,7 @@ class CertificatePdfGenerator
     page = doc.pages[0]
     canvas = page.canvas(type: :overlay)
 
-    name = @certificate.user_school.user.name
+    name = @certificate.name
     font_name = "Helvetica"
     font_size = 36
     y = 280

@@ -1,0 +1,12 @@
+<%= render "nav_cert_edit", title: "Edit Certificate" %>
+<h1>Edit User's Name of the Certificate</h1>
+<p>
+  You can modify <%= @cert.user_school.user.name %>'s name that should be on the certificate.
+</p>
+<%= form_with model: [:td, @cert], local: true do |f| %>
+  <table>
+    <tr><th width="10%"><%= f.label "name" %> &nbsp; </th>
+        <td><%= f.text_field :name, size: 10, class: "form-control" %></td></tr>
+  </table>
+  <%= f.submit "Update Name", class: "btn btn-primary mt-2" %>
+<% end %>

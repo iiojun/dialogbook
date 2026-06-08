@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :todos,      except: [:new, :show]
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
-    resources :certificates, only: [:index, :create, :destroy]
+    resources :certificates, except: [:new, :show]
     # get "/certificates/issue/:uid/:sid", to: "certificates#issue",
     #                                      as: :issue_certificate
     # get "/certificates/:id/revoke", to: "certificates#revoke", as: :revoke_certificate

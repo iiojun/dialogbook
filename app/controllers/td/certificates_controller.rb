@@ -7,7 +7,7 @@ class Td::CertificatesController < ApplicationController
   end
 
   def create
-    p = certificate_params
+    p = certificate_create_params
     begin
       user_school = UserSchool.find_by!(user: p[:uid], school: p[:sid])
       user_school.issue_certificate!
@@ -19,12 +19,27 @@ class Td::CertificatesController < ApplicationController
     end
   end
 
-  def destroy
-    p = certificate_params
+  def edit
+    @cert = Certificate.find(params[:id])
+  end
+
+  def update
     begin
-      c = Certificate.find(p[:id])
+      c = Certificate.find(params[:id])
+      c.update(certificate_params)
+      flash[:notice] = "User #{c.name}'s certificate was updated."
+      redirect_to td_certificates_path
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "something wrong (record not found)."
+      redirect_to td_certificates_path
+    end
+  end
+
+  def destroy
+    begin
+      c = Certificate.find(params[:id])
       c.destroy
-      flash[:notice] = "User #{c.user_school.user.name}'s certificate was revoked."
+      flash[:notice] = "User #{c.name}'s certificate was revoked."
       redirect_to td_certificates_path
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = "something wrong (record not found)."
@@ -71,6 +86,10 @@ class Td::CertificatesController < ApplicationController
   private
 
   def certificate_params
+    params.require(:certificate).permit(:name)
+  end
+
+  def certificate_create_params
     params.permit(:id, :uid, :sid)
   end
 end

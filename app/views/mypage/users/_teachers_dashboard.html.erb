@@ -26,13 +26,11 @@
                #{content_tag :span, 'Check list to manage your course', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_todos_path, class: 'list-group-item list-group-item-action' %>
-  <% if @user.school.paid %>
-    <%= link_to "#{octicon 'file-badge', height: 24, 
+  <%= link_to "#{octicon 'file-badge', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
                  #{content_tag :span, 'Issue certificates', 
                      class: 'text-primary'} &raquo;".html_safe,
             td_certificates_path, class: 'list-group-item list-group-item-action' %>
-  <% end %>
   <%= link_to "#{octicon 'download', height: 24, 
                          class: 'right left', 'aria-label': 'download'} &nbsp;
                #{content_tag :span, 'Data download (experimental)', 

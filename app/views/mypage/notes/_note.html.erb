@@ -1,6 +1,6 @@
 <li>
 <b><%= note.title %> (<%= note.user.name %>) : </b>
-<%= note.message %>
+<%= markdown(note.message, compact: true) %>
 <% if note.url&.length > 0 %>
   <%= link_to "#{octicon 'link', height: 16, 
         class: 'right left', 'aria-label': 'link'}".html_safe,

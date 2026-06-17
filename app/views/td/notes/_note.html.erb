@@ -1,6 +1,6 @@
 <tr>
 <td><%= note.title %></td>
-<td><%= markdown(note.message) %></td>
+<td><%= markdown(note.message, p_class: "mb-0") %></td>
 <td><%= note.user.name %></td>
 <td><%= note.url %></td>
 <td><%= link_to "edit", edit_td_note_path(note),

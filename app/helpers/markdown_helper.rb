@@ -1,13 +1,13 @@
-require 'commonmarker'
+require "commonmarker"
 
 module MarkdownHelper
-  def markdown(text, compact: false)
+  def markdown(text, p_class: nil)
     html = Commonmarker.to_html(text || "")
     doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
-    if compact
+    if p_class.present?
       doc.css("p").each do |p|
-        p["class"] = [p["class"], "mb-0"].compact.join(" ")
+        p["class"] = [p["class"], p_class].compact.join(" ")
       end
     end
 

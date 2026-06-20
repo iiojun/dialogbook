@@ -1,9 +1,10 @@
 <tr>
   <td><%= user.id %></td>
-  <td><% if cert == nil %>
-        <%= user.name %>
-      <% else %>
+  <td><%= user.name %></td>
+  <td><% if cert != nil %>
         <%= link_to cert.name, edit_td_certificate_path(cert) %>
+      <% else %>
+        ---
       <% end %></td>
   <td><%= cert ? cert.certificate_number : "---" %></td>
   <td><%= cert ? cert.issued_at.to_date : "---" %></td>

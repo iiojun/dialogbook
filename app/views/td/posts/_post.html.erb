@@ -17,5 +17,31 @@
   <div id="<%= dom_id(post, :comments) %>" class="chat-messages ps-5">
     <%= render @comments[post] %>
   </div>
+
+  <% if @comments[post]&.length > 0 %>
+    <div class="ps-5 mt-3">
+  <% else %>
+    <div>
+  <% end %>
+    <div class="form-group" <%= "id=form#{post.id}" %>
+         style="display: none;">
+      <%= form_with model: [ :mypage, Comment.new ] do |f| %>
+        <%= f.hidden_field :pid, { value: post.id } %>
+        <%= f.text_area :body, placeholder: "Add your reply",
+                    class: "form-control", rows: 4 %>
+        <%= f.submit "submit", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <script type="text/javascript">
+    function open_form(o1, o2) { 
+             o1.style.display = "block"; 
+             o2.style.display = "none"; 
+           };
+  </script>
+    <div class="btn btn-info" <% formid = "form" + post.id.to_s %>
+         onclick=<%= "open_form(document.getElementById(\"#{formid}\"),this)" %>>
+         reply
+    </div>
+  </div>
 </article>
 <% end %>

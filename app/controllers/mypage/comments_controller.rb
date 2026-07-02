@@ -14,7 +14,7 @@ class Mypage::CommentsController < Mypage::ApplicationController
       post.save
       flash[:notice] = "comment was successfully recorded."
     end
-    redirect_to mypage_user_path(current_user)
+    redirect_back fallback_location: mypage_user_path(current_user)
   end
 
   private

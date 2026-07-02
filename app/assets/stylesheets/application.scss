@@ -2,3 +2,93 @@
 @import "bootstrap";
 @import "roles";
 @import "todos";
+
+.dialog-thread {
+  background: #f6f8fb;
+  border: 1px solid #dfe5ee;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 0.875rem;
+}
+
+.dialog-thread__header {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.dialog-thread__time,
+.chat-message__meta {
+  color: #697586;
+  font-size: 0.875rem;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+}
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  max-width: min(38rem, 92%);
+}
+
+.chat-message--post {
+  margin-right: auto;
+}
+
+.chat-message__meta {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 0 0.25rem 0.5rem;
+}
+
+.chat-bubble {
+  background: #ffffff;
+  border: 1px solid #d9e1ec;
+  border-radius: 8px;
+  padding: 0.625rem 0.75rem;
+  word-break: break-word;
+}
+
+.chat-bubble--reply {
+  background: #e7f1ff;
+  border-color: #c6ddff;
+}
+
+.chat-composer {
+  margin-top: 0.875rem;
+}
+
+.chat-composer__form {
+  align-items: flex-end;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-composer__input {
+  min-height: 2.5rem;
+  resize: vertical;
+}
+
+.chat-composer__submit {
+  min-height: 2.5rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .dialog-thread__header,
+  .chat-composer__form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chat-message {
+    max-width: 100%;
+  }
+}

@@ -1,10 +1,22 @@
 <% if post.body != "" %>
-<div>
-  <div><span class="fw-bold"><%= post.user.name %> @
-                             <%= post.lesson.title %> : </span> 
-     <%= local_time(post.created_at) %></div>
-  <div><%= simple_format(h(post.body)) %></div>
+<article id="<%= dom_id(post) %>" class="dialog-thread">
+  <header class="dialog-thread__header">
+    <div>
+      <span class="fw-bold"><%= post.user.name %></span>
+      <span class="text-muted">@ <%= post.lesson.title %></span>
+    </div>
+    <div class="dialog-thread__time"><%= local_time(post.created_at) %></div>
+  </header>
+
+  <div class="chat-message chat-message--post">
+    <div class="chat-bubble">
+      <%= simple_format(h(post.body), class: "mb-0") %>
+    </div>
+  </div>
+
+  <div id="<%= dom_id(post, :comments) %>" class="chat-messages ps-5">
     <%= render @comments[post] %>
+  </div>
 
   <!-- the case needs to put the [reply] button -->
   <% if (current_user.is_teacher? and post.need_response) or
@@ -14,7 +26,7 @@
   <% else %>
     <div>
   <% end %>
-      <div class="form-group" <%= "id=form#{post.id}" %>
+      <div class="form-group mt-3" <%= "id=form#{post.id}" %>
            style="display: none;">
         <%= form_with model: [ :mypage, Comment.new ] do |f| %>
           <%= f.hidden_field :pid, { value: post.id } %>
@@ -35,12 +47,12 @@
     <% else %>
       <div>
     <% end %>
-        <div class="btn btn-info mb-3" <% formid = "form" + post.id.to_s %>
+        <div class="btn btn-info my-3" <% formid = "form" + post.id.to_s %>
           onclick=<%= "open_form(document.getElementById(\"#{formid}\"),this)" %>>
           reply
         </div>
       </div>
   <% end %>
 
-</div>
+</article>
 <% end %>

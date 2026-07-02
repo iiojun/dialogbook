@@ -1,9 +1,21 @@
 <% if post.body != "" %>
-<div>
-  <div><span class="fw-bold"><%= post.user.name %> @
-                             <%= post.lesson.title %> : </span>
-     <%= local_time(post.created_at) %></div>
-  <div><%= simple_format(h(post.body)) %></div>
+<article id="<%= dom_id(post) %>" class="dialog-thread">
+  <header class="dialog-thread__header">
+    <div>
+      <span class="fw-bold"><%= post.user.name %></span>
+      <span class="text-muted">@ <%= post.lesson.title %></span>
+    </div>
+    <div class="dialog-thread__time"><%= local_time(post.created_at) %></div>
+  </header>
+
+  <div class="chat-message chat-message--post">
+    <div class="chat-bubble">
+      <%= simple_format(h(post.body), class: "mb-0") %>
+    </div>
+  </div>
+
+  <div id="<%= dom_id(post, :comments) %>" class="chat-messages ps-5">
     <%= render @comments[post] %>
-</div>
+  </div>
+</article>
 <% end %>

@@ -1,5 +1,9 @@
-<div class="ps-5">
-  <div><span class="fw-bold"><%= comment.user.name %></span> :
-     <%= local_time(comment.created_at) %></div>
-  <div><%= simple_format(h(comment.body)) %></div>
+<div id="<%= dom_id(comment) %>" class="chat-message">
+  <div class="chat-message__meta">
+    <span class="fw-bold"><%= comment.user.name %></span>
+    <span><%= local_time(comment.created_at) %></span>
+  </div>
+  <div class="chat-bubble chat-bubble--reply">
+    <%= simple_format(h(comment.body), class: "mb-0") %>
+  </div>
 </div>

@@ -27,6 +27,7 @@
          style="display: none;">
       <%= form_with model: [ :mypage, Comment.new ] do |f| %>
         <%= f.hidden_field :pid, { value: post.id } %>
+        <%= f.hidden_field :return_to, { value: request.fullpath } %>
         <%= f.text_area :body, placeholder: "Add your reply", 
                     class: "form-control", rows: 4 %>
         <%= f.submit "submit", class: "btn btn-primary" %>

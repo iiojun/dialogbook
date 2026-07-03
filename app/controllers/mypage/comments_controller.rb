@@ -14,12 +14,12 @@ class Mypage::CommentsController < Mypage::ApplicationController
       post.save
       flash[:notice] = "comment was successfully recorded."
     end
-    redirect_back fallback_location: mypage_user_path(current_user)
+    redirect_to p[:return_to].presence || mypage_user_path(current_user)
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:body, :pid)
+    params.require(:comment).permit(:body, :pid, :return_to)
   end
 end

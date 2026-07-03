@@ -1,11 +1,13 @@
 <% if current_user.is_teacher? %>
+  <%= turbo_stream_from "teacher_#{@school.id}" %>
   <h2>New comments</h2>
-  <% if @posts&.length == 0 %>
-    No new comments are posted.
-  <% end %>
+  <div id="empty-posts">
+    <%= render "mypage/posts/empty_posts" if @posts.blank? %>
+  </div>
+  <div id="posts">
+    <%= render @posts if @posts.present? %>
+  </div>
 <% else %>
   <h2>My comments</h2>
-<% end %>
-<% if @posts != nil %>
-  <%= render @posts %>
+  <%= render @posts if @posts.present? %>
 <% end %>

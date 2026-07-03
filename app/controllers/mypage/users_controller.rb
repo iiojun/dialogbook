@@ -18,15 +18,11 @@ class Mypage::UsersController < Mypage::ApplicationController
       # preparing user's comments for every lesson
       @posts = @user.is_teacher? ?
         # for the teacher's case
-        Post.joins(:user).where(users: {school: @school}, need_response: true)
+        Post.includes(:comments).joins(:user).where(users: {school: @school}, need_response: true)
             .order("updated_at desc") :
         # for teh student's case
-        Post.joins(:user).where(users: {school: @school}, user: @user)
+        Post.includes(:comments).joins(:user).where(users: {school: @school}, user: @user)
             .order("updated_at desc")
-      @comments = {}
-      @posts&.each { |p|
-        @comments[p] = Comment.where(post: p).order("created_at asc")
-      }
 
       # preparing user's scores for every lesson
       @scores = @user.prepare_scores&.order("created_at asc")

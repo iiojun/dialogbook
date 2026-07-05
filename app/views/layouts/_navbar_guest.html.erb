@@ -1,0 +1,13 @@
+<div class="ms-2">
+  <%= button_to "Sign in", "/auth/auth0",
+        method: :post,
+        data: { turbo: false },
+        class: "btn btn-primary" %>
+</div>
+
+<div class="text-white">Dialogbook</div>
+
+<div class="btn btn-info me-2">
+  <%= link_to "info", "https://www.kotoba-kobo.jp",
+        class: "text-white text-decoration-none" %>
+</div>

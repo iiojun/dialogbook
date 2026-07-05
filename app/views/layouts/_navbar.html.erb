@@ -1,0 +1,7 @@
+<nav class="navbar navbar-dark bg-dark">
+  <% if user_signed_in? %>
+    <%= render "layouts/navbar_signed_in" %>
+  <% else %>
+    <%= render "layouts/navbar_guest" %>
+  <% end %>
+</nav>

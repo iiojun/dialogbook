@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_08_125354) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_05_073905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -104,6 +104,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_125354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "paid", default: false
+    t.string "time_zone"
     t.index ["project_id"], name: "index_schools_on_project_id"
   end
 
@@ -113,6 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_125354) do
     t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["rubric_id", "user_id"], name: "index_scores_on_rubric_id_and_user_id", unique: true
     t.index ["rubric_id"], name: "index_scores_on_rubric_id"
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
@@ -135,6 +137,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_125354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_user_schools_on_school_id"
+    t.index ["user_id", "school_id"], name: "index_user_schools_on_user_id_and_school_id", unique: true
     t.index ["user_id"], name: "index_user_schools_on_user_id"
   end
 
@@ -149,6 +152,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_125354) do
     t.bigint "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["school_id"], name: "index_users_on_school_id"
   end
 

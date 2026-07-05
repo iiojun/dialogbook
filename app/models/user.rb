@@ -4,13 +4,13 @@ class User < ApplicationRecord
   has_many :user_schools, dependent: :destroy
   has_many :schools, through: :user_schools
   has_many :certificates, through: :user_schools
-
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :scores, dependent: :destroy
 
   scope :with_role, ->(keyword) { where("role LIKE ?", "%#{keyword}%") }
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
 
   def self.find_or_create_from_auth(auth)
     provider = auth[:provider]

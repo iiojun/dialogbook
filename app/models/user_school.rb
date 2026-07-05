@@ -7,6 +7,8 @@ class UserSchool < ApplicationRecord
 
   delegate :issued?, to: :certificate, allow_nil: true
 
+  validates :user_id, uniqueness: { scope: :school_id }
+
   def remove_user_school
     u = self.user
     s = self.school

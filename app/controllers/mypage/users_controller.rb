@@ -80,9 +80,7 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   def delete_school
     s = School.find(params[:sid])
-    current_user.schools.delete(s)
-    current_user.school = nil if current_user.school == s
-    current_user.save
+    current_user.schools.destroy(s)
     flash[:notice] = "#{s.name} (#{s.project.year}) was successfully deleted."
     redirect_to edit_mypage_user_path(current_user)
   end

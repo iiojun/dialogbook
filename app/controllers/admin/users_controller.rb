@@ -2,10 +2,7 @@ class Admin::UsersController < Admin::ApplicationController
   def destroy
     u = User.find(params[:id])
     s = params[:sid]
-    u.schools.delete(s)
-    # the case the school is in use by the user.
-    u.school = nil if u.school.id.to_s == s
-    u.save
+    u.schools.destroy(s)
     flash[:notice] = "a user was removed from this class."
     redirect_to edit_admin_school_path(s)
   end

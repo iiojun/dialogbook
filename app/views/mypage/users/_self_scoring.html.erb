@@ -3,8 +3,8 @@
 No lessons.
 <% else %>
   <div class="form-group" data-controller="collapse-persist">
-    <%= form_with url: mypage_update_scores_path(@user),
-                  method: :get do |f| %>
+    <%= form_with url: mypage_submission_path(),
+                  method: :patch do |f| %>
       <%= render @lessons %>
       <div>
         <%= f.submit "Submit", class: "btn btn-primary my-3" %>

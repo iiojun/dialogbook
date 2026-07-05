@@ -15,14 +15,12 @@ class Mypage::UsersController < Mypage::ApplicationController
                    start_date: ... (Time.now - 14400)) \
                      &.order("start_date desc")
 
-      # preparing user's comments for every lesson
-      @posts = @user.is_teacher? ?
-        # for the teacher's case
-        Post.includes(:comments).joins(:lesson).where(lessons: {school: @school}, need_response: true)
-            .order("updated_at desc") :
-        # for teh student's case
-        Post.includes(:comments).joins(:lesson).where(lessons: {school: @school}, user: @user)
-            .order("updated_at desc")
+      # preparing user's posts and comments for every lesson
+      base_posts = Post.joins(:lesson).includes(:comments)
+                       .where(lessons: { school: @school })
+                       .order(posts: { updated_at: :desc })
+      @posts = @user.is_teacher? ? base_posts.where(need_response: true)
+                                 : base_posts.where(user_id: @user.id)
 
       # preparing user's scores for every lesson
       @scores = @user.prepare_scores&.order("created_at asc")
@@ -72,32 +70,6 @@ class Mypage::UsersController < Mypage::ApplicationController
     redirect_to edit_mypage_user_path(current_user)
   end
 
-  def update_scores
-    p = scores_params
-    p.each { |key, value|
-      id = value[:sid]
-      s = Score.find(id)
-      if s != nil
-        s.level = value[:level]
-        s.save
-      end
-    }
-    update_posts
-    flash[:notice] = "Scores and comments were successfully updated."
-    redirect_to mypage_user_path(current_user)
-  end
-
-  def update_posts
-    p = posts_params
-    p.each { |p|
-      next if p[:body] == ""
-      lesson = Lesson.find(p[:lesson].to_i)
-      post = Post.create(body: p[:body], user: current_user,
-                         lesson: lesson, need_response: true)
-      post.save
-    }
-  end
-
   def switch_school
     s = School.find(params[:sid])
     current_user.school = s
@@ -119,13 +91,5 @@ class Mypage::UsersController < Mypage::ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :nickname, :picture, :sid, :code)
-  end
-
-  def scores_params
-    params.require(:scores).permit!
-  end
-
-  def posts_params
-    params.permit(posts: [:body, :lesson])[:posts]
   end
 end

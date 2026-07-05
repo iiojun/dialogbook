@@ -8,15 +8,14 @@ Rails.application.routes.draw do
 
   # MyPage
   namespace :mypage do
-    get "comments/create"
     root to: "users#show"
-    resources :users,    only: [:edit, :show, :update]
     get "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
     delete "/:id/delete_school/:sid", to: "users#delete_school", as: :delete_school
-    get "/update_scores/:id", to: "users#update_scores", as: :update_scores
-    resources :notes,    only: [:create, :destroy]
-    resources :posts,    only: [:create]
-    resources :comments, only: [:create]
+    resources :users,       only: [:edit, :show, :update]
+    resources :notes,       only: [:create, :destroy]
+    resources :posts,       only: [:create]
+    resources :comments,    only: [:create]
+    resources :submissions, only: [:update]
   end
 
   # Teacher's Dashboard

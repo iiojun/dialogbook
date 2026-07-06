@@ -53,4 +53,6 @@ Rails.application.routes.draw do
     resources :users,    only: [:destroy, :edit, :update]
     resources :certificates, only: [:index]
   end
+
+  mount ActionCable.server => "/cable"
 end

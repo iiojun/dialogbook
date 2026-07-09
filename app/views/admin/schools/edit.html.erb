@@ -1,6 +1,9 @@
 <%= render "nav", project: @school.project %>
 <h1>Class Dashboard</h1>
 <h2>Class information</h2>
+<p>
+  This class's TimeZone is <b><span class="text-primary"><%= @school.time_zone %></span></b>
+</p>
 <%= render "admin/schools/form",
       model: [:admin, @school], label: "Update", 
       pid: @school.project.id %>

@@ -7,7 +7,7 @@
   </ol>
 </nav>
 <h1><%= @user.name %>'s MyPage</h1>
-<% if @user.school == nil # the case when school is not assigned %>
+<% if @school == nil # the case when school is not assigned %>
   <div class="mb-3">
   You are not participating in any classes. Please add or choose your class.
   </div>
@@ -17,9 +17,20 @@
     <%= render "add_school" %>
 <% else %>
   <div class="mb-3">
-  Your class is 
-  <span class="text-primary">
-    <%= @user.school.name %> (<%= @user.school.project.year %>)</span>
+    Your class is
+    <span class="text-primary">
+      <%= @school.name %> (<%= @school.project.year %>)</span>
+
+<!--
+    <% if @school.latitude.present? && @school.longitude.present? %>
+      <%= link_to "🌍",
+          "https://www.google.com/maps?q=#{@school.latitude},#{@school.longitude}",
+          target: "_blank",
+          rel: "noopener",
+          title: "Open location in Google Maps",
+          aria: { label: "Open location in Google Maps" } %>
+    <% end %>
+-->
   </div>
 <div data-controller="tab-persist">
   <ul class="nav nav-tabs" role="tablist">

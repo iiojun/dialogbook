@@ -25,7 +25,7 @@
 
   <div class="<%= post.comments.present? ? 'ps-5 mt-3' : '' %>">
     <div class="form-group" hidden data-reply-form-target="form">
-      <%= form_with model: [ :mypage, Comment.new ] do |f| %>
+      <%= form_with model: [:mypage, Comment.new] do |f| %>
         <%= f.hidden_field :pid, { value: post.id } %>
         <%= f.hidden_field :return_to, { value: request.fullpath } %>
         <%= f.text_area :body, placeholder: "Add your reply", 

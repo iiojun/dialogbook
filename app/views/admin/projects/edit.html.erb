@@ -1,8 +1,7 @@
 <%= render "nav" %>
 <h1>Project Dashboard</h1>
 <h2>Project information</h2>
-<%= render "admin/projects/form",
-      model: [:admin, @project], label: "Update" %>
+<%= render "admin/projects/form", model: @project, label: "Update" %>
 
 <h2>Class list</h2>
 <p>
@@ -34,5 +33,5 @@
 
 <h2>Register a new class</h2>
 <%= render "admin/schools/form",
-      model: [:admin, School.new], label: "Register", 
+      model: School.new, label: "Register", 
       pid: @project.id %>

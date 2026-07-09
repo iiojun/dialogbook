@@ -1,5 +1,5 @@
 <p>
-  <%= form_with model: model do |f| %>
+  <%= form_with model: [:admin, model] do |f| %>
     <table>
        <tr><td class="text-start" width="10%" ><%= f.label "name" %>&nbsp;</td>
            <td>

@@ -16,7 +16,7 @@ No lessons.
 </p>
 
 <h1>Create a New Lesson</h1>
-<%= render "form", lesson: [:td, Lesson.new], label: "create" %>
+<%= render "form", lesson: Lesson.new, label: "create" %>
 
 <% if @rubrics.length > 0 %>
   <br /><hr />

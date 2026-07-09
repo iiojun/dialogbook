@@ -19,6 +19,4 @@
 </p>
 
 <h1>Create a New Todo Item</h1>
-<%= render "form", 
-      todo: [:td, Todo.new(position: next_pos)], 
-      label: "create" %>
+<%= render "form", todo: Todo.new(position: next_pos), label: "create" %>

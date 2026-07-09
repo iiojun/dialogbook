@@ -5,7 +5,7 @@
   This class's TimeZone is <b><span class="text-primary"><%= @school.time_zone %></span></b>
 </p>
 <%= render "admin/schools/form",
-      model: [:admin, @school], label: "Update", 
+      model: @school, label: "Update", 
       pid: @school.project.id %>
 
 <h2>Member list</h2>

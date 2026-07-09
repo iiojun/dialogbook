@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
+import L from "leaflet"
 
 import LocalTime from "local-time"
 LocalTime.start()

@@ -4,14 +4,12 @@ class Admin::SchoolsController < Admin::ApplicationController
     pj = Project.find(p[:pid])
     name = p[:name]
     addr = p[:address]
-    memo = p[:memo]
-    paid = p[:paid]
     if name == ""
       flash[:alert] = "school name is required."
     elsif addr == ""
       flash[:alert] = "school address is required."
     else
-      s = School.create(name: name, address: addr, memo: memo, paid: paid)
+      s = School.create(p.except(:pid))
       pj.schools << s          # add to the project
       User.admins&.each { |a|  # add to admins
         a.schools << s
@@ -64,6 +62,7 @@ class Admin::SchoolsController < Admin::ApplicationController
 
   private
   def school_params
-    params.require(:school).permit(:name, :address, :memo, :paid, :pid)
+    params.require(:school).permit(:name, :address, :memo, 
+                                   :latitude, :longitude, :paid, :pid)
   end
 end

@@ -11,6 +11,12 @@
        <tr><td><%= f.label "paid" %>&nbsp;</td>
            <td><%= f.check_box :paid %>&nbsp; Participation fee received</td></tr>
     </table>
+    <br />
+    <div data-controller="map" style="height:400px">
+      <div id="map"></div>
+      <%= f.hidden_field :latitude, data: {map_target:"latitude"} %>
+      <%= f.hidden_field :longitude, data: {map_target:"longitude"} %>
+    </div>
     <%= f.hidden_field :pid, { value: pid } %>
     <%= f.submit label, class: "btn btn-primary mt-3" %>
   <% end %>

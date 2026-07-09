@@ -8,7 +8,8 @@
       <span class="fw-bold"><%= post.user.name %></span>
       <span class="text-muted">@ <%= post.lesson.title %></span>
     </div>
-    <div class="dialog-thread__time"><%= local_time(post.created_at) %></div>
+    <div class="dialog-thread__time">
+      <%= post.created_at.in_time_zone(post.user.school.time_zone) %></div>
   </header>
 
   <div class="chat-message chat-message--post">

@@ -12,14 +12,20 @@ class Td::MeetingsController < Td::ApplicationController
 
   def create
     (name, memo, sdat) = set_parameters
-    msg = null_check(name: name)
-    if msg.length > 0
-      flash[:alert] = "#{msg} must be filled."
-    else
-      m = Meeting.create(name: name, memo: memo, start_date: sdat)
-      current_user.school.project.meetings << m
-      flash[:notice] = "A new meeting was added."
+    errors = [
+      null_check(name: name),
+      null_check(start_date: sdat)
+    ].compact_blank
+    if errors.any?
+      flash[:alert] = "#{errors.join(', ')} must be filled."
+      redirect_to new_td_meeting_path
+      return
     end
+
+    meeting = current_user.school.project.meetings.create!(
+      name: name, memo: memo, start_date: sdat
+    )
+    flash[:notice] = "A new meeting was added."
     redirect_to td_meetings_path
   end
 
@@ -28,19 +34,18 @@ class Td::MeetingsController < Td::ApplicationController
 
   def update
     (name, memo, sdat) = set_parameters
-    msg = null_check(name: name)
-    if msg.length > 0
-      flash[:alert] = "#{msg} must be filled."
-    else
-      @meeting.name = name
-      @meeting.memo = memo
-      @meeting.start_date = sdat
-      if @meeting.save
-        flash[:notice] = "The meeting was successfully updated."
-      else
-        flash[:alert] = "Something went wrong."
-      end
+    errors = [
+      null_check(name: name),
+      null_check(start_date: sdat)
+    ].compact_blank
+    if errors.any?
+      flash[:alert] = "#{errors.join(', ')} must be filled."
+      redirect_to new_td_meeting_path
+      return
     end
+
+    @meeting.update!(name: name, memo: memo, start_date: sdat)
+    flash[:notice] = "The meeting was successfully updated."
     redirect_to td_meetings_path
   end
 
@@ -63,10 +68,13 @@ class Td::MeetingsController < Td::ApplicationController
     p = meeting_params
     name = p[:name]
     memo = p[:memo]
-    sdat = sprintf "%4d-%02d-%02d %02d:%02d:00",
-        p["start_date(1i)"].to_i, p["start_date(2i)"].to_i,
-        p["start_date(3i)"].to_i, p["start_date(4i)"].to_i,
-        p["start_date(5i)"].to_i
+    sdat = p[:start_date]
+    # converting local time to UTC
+    if sdat.length > 0
+      sdat = Time.use_zone(current_user.school.time_zone) do
+        Time.zone.parse(sdat)
+      end
+    end
     [name, memo, sdat]
   end
 end

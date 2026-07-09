@@ -12,7 +12,7 @@
 </p>
 
 <h1>Create a New Activity</h1>
-<%= render "form", meeting: [:td, Meeting.new], label: "create" %>
+<%= render "form", meeting: Meeting.new, label: "create" %>
 
 <% if @past_meetings.length > 0 %>
 <h1 class="mt-3">Past Activities</h1>

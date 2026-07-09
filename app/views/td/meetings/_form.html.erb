@@ -1,4 +1,4 @@
-<%= form_with model: meeting do |f| %>
+<%= form_with model: [:td, meeting] do |f| %>
   <table class="table table-sm table-striped">
     <tr>
       <th width="10%">Item</th>
@@ -12,8 +12,11 @@
     </tr>
     <tr>
       <td><%= f.label "start_date:" %></td>
-      <td><%= f.datetime_select :start_date, minute_step: 5,
-                class: "form-control" %> UTC</td></tr>
+      <td><%= f.datetime_local_field :start_date,
+                value: meeting.start_date
+                  &.in_time_zone(current_user.school.time_zone)
+                  &.strftime("%Y-%m-%dT%H:%M"),
+                class: "form-control" %></td></tr>
     </tr>
     <tr>
       <td><%= f.label "memo:" %></td>

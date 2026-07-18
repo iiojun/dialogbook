@@ -3,6 +3,7 @@ class Td::UsersController < Td::ApplicationController
     @users_app = User.joins(:schools)
                      .where(schools: { id: current_user.school.id })
                      .where(user_schools: { registered: true })
+                     .where.not("users.role LIKE ?", "%admin%")  # eliminating admins
     @users_req = User.joins(:schools)
                      .where(schools: { id: current_user.school.id })
                      .where(user_schools: { registered: false })

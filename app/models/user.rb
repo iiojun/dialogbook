@@ -44,7 +44,7 @@ class User < ApplicationRecord
     return nil if is_teacher? or school == nil
 
     if school.lessons.length > 0
-      # get a set of rubrics which belong to the user's school
+      # get a set of questions (rubrics) which belong to the user's school
       rubrics = Rubric.joins(:lesson).where(lesson: { school: school })
                       .order("created_at asc")
       # if user's scores has already been prepared, return scores

@@ -25,7 +25,7 @@ class Td::TodosController < Td::ApplicationController
 
   def update
     (position, title, memo, done) = set_parameters
-    msg = null_check(position, title: title)
+    msg = null_check(position: position, title: title)
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else

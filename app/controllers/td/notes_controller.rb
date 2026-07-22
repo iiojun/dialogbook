@@ -8,8 +8,6 @@ class Td::NotesController < Td::ApplicationController
     p = note_params
     title   = p[:title]
     message = p[:message]
-    url     = p[:url]
-    meeting = p[:mid]
     msg = null_check(title: title, message: message)
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
@@ -34,6 +32,6 @@ class Td::NotesController < Td::ApplicationController
   private
 
   def note_params
-    params.require(:note).permit(:title, :message, :url, :mid)
+    params.require(:note).permit(:title, :message, :url, :mid, :done)
   end
 end

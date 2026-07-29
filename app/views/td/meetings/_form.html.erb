@@ -24,6 +24,10 @@
               placeholder: "add a memo...", style: "width:100%",
                 class: "form-control" %></td>
     </tr>
+    <tr>
+      <td><%= f.label "visibility:" %>&nbsp;</td>
+      <td><%= f.check_box :teacher_only %>&nbsp; For teachers only</td>
+    </tr>
   </table>
   <%= f.submit label, class: "btn btn-primary" %>
 <% end %>

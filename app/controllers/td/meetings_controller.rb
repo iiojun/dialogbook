@@ -3,15 +3,15 @@ class Td::MeetingsController < Td::ApplicationController
 
   def index
     @meetings = Meeting.where(project: current_user.school.project,
-                              start_date: Time.now ...)
-                       .order("start_date asc")
+                              start_date: Time.current ...)
+                       .order(:start_date)
     @past_meetings = Meeting.where(project: current_user.school.project,
-                              start_date: ... Time.now)
-                       .order("start_date desc")
+                              start_date: ... Time.current)
+                       .order(start_date: :desc)
   end
 
   def create
-    (name, memo, sdat) = set_parameters
+    (name, memo, sdat, toly) = set_parameters
     errors = [
       null_check(name: name),
       null_check(start_date: sdat)
@@ -23,7 +23,7 @@ class Td::MeetingsController < Td::ApplicationController
     end
 
     meeting = current_user.school.project.meetings.create!(
-      name: name, memo: memo, start_date: sdat
+      name: name, memo: memo, start_date: sdat, teacher_only: toly
     )
     flash[:notice] = "A new meeting was added."
     redirect_to td_meetings_path
@@ -33,7 +33,7 @@ class Td::MeetingsController < Td::ApplicationController
   end
 
   def update
-    (name, memo, sdat) = set_parameters
+    (name, memo, sdat, toly) = set_parameters
     errors = [
       null_check(name: name),
       null_check(start_date: sdat)
@@ -44,7 +44,8 @@ class Td::MeetingsController < Td::ApplicationController
       return
     end
 
-    @meeting.update!(name: name, memo: memo, start_date: sdat)
+    @meeting.update!(name: name, memo: memo, 
+                     start_date: sdat, teacher_only: toly)
     flash[:notice] = "The meeting was successfully updated."
     redirect_to td_meetings_path
   end
@@ -61,7 +62,7 @@ class Td::MeetingsController < Td::ApplicationController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:name, :memo, :start_date)
+    params.require(:meeting).permit(:name, :memo, :start_date, :teacher_only)
   end
 
   def set_parameters
@@ -69,12 +70,13 @@ class Td::MeetingsController < Td::ApplicationController
     name = p[:name]
     memo = p[:memo]
     sdat = p[:start_date]
+    toly = p[:teacher_only]
     # converting local time to UTC
     if sdat.length > 0
       sdat = Time.use_zone(current_user.school.time_zone) do
         Time.zone.parse(sdat)
       end
     end
-    [name, memo, sdat]
+    [name, memo, sdat, toly]
   end
 end

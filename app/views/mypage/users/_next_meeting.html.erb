@@ -1,6 +1,9 @@
 <h2>Next activity</h2>
 <% if @meeting %>
   <div class="btn btn-light button-sm">
+    <% if @meeting.teacher_only %>
+      <%= "*" %>
+    <% end %>
     <%= @meeting.name %>
   </div>
   <div class="card">

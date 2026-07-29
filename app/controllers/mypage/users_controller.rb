@@ -5,15 +5,17 @@ class Mypage::UsersController < Mypage::ApplicationController
     else
       @school = @user.school
       @lessons = Lesson.where(school: @school)
-      @meeting = Meeting.where(project: @school&.project,
-                   start_date: (Time.now - 14400) ...) \
-                     &.order("start_date asc").first
-      # "Time.now - 14400" is a tentative patch
+      @meeting = Meeting.visible_to(current_user)
+                        .where(project: @school&.project,
+                               start_date: (Time.current - 4.hours) ...)
+                        .order(:start_date).first
+      # "Time.current - 4.hours" is a tentative patch
       # this allow us to remain showing the next meeting info
       # for 4 hours just after the meeting start time.
-      @past_meetings = Meeting.where(project: @school&.project,
-                   start_date: ... (Time.now - 14400)) \
-                     &.order("start_date desc")
+      @past_meetings = Meeting.visible_to(current_user)
+                              .where(project: @school&.project,
+                                     start_date: ... (Time.current - 4.hours))
+                              .order(start_date: :desc)
 
       # preparing user's posts and comments for every lesson
       base_posts = Post.joins(:lesson).includes(:comments)

@@ -3,6 +3,18 @@
 @import "roles";
 @import "todos";
 
+.meeting-body {
+  background: #f6f8fb;
+}
+
+.meeting-memo-bubble {
+  background: #ffffff;
+  border: 1px solid #d9e1ec;
+  border-radius: 8px;
+  padding: 0.625rem 0.75rem;
+  word-break: break-word;
+}
+
 .dialog-thread {
   background: #f6f8fb;
   border: 1px solid #dfe5ee;

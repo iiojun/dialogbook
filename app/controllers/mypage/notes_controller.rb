@@ -18,7 +18,7 @@ class Mypage::NotesController < Mypage::ApplicationController
   end
 
   def destroy
-    n = Note.find(params[:id])
+    n = Note.find(params[:nid])
     n.destroy
     flash[:notice] = "The note was successfully deleted."
     redirect_to mypage_user_path(current_user)

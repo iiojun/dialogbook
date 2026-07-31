@@ -11,7 +11,7 @@
 <% if note.user == current_user # it can be deleted by only person who posted %>
    <%= link_to "#{octicon 'x-circle', height: 16,
            class: 'right left', 'aria-label': 'x-circle'}".html_safe,
-           mypage_note_path(note),
+           mypage_note_path(id: current_user, nid: note.id),
            data: { turbo_confirm: "Are you sure?", turbo_method: :delete } %>
 <% end %>
 </li>

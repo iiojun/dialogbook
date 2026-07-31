@@ -45,9 +45,9 @@ No activities are scheduled.
             @ <%= s.time_zone %>
           </div>
         <% } %>
-        <% if @meeting.memo.length > 0 %>
+        <% if pm.memo.length > 0 %>
           <div class="meeting-memo-bubble">
-            <%= markdown(@meeting.memo, p_class: "mb-0") %>
+            <%= markdown(pm.memo, p_class: "mb-0") %>
           </div>
         <% end %>
         <% if pm.notes %>

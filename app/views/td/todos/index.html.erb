@@ -19,4 +19,6 @@
 </p>
 
 <h1>Create a New Todo Item</h1>
-<%= render "form", todo: Todo.new(position: next_pos), label: "create" %>
+<div class="mb-3">
+  <%= render "form", todo: Todo.new(position: next_pos), label: "create" %>
+</div>

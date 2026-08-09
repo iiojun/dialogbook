@@ -54,7 +54,12 @@ class Td::TodosController < Td::ApplicationController
   end
 
   def load_default
-    Todo.load_template!(current_user.school.project)
+    todos = Todo.where(project: current_user.school.project)
+    if todos.length == 0
+      Todo.load_template!(current_user.school.project)
+    else
+      flash[:alert] = "Todo items already exist."
+    end
     redirect_to td_todos_path
   end
 

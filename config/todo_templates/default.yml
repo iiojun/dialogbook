@@ -1,13 +1,17 @@
-- title: "Get support: Talk with the authority"
+- title: "Initial confirmation: Participants levels"
   position: 100
+  memo: The level of schools must be the same (i.e., e.g., senior high students meet senior high students), and the school year should be the same (i.e., the same graders should meet).
+
+- title: "Initial confirmation: Number of students"
+  position: 110
+  memo: Control the number of students so that you can make groups with 2 students from each school, or 2 students from one school and 3 students from another.
+
+- title: "Initial confirmation: Talk with the authority"
+  position: 120
   memo: The teacher must consult with the head of the department and the Principal/Director before or during the preparation and share that you have a plan to conduct a SMILE. 
 
-- title: "Get support: Contact with WILL"
-  position: 110
-  memo: To keep the SMILE project sustainable, WILL ask you for a small monetary contribution from the school. In some situations, we may waive it. Please get in touch with WILL.
-
-- title: "Get support: Talk with your colleagues"
-  position: 120
+- title: "Initial confirmation: Talk with your colleagues"
+  position: 130
   memo: We recommend that the teachers talk with their colleagues about conducting a SMILE project. They may be interested and even work with you as a team or help you conduct the collaboration classes.
 
 - title: "Preperation: SNS for connection and appointment"
@@ -26,24 +30,16 @@
   position: 230
   memo: Set up an online meeting tool, such as Zoom/Webex, for the next meeting and share it on the SNS group with the teachers.
 
-- title: "Groups: Participants levels"
+- title: "Groups, date, and times: Arrangement of group members"
   position: 300
-  memo: The level of schools must be the same (i.e., e.g., senior high students meet senior high students), and the school year should be the same (i.e., the same graders should meet).
-
-- title: "Groups: Number of students"
-  position: 310
-  memo: Control the number of students so that you can make groups with 2 students from each school, or 2 students from one school and 3 students from another.
-
-- title: "Groups: Arrangement of group members"
-  position: 320
   memo: Make groups using the framework on the sheet "URLs, Themes, and Groups." The template table on "URLs, Themes, and Groups" is for a typical SMILE project, with two sessions with 12 groups. Each group has two or three members from one school; and one collaboration class consists of two sessions.
 
-- title: "Date and times: Decide and confirm the schedule"
-  position: 330
+- title: "Groups, date, and times: Decide and confirm the schedule"
+  position: 310
   memo: "Decide the dates and times of the collaboration classes. Note the time differences: Japan, Korea←(one hour)→ Taiwan, Malaysia ←(one hour)→ Vietnam, Thailand, West Indonesia"
 
-- title: "Date and times: Trial/greeting session"
-  position: 340
+- title: "Grupes, date, and times: Trial/greeting session"
+  position: 320
   memo: Decide whether to have a trial/greeting before the three classes.
 
 - title: "Contents: Themes of the collabo classes"

@@ -1,7 +1,7 @@
 <div id="<%= dom_id(comment) %>" class="chat-message">
   <div class="chat-message__meta">
     <span class="fw-bold"><%= comment.user.name %></span>
-          <% time_zone = comment.user.time_zone == nil ? "UTC" : comment.user.time_zone %>
+          <% time_zone = comment.user.school == nil ? "UTC" : comment.user.school.time_zone %>
     <span><%= comment.created_at.in_time_zone(time_zone) %></span>
   </div>
   <div class="chat-bubble chat-bubble--reply">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_28_222340) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_21_084636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,37 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_28_222340) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "consent_form_versions", force: :cascade do |t|
+    t.bigint "consent_form_id", null: false
+    t.integer "version"
+    t.string "status"
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_form_id"], name: "index_consent_form_versions_on_consent_form_id"
+  end
+
+  create_table "consent_forms", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_consent_forms_on_project_id"
+  end
+
+  create_table "consent_items", force: :cascade do |t|
+    t.bigint "consent_form_version_id", null: false
+    t.string "code"
+    t.string "title"
+    t.text "description"
+    t.boolean "required"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_form_version_id"], name: "index_consent_items_on_consent_form_version_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -133,6 +164,28 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_28_222340) do
     t.index ["project_id"], name: "index_todos_on_project_id"
   end
 
+  create_table "user_consent_items", force: :cascade do |t|
+    t.bigint "user_consent_id", null: false
+    t.bigint "consent_item_id", null: false
+    t.datetime "agreed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_item_id"], name: "index_user_consent_items_on_consent_item_id"
+    t.index ["user_consent_id"], name: "index_user_consent_items_on_user_consent_id"
+  end
+
+  create_table "user_consents", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "consent_form_version_id", null: false
+    t.string "status"
+    t.datetime "agreed_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_form_version_id"], name: "index_user_consents_on_consent_form_version_id"
+    t.index ["user_id"], name: "index_user_consents_on_user_id"
+  end
+
   create_table "user_schools", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "school_id", null: false
@@ -162,6 +215,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_28_222340) do
   add_foreign_key "certificates", "user_schools"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "consent_form_versions", "consent_forms"
+  add_foreign_key "consent_forms", "projects"
+  add_foreign_key "consent_items", "consent_form_versions"
   add_foreign_key "lessons", "schools"
   add_foreign_key "meetings", "projects"
   add_foreign_key "notes", "meetings"
@@ -173,6 +229,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_28_222340) do
   add_foreign_key "scores", "rubrics"
   add_foreign_key "scores", "users"
   add_foreign_key "todos", "projects"
+  add_foreign_key "user_consent_items", "consent_items"
+  add_foreign_key "user_consent_items", "user_consents"
+  add_foreign_key "user_consents", "consent_form_versions"
+  add_foreign_key "user_consents", "users"
   add_foreign_key "user_schools", "schools"
   add_foreign_key "user_schools", "users"
   add_foreign_key "users", "schools"

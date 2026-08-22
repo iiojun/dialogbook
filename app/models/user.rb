@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :scores, dependent: :destroy
+  has_many :user_consents, dependent: :restrict_with_exception
 
   scope :with_role, ->(keyword) { where("role LIKE ?", "%#{keyword}%") }
   validates :uid, uniqueness: { scope: :provider }, allow_nil: true

@@ -9,7 +9,7 @@
       <span class="text-muted">@ <%= post.lesson.title %></span>
     </div>
     <div class="dialog-thread__time">
-      <% time_zone = current_user.school == nil ? "UTC" : current_user.school.time_zone %>
+      <% time_zone = post.user.school == nil ? "UTC" : post.user.school.time_zone %>
       <%= post.created_at.in_time_zone(time_zone) %></div>
   </header>
 

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  consent_form_version: one
+  status: MyString
+  agreed_at: 2026-08-21 17:46:23
+  revoked_at: 2026-08-21 17:46:23
+
+two:
+  user: two
+  consent_form_version: two
+  status: MyString
+  agreed_at: 2026-08-21 17:46:23
+  revoked_at: 2026-08-21 17:46:23

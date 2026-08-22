@@ -1,4 +1,4 @@
-class Td::CertificatesController < ApplicationController
+class Td::CertificatesController < Td::ApplicationController
   def index
     @users = User.joins(:schools)
                  .where(schools: { id: current_user.school.id })

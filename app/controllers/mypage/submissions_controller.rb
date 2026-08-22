@@ -1,4 +1,4 @@
-class Mypage::SubmissionsController < ApplicationController
+class Mypage::SubmissionsController < Mypage::ApplicationController
   def update
     sp = submission_params
 

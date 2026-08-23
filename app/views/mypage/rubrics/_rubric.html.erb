@@ -8,7 +8,7 @@
           <% 5.times.to_a.map{ |x| x+1 }.each do |i| %>
             <td align="center">
               <%= f.radio_button :level, i, checked: (score.level == i) %>
-              <%= "Level. #{i}" %> &nbsp;
+              <%= "Level #{i}" %> &nbsp;
             </td>
           <% end %>
           <%= f.hidden_field :sid, { value: score.id } %>

@@ -6,7 +6,7 @@
 </div>
 <div class="card collapse mb-3" id="lesson<%= lesson.id %>">
   <div class="card-body meeting-body">
-    <% @rubrics = lesson.rubrics %>
+    <% @rubrics = lesson.rubrics.order(item: :asc) %>
     <% if @rubrics.length > 0 %>
       <%= render @rubrics %>
     <% else %>

@@ -31,6 +31,11 @@
                  #{content_tag :span, 'Issue certificates', 
                      class: 'text-primary'} &raquo;".html_safe,
             td_certificates_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'file-check', height: 24, 
+                           class: 'right left', 'aria-label': 'download'} &nbsp;
+                 #{content_tag :span, 'Consent management', 
+                     class: 'text-primary'} &raquo;".html_safe,
+            td_certificates_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'download', height: 24, 
                          class: 'right left', 'aria-label': 'download'} &nbsp;
                #{content_tag :span, 'Data download (experimental)', 

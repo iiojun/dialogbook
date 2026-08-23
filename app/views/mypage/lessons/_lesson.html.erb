@@ -4,8 +4,8 @@
         aria-expanded="false" aria-controls="#lesson<%= lesson.id %>">
   <%= lesson.title %>
 </div>
-<div class="collapse mb-3" id="lesson<%= lesson.id %>">
-  <div class="card card-body">
+<div class="card collapse mb-3" id="lesson<%= lesson.id %>">
+  <div class="card-body meeting-body">
     <% @rubrics = lesson.rubrics %>
     <% if @rubrics.length > 0 %>
       <%= render @rubrics %>

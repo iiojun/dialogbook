@@ -15,7 +15,7 @@
         <th width="5%">Edit</th>
         <th width="5%">Delete</th>
       </tr>
-      <%= render @rubrics %>
+      <%= render @rubrics.order(item: :asc) %>
     </table>
   <% end %>
 </p>

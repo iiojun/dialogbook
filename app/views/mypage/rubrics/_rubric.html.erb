@@ -1,5 +1,5 @@
 <div class="meeting-memo-bubble mb-2">
-  <%= rubric.item %>
+  <%= markdown(rubric.item, p_class: "mb-0") %>
   <div>
     <table>
       <% score = @scores.find_by(rubric: rubric) %>

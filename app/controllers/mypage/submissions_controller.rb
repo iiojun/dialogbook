@@ -19,6 +19,7 @@ class Mypage::SubmissionsController < Mypage::ApplicationController
       next if p[:body] == ""
       lesson = Lesson.find(p[:lesson].to_i)
       post = Post.create!(body: p[:body], user: current_user,
+                          time_zone: current_user.school.time_zone,
                           lesson: lesson, need_response: true)
     }
 
@@ -29,16 +30,16 @@ class Mypage::SubmissionsController < Mypage::ApplicationController
   private
   def submission_params
     {
-      scores: scores_params,
-      posts: posts_params
+      scores: score_params,
+      posts: post_params
     }
   end
 
-  def scores_params
+  def score_params
     params.fetch(:scores, {}).permit!
   end
 
-  def posts_params
+  def post_params
     Array(params[:posts]).compact.map do |p|
       p.permit(:body, :lesson)
     end

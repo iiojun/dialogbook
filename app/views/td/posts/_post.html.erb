@@ -9,7 +9,9 @@
       <span class="text-muted">@ <%= post.lesson.title %></span>
     </div>
     <div class="dialog-thread__time">
-      <%= post.created_at.in_time_zone(current_user.school.time_zone) %></div>
+      <%= post.created_at.in_time_zone(post.time_zone) 
+                         .strftime("%Y/%m/%d %H:%M") %>
+      (<%= post.time_zone %>)</div>
   </header>
 
   <div class="chat-message chat-message--post">

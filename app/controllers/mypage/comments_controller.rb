@@ -7,7 +7,8 @@ class Mypage::CommentsController < Mypage::ApplicationController
     if msg.length > 0
       flash[:alert] = "#{msg} must be filled."
     else
-      Comment.create!(body: body, post: @post, user: current_user)
+      Comment.create!(body: body, post: @post, user: current_user,
+                      time_zone: current_user.school.time_zone)
       @post.record_response_from!(current_user)
       flash[:notice] = "comment was successfully recorded."
     end

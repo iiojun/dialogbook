@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_21_084636) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_25_052923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_084636) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "time_zone"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -107,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_084636) do
     t.boolean "need_response", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "time_zone"
     t.index ["lesson_id"], name: "index_posts_on_lesson_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end

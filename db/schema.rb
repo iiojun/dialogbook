@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_26_044349) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_26_131426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,15 +46,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_26_044349) do
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "description"
     t.index ["consent_form_id"], name: "index_consent_form_versions_on_consent_form_id"
   end
 
   create_table "consent_forms", force: :cascade do |t|
     t.bigint "project_id", null: false
-    t.string "name"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "current_version_id"
+    t.index ["current_version_id"], name: "index_consent_forms_on_current_version_id"
     t.index ["project_id"], name: "index_consent_forms_on_project_id"
   end
 
@@ -218,6 +220,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_26_044349) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "consent_form_versions", "consent_forms"
+  add_foreign_key "consent_forms", "consent_form_versions", column: "current_version_id"
   add_foreign_key "consent_forms", "projects"
   add_foreign_key "consent_items", "consent_form_versions"
   add_foreign_key "lessons", "schools"

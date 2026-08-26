@@ -1,5 +1,9 @@
 class ConsentForm < ApplicationRecord
   belongs_to :project
-  has_many :versions, class_name: "ConsentFormVersion",
-                       dependent: :restrict_with_exception
+  belongs_to :current_version,
+             class_name: "ConsentFormVersion",
+             optional: true
+
+  has_many :consent_form_versions,
+           dependent: :restrict_with_exception
 end

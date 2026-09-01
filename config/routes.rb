@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # MyPage
   namespace :mypage do
     root to: "users#show"
-    get "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
+    post "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
     delete "/:id/delete_school/:sid", to: "users#delete_school", as: :delete_school
     resources :users,       only: [:edit, :show, :update]
     resources :notes,       only: [:create, :destroy]
@@ -33,11 +33,14 @@ Rails.application.routes.draw do
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
     resources :certificates, except: [:new, :show]
-    # get "/certificates/issue/:uid/:sid", to: "certificates#issue",
-    #                                      as: :issue_certificate
-    # get "/certificates/:id/revoke", to: "certificates#revoke", as: :revoke_certificate
     post "/certificates/bulk_issue",  to: "certificates#bulk_issue"
     get "/certificates/download_all", to: "certificates#download_all"
+    resources :consent_forms, only: [:index]
+    post "/consent_forms/load_default", to: "consent_forms#load_default"
+    post "/consent_forms/new_version", to: "consent_forms#new_version"
+    resources :consent_form_versions, except: [:new, :index, :show]
+    post "/consent_forms/publish",     to: "consent_form_versions#publish"
+    resources :consent_items, except: [:new, :index, :show]
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]
@@ -53,4 +56,7 @@ Rails.application.routes.draw do
     resources :users,    only: [:destroy, :edit, :update]
     resources :certificates, only: [:index]
   end
+
+  # Helper apps
+  post "markdown/preview", to: "markdown_previews#show"
 end

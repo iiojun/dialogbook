@@ -35,7 +35,8 @@
                Done
              <% else %>
                <%= link_to "Done", 
-                     mypage_switch_school_path(id: current_user, sid: s) %>
+                     mypage_switch_school_path(id: current_user, sid: s),
+                     data: { turbo_method: :post } %>
              <% end %>
            <% else %>
              Not yet

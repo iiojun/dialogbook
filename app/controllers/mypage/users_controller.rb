@@ -75,7 +75,7 @@ class Mypage::UsersController < Mypage::ApplicationController
   def switch_school
     s = School.find(params[:sid])
     current_user.school = s
-    current_user.save
+    current_user.save!
     flash[:notice] = "School was changed to #{s.name} (#{s.project.year})."
     redirect_to edit_mypage_user_path(current_user)
   end

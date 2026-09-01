@@ -16,12 +16,12 @@
                 td_users_withdraw_path(uid: user, sid: current_user.school),
                    class: "btn btn-sm btn-secondary",
                    data: { turbo_confirm: "Are you sure?",
-                           turbo_method: :get } %>
+                           turbo_method: :patch } %>
         <% end %></td>
   <% else %>
     <%= link_to label,
-            td_users_delete_path(uid: user, sid: current_user.school),
+            td_user_path(user, sid: current_user.school),
                class: "btn btn-sm btn-secondary",
-               data: { turbo_confirm: "Are you sure?", turbo_method: :get } %>
+               data: { turbo_confirm: "Are you sure?", turbo_method: :delete } %>
   <% end %>
 </tr>

@@ -20,26 +20,25 @@ Rails.application.routes.draw do
 
   # Teacher's Dashboard
   namespace :td do
-    resources :users,      only: [:index, :create, :edit, :update]
-    get "/users/approve",  to: "users#approve"
-    get "/users/withdraw", to: "users#withdraw"
-    get "/users/delete",   to: "users#delete"
+    patch "/users/approve",  to: "users#approve"
+    patch "/users/withdraw", to: "users#withdraw"
+    resources :users,      except: [:new, :show]
     resources :lessons,    except: [:new, :show]
     resources :rubrics,    except: [:new, :show]
     resources :meetings,   except: [:new, :show]
     resources :notes,      only: [:destroy, :edit, :update]
     resources :schools,    only: [:show]
-    resources :todos,      except: [:new, :show]
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
-    resources :certificates, except: [:new, :show]
+    resources :todos,      except: [:new, :show]
     post "/certificates/bulk_issue",  to: "certificates#bulk_issue"
     get "/certificates/download_all", to: "certificates#download_all"
-    resources :consent_forms, only: [:index]
+    resources :certificates, except: [:new, :show]
     post "/consent_forms/load_default", to: "consent_forms#load_default"
     post "/consent_forms/new_version", to: "consent_forms#new_version"
-    resources :consent_form_versions, except: [:new, :index, :show]
     post "/consent_forms/publish",     to: "consent_form_versions#publish"
+    resources :consent_forms, only: [:index]
+    resources :consent_form_versions, except: [:new, :index, :show]
     resources :consent_items, except: [:new, :index, :show]
 
     namespace :api, { format: "json" } do

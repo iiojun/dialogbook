@@ -65,10 +65,10 @@ class Td::UsersController < Td::ApplicationController
     redirect_to td_users_path
   end
 
-  def delete
+  def destroy
     p = user_params
     begin
-      u = User.find(p[:uid])
+      u = User.find(p[:id])
       s = School.find(p[:sid])
       us = UserSchool.find_by(user: u, school: s)
       us.destroy

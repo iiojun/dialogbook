@@ -2,56 +2,66 @@
 <div class="list-group mb-5">
   <%= link_to "#{octicon 'people', height: 24, 
                          class: 'right left', 'aria-label': 'people'} &nbsp;
-               #{content_tag :span, 'User accounts management', 
+               #{content_tag :span, 'Users', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_users_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'mortar-board', height: 24, 
                          class: 'right left', 'aria-label': 'mortar-board'} &nbsp;
-               #{content_tag :span, 'Lessons (Questions) management', 
+               #{content_tag :span, 'Lessons & Questions', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_lessons_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'calendar', height: 24, 
                          class: 'right left', 'aria-label': 'calendar'} &nbsp;
-               #{content_tag :span, 'Activities management', 
+               #{content_tag :span, 'Activities', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_meetings_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'comment-discussion', height: 24, class: 'right left',
                          'aria-label': 'comment-discssion'} &nbsp;
-               #{content_tag :span, 'All comments in my class', 
+               #{content_tag :span, 'Class comments', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_school_path(@user.school),
                          class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'checklist', height: 24, 
                          class: 'right left', 'aria-label': 'checklist'} &nbsp;
-               #{content_tag :span, 'Check list to manage your course', 
+               #{content_tag :span, 'Course checklist', 
                              class: 'text-primary'} &raquo;".html_safe,
               td_todos_path, class: 'list-group-item list-group-item-action' %>
   <%= link_to "#{octicon 'file-badge', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
-                 #{content_tag :span, 'Issue certificates', 
+                 #{content_tag :span, 'Certificates', 
                      class: 'text-primary'} &raquo;".html_safe,
             td_certificates_path, class: 'list-group-item list-group-item-action' %>
 <!--
   <%= link_to "#{octicon 'file-check', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
-                 #{content_tag :span, 'Consent management', 
+                 #{content_tag :span, 'Consent (not yet implemented)', 
                      class: 'text-primary'} &raquo;".html_safe,
-            td_certificates_path, class: 'list-group-item list-group-item-action' %>
+            td_consent_forms_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'file-directory', height: 24, 
+                           class: 'right left', 'aria-label': 'download'} &nbsp;
+                 #{content_tag :span, 'Resources (not yet implemented)', 
+                     class: 'text-primary'} &raquo;".html_safe,
+            root_path, class: 'list-group-item list-group-item-action' %>
+  <%= link_to "#{octicon 'megaphone', height: 24, 
+                           class: 'right left', 'aria-label': 'download'} &nbsp;
+                 #{content_tag :span, 'Notifications (not yet implemented)', 
+                     class: 'text-primary'} &raquo;".html_safe,
+            root_path, class: 'list-group-item list-group-item-action' %>
 -->
   <%= link_to "#{octicon 'download', height: 24, 
                          class: 'right left', 'aria-label': 'download'} &nbsp;
-               #{content_tag :span, 'Data download (experimental)', 
+               #{content_tag :span, 'Data export (experimental)', 
                    class: 'text-primary'} &raquo;".html_safe,
               td_api_users_path, class: 'list-group-item list-group-item-action' %>
   <% if @user.is_admin? %>
     <%= link_to "#{octicon 'list-unordered', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
-                 #{content_tag :span, 'Projects list', 
+                 #{content_tag :span, '[admin] Projects', 
                      class: 'text-primary'} &raquo;".html_safe,
             admin_root_path, class: 'list-group-item list-group-item-action' %>
     <%= link_to "#{octicon 'trophy', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
-                 #{content_tag :span, 'Certificates list', 
+                 #{content_tag :span, '[admin] Issued certificates', 
                      class: 'text-primary'} &raquo;".html_safe,
             admin_certificates_path, class: 'list-group-item list-group-item-action' %>
   <% end %>

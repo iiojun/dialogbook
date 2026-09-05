@@ -2,7 +2,7 @@ class Td::ConsentFormsController < Td::ApplicationController
   def index
     @consent = current_user.school.project.consent_form
     @students = current_user.school.users.where(role: "student")
-    @published_version = @consent.published_version
+    @published_version = @consent&.published_version
   end
 
   def load_default

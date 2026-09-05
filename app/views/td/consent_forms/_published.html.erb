@@ -1,0 +1,13 @@
+<div class="card mb-3">
+  <div class="card-body meeting-body">
+    <h2><%= version.title %></h2>
+    <p><%= markdown(version.description, p_class: "mb-0") %></p>
+    <h3>Consent items</h3>
+    <% if version.consent_items.empty? %>
+      <p>No consent items.</p>
+    <% else %>
+      <%= render version.consent_items, editable: false %>
+    <% end %>
+  </div>
+</div>
+

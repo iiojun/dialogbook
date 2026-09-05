@@ -1,0 +1,27 @@
+<% uc = user_consent %>
+<% version = uc.consent_form_version %>
+<tr>
+  <td class="text-center"><%= version.version %></td>
+  <td><%= version.title %></td>
+  <td class="text-start">
+    <% if uc.revoked_at.present? %>
+      --- 
+    <% else %>
+      <%= uc.created_at.in_time_zone(current_user.school.time_zone) %></td>
+    <% end %>
+  <td class="text-end">
+    <%= link_to "show", mypage_consent_form_version_path(
+                          uc.consent_form_version),
+                        class: "btn btn-success btn-sm" %></td>
+  <td class="text-end">
+    <% if uc.revoked_at.present? %>
+      Revoked
+    <% else %>
+      <%= link_to "revoke", 
+            mypage_user_consent_path(id: current_user.id, ucid: uc.id),
+              class: "btn btn-sm btn-secondary",
+              data: { turbo_confirm: "Are you sure?",
+                      turbo_method: :patch } %>
+    <% end %>
+  </td>
+</tr>

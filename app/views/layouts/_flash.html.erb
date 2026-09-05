@@ -1,9 +1,16 @@
-<% { notice: "info", alert: "warning" }.each do |type, bs_class| %>
+<% {
+  notice: ["info", true],
+  alert:  ["warning", true],
+  sticky: ["light", false]
+}.each do |type, (bs_class, auto_dismiss)| %>
+
   <% if flash[type].present? %>
     <div class="alert alert-<%= bs_class %> alert-dismissible fade show"
-         role="alert" data-controller="flash">
-
-      <%= flash[type] %>
+         role="alert"
+         <% if auto_dismiss %>
+           data-controller="flash"
+         <% end %>>
+      <%= flash[type].html_safe %>
 
       <button type="button" class="btn-close"
               data-bs-dismiss="alert" aria-label="dismiss">

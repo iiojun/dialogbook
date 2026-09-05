@@ -1,0 +1,13 @@
+<div class="mb-3" data-controller="markdown-preview">
+  <%= render "form", consent: version, label: "update" %>
+  <%= render "shared/markdown_preview" %>
+</div>
+<h3>Consent items</h3>
+<% if version.consent_items.empty? %>
+  <p>No consent items.</p>
+<% else %>
+  <table class="table table-sm table-striped">
+    <%= render "td/consent_items/tableheader" %>
+    <%= render version.consent_items, editable: true %>
+  </table>
+<% end %>

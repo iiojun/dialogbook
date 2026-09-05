@@ -1,0 +1,34 @@
+<%= form_with model: [:td, consent] do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th class="text-start" width="1%">Item</th>
+      <th>Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "title:" %></td>
+      <td><%= f.text_field :title, 
+                placeholder: "add a name...", style: "width:60%",
+                class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "description:" %></td>
+      <td><%= f.text_area :description, 
+                placeholder: "add a description...", 
+                style: "width:100%", rows: 10,
+                class: "form-control",
+                data: { markdown_preview_target: "input" } %></td>
+    </tr>
+  </table>
+  <div>
+    <button type="button"
+            class="btn btn-outline-info mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#markdownPreviewModal"
+            data-action="click->markdown-preview#show">
+      Preview
+    </button>
+  </div>
+  <%= f.hidden_field :version, { value: consent.version } %>
+  <%= f.hidden_field :status, { value: consent.status } %>
+  <%= f.submit label, class: "btn btn-primary" %>
+<% end %>

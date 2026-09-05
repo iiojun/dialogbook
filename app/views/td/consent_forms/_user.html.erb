@@ -1,0 +1,11 @@
+<% uc = user.latest_consent(@published_version) %>
+<% agreed = uc.present? && uc.revoked_at.nil? %>
+<tr>
+  <td class="text-center"><%= user.id %></td>
+  <td class="text-start"><%= user.name %></td>
+  <td class="text-start"><%= agreed ? "Agreed" : "Not yet agreed" %></td>
+  <td class="text-start">
+    <%= agreed ? uc.created_at.in_time_zone(current_user.school.time_zone)
+               : "---" %></td>
+  </td>
+</tr>

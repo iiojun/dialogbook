@@ -1,0 +1,4 @@
+<%= render "nav", consent_item: @consent_item, title: "Edit Consent Item" %>
+<h1>Edit a Consent Item</h1>
+<%= render "form", consent_item: @consent_item, 
+                   consent_form: @consent_item.consent_form_version, label: "update" %>

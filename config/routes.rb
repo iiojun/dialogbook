@@ -11,11 +11,15 @@ Rails.application.routes.draw do
     root to: "users#show"
     post "/:id/switch_school/:sid", to: "users#switch_school", as: :switch_school
     delete "/:id/delete_school/:sid", to: "users#delete_school", as: :delete_school
-    resources :users,       only: [:edit, :show, :update]
-    resources :notes,       only: [:create, :destroy]
-    resources :posts,       only: [:create]
-    resources :comments,    only: [:create]
-    resources :submissions, only: [:update]
+    resources :users,        only: [:edit, :show, :update]
+    resources :notes,        only: [:create, :destroy]
+    resources :posts,        only: [:create]
+    resources :comments,     only: [:create]
+    resources :submissions,  only: [:update]
+    resource :consent_forms, only: [:show]   # review => show
+    resource :user_consents, only: [:create] # consent => create
+    resources :user_consents, only: [:update] # revoke => update
+    resources :consent_form_versions, only: [:show]
   end
 
   # Teacher's Dashboard
@@ -28,15 +32,21 @@ Rails.application.routes.draw do
     resources :meetings,   except: [:new, :show]
     resources :notes,      only: [:destroy, :edit, :update]
     resources :schools,    only: [:show]
+
+    # course checklist
     patch "/todos/:id/toggle",  to: "todos#toggle"
     post "/todos/load_default", to: "todos#load_default"
     resources :todos,      except: [:new, :show]
+
+    # certifications
     post "/certificates/bulk_issue",  to: "certificates#bulk_issue"
     get "/certificates/download_all", to: "certificates#download_all"
     resources :certificates, except: [:new, :show]
+
+    # consent management
     post "/consent_forms/load_default", to: "consent_forms#load_default"
-    post "/consent_forms/new_version", to: "consent_forms#new_version"
-    post "/consent_forms/publish",     to: "consent_form_versions#publish"
+    post "/consent_forms/new_version",  to: "consent_forms#new_version"
+    post "/consent_forms/publish",      to: "consent_form_versions#publish"
     resources :consent_forms, only: [:index]
     resources :consent_form_versions, except: [:new, :index, :show]
     resources :consent_items, except: [:new, :index, :show]

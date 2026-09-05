@@ -1,0 +1,11 @@
+<tr>
+  <td class="text-center">
+    <%= form.hidden_field :consent_item_id, { value: consent_item.id } %>
+    <%= form.check_box :agreed, checked: true,
+          data: {
+            consent_items_target: "item",
+            action: "consent-items#updateAll"
+          } %></td>
+  <td><%= consent_item.title %></td>
+  <td><%= consent_item.description %></td>
+</tr>

@@ -1,0 +1,14 @@
+<% next_pos = version.consent_items.empty? ? 1
+                : version.consent_items.last.position + 1 %>
+
+<h1>Create a New Consent Item</h1>
+<div class="mb-3">
+  <%= render "td/consent_items/form",
+        consent_item: ConsentItem.new(position: next_pos),
+        consent_form: version,
+        label: "create" %>
+</div>
+<h1>Publish This Consent Form</h1>
+<p>Click the following button to publish this consent form.</p>
+<%= button_to "publish", td_consent_forms_publish_path,
+              method: :post, class: "btn btn-info mb-3" %>

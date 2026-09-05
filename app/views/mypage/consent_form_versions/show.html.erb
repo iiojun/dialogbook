@@ -1,0 +1,18 @@
+<%= render "mypage/consent_forms/nav" %>
+<h1>Consent Form</h1>
+<p>version: <%= @version.version %></p>
+<div class="card mb-3">
+  <div class="card-body meeting-body">
+    <h2><%= @version.title %></h2>
+    <p><%= markdown(@version.description, p_class: "mb-0") %></p>
+    <h3>Consent items</h3>
+    <% if @version.consent_items.empty? %>
+      <p>No consent items.</p>
+    <% else %>
+      <%= render @version.consent_items, user_consent: @user_consent %>
+    <% end %>
+  </div>
+</div>
+<div class="mb-3">
+  <%= link_to "close", mypage_user_path(current_user), class: "btn btn-primary" %>
+</div>

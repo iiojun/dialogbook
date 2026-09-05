@@ -1,0 +1,6 @@
+<div class="chat-message chat-message--post">
+  <% if !consent_item.title.nil? %><h4><%= consent_item.title %></h4><% end %>
+  <div class="chat-bubble mb-2">
+    <%= markdown(consent_item.description, p_class: "mb-0") %>
+  </div>
+</div>

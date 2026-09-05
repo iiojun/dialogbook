@@ -1,0 +1,28 @@
+<%= form_with model: [:td, consent_item] do |f| %>
+  <table class="table table-sm table-striped">
+    <tr>
+      <th class="text-start" width="1%">Item</th>
+      <th>Field</th>
+    </tr>
+    <tr>
+      <td><%= f.label "order:" %></td>
+      <td><%= f.number_field :position, step: 1, min: 1,
+                style: "width:10%",
+                class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "title:" %></td>
+      <td><%= f.text_field :title, 
+              placeholder: "add a title...", style: "width:60%",
+                class: "form-control" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "description:" %></td>
+      <td><%= f.text_area :description, 
+              placeholder: "add a description...", style: "width:100%",
+                class: "form-control" %></td>
+    </tr>
+  </table>
+  <%= f.hidden_field :consent_form_version, { value: consent_form.id } %>
+  <%= f.submit label, class: "btn btn-primary" %>
+<% end %>

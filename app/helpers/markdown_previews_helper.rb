@@ -1,0 +1,2 @@
+module MarkdownPreviewsHelper
+end

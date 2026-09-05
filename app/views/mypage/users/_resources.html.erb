@@ -1,0 +1,5 @@
+<h2>Resources</h2>
+<% if current_user.is_student? && 
+        @consent.versions(current_user).present? %>
+  <%= render "consent_forms", user_consents: @user_consents %>
+<% end %>

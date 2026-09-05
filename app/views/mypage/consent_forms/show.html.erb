@@ -1,0 +1,11 @@
+<%= render "nav" %>
+<h1>Review the Consent Form</h1>
+<div class="card mb-3">
+  <div class="card-body meeting-body">
+    <h2><%= @version.title %></h2>
+    <p><%= markdown(@version.description, p_class: "mb-0") %></p>
+    <h3>Consent items</h3>
+    <%= render "table", user_consent: @user_consent %>
+  </div>
+</div>
+

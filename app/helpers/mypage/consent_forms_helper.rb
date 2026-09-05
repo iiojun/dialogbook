@@ -1,0 +1,2 @@
+module Mypage::ConsentFormsHelper
+end

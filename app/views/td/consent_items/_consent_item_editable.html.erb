@@ -1,0 +1,16 @@
+<tr>
+  <td class="text-end"><%= consent_item.position %></td>
+  <td class="text-start"><%= consent_item.title %></td>
+  <td class="text-start">
+        <%= markdown(consent_item.description, p_class: "mb-0") %></td>
+  <td class="text-end"><%= link_to "edit",
+                  edit_td_consent_item_path(consent_item),
+                  class: "btn btn-success btn-sm" %>
+  </td>
+  <td class="text-end"><%= link_to "delete",
+                  td_consent_item_path(consent_item), 
+                  class: "btn btn-secondary btn-sm",
+                  data: { turbo_confirm: "Are you sure?",
+                          turbo_method: :delete }  %>
+  </td>
+</tr>

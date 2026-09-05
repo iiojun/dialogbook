@@ -1,0 +1,5 @@
+<% if version.draft? %>
+  <%= render "draft", version: version %>
+<% else %>
+  <%= render "published", version: version %>
+<% end %>

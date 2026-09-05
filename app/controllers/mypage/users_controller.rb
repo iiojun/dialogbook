@@ -26,6 +26,16 @@ class Mypage::UsersController < Mypage::ApplicationController
 
       # preparing user's scores for every lesson
       @scores = @user.prepare_scores&.order("created_at asc")
+
+      @consent = @school&.project.consent_form
+      version = @consent&.published_version
+      if (version.present? && version.review_required?(@user))
+        # show the consent form requesting student's response
+        flash[:sticky] = "A new consent form is available. " \
+          "Please review and indicate your consent. " \
+          "#{view_context.link_to("[Review it]", mypage_consent_forms_path)}"
+      end
+      @user_consents = current_user.user_consents.for_consent_form(@consent)
     end
   end
 

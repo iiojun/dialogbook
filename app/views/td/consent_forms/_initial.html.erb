@@ -1,0 +1,10 @@
+<h1>Consent Form</h1>
+  <p>Load a default consent form from the template.</p>
+  <%= button_to "load default", td_consent_forms_load_default_path,
+                method: :post, class: "btn btn-primary mb-3" %>
+<h1>Create a New Consent Form</h1>
+<p>Please add consent items after creating a consent form.</p>
+<div class="mb-3" data-controller="markdown-preview">
+  <%= render "form", consent: ConsentFormVersion.new, label: "create" %>
+  <%= render "shared/markdown_preview" %>
+</div>

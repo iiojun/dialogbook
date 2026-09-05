@@ -1,0 +1,19 @@
+<% if user_consent.consent_form_version.consent_items.empty? %>
+  <p>No consent items.</p>
+<% else %>
+  <%= form_with model: user_consent, url: mypage_user_consents_path do |form| %>
+    <p>Check the box next to each item to indicate your agreement.
+       If you check the box at the top, all items will be checked.</p>
+    <table class="table table-sm table-striped"
+           data-controller="consent-items">
+      <%= render "tableheader" %>
+      <%= form.fields_for :user_consent_items do |item_form| %>
+        <%= render "consent_item",
+              consent_item: item_form.object.consent_item,
+              form: item_form %>
+      <% end %>
+    </table>
+    <p>I agree to the consent items above.</p>
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+<% end %>

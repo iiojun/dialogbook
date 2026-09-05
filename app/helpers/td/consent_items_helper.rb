@@ -1,0 +1,2 @@
+module Td::ConsentItemsHelper
+end

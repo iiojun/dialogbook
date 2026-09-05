@@ -64,6 +64,11 @@ class User < ApplicationRecord
     user_schools.find_by(school: school)&.certificate
   end
 
+  def latest_consent(version)
+    user_consents.where(consent_form_version: version)
+      .order(created_at: :desc).first
+  end
+
   private
 
   def has_keyword?(key)

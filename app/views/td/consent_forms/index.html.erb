@@ -1,0 +1,15 @@
+<%= render "td/nav", title: "Consent Form" %>
+<% if @consent.nil? %>
+  <%= render "initial" %>
+<% else %>
+  <h1>Consent Form</h1>
+  <% version = @consent.current_version %>
+  <p>Version: <%= version.version %></p>
+  <%= render "version", version: version %>
+  <%= render "actions", version: version %>
+  <% if @published_version.present? %>
+    <h1>Consent Status</h1>
+    <p>Latest published version: <%= @published_version.version %></p>
+    <%= render "agreements" %>
+  <% end %>
+<% end %>

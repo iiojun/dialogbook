@@ -1,0 +1,63 @@
+consent_form_version:
+  version: 1
+  status: draft
+  title: Consent Form Document
+  description: |
+    This document will describe the data collected through intercultural communication class activities using TV the conference system. Please read through carefully.
+
+    PROJECT TITLE: STUDENTS MEET INTERNATIONALLY THROUGH LANGUAGE EDUCATION (SMILE) PROJECT
+    PRINCIPAL INVESTIGATOR: _________ **YOUR NAME AND ADDRESS** _________ 
+    &nbsp;
+    #### WHAT IS THE PURPOSE OF THIS STUDY?
+    The purposes of data collection are to study how to use TV conference and internet recording systems effectively in English Language Teaching through a course of English communication, and to investigate how learners’ knowledge of English develops through the course.
+    &nbsp;
+    #### WHAT IS THE PURPOSE OF THIS FORM?
+    This form is called a consent form, which gives you the information you will need to help you decide whether to be in the study or not. You may ask any questions about the research, the possible risks and benefits, your rights as a volunteer, and anything else that is not clear.
+    &nbsp;
+    #### WHAT WILL HAPPEN DURING THIS STUDY AND HOW LONG WILL IT TAKE?
+    Data collection will be mainly carried out by recording the preparation for classes with a TV conference system, the classes, and review sessions, using the equipment for audio and video recording within the TV conference system. Besides, interaction among classmates and your teacher on the internet or in class may be recorded.
+    &nbsp;
+    #### WHAT ARE THE RISKS OF THIS STUDY?
+    There are no foreseeable risks to participating.
+    &nbsp;
+    #### WHO WILL SEE THE INFORMATION I GIVE?
+    The information you provide during this research study will be kept confidential to the extent permitted by law. To help protect your confidentiality, your responses to all tasks will be dissociated from your name (i.e., be kept anonymous by coding) and will remain only on the researcher’s computer for analysis. If the results of this project are published your identity will not be made public.
+    &nbsp;
+    #### DO I HAVE A CHOICE TO BE IN THE STUDY?
+    If you decide to take part in the study, it should be because you really want to volunteer. You will not lose any benefits or rights you would normally have if you choose not to volunteer. You can stop at any time during the study and still keep the benefits and rights you had before volunteering. You will not be treated differently if you decide to stop taking part in the study. You are also free to skip any questions that you would prefer not to answer.
+    &nbsp;
+    #### WHAT IF I HAVE QUESTIONS?
+    If you have any questions about this research project, please contact _________ **YOUR NAME, TEL. NO., AND EMAIL ADDRESS** _________ 
+
+consent_items:
+  - position: 1
+    title: Information
+    description: I have read and understood the project information given in the Participant Information Sheet.
+
+  - position: 2
+    title: Questions
+    description: I have had the opportunity to ask questions about the project.
+
+  - position: 3
+    title: Voluntary Participation
+    description: I understand my participation in this project is voluntary.
+
+  - position: 4
+    title: Withdrawal
+    description: I understand I can withdraw from the study at any time, without giving reasons and without penalty.
+
+  - position: 5
+    title: Data Withdrawal
+    description: I understand I can ask the researcher to withdraw/destroy the data I provide.
+
+  - position: 6
+    title: Confidentiality
+    description: I understand how the information I provide will be kept in order to ensure it remains confidential.
+
+  - position: 7
+    title: Data Use
+    description: I agree for the data I provide to be used only as specified in the Informed Consent Document.
+
+  - position: 8
+    title: Participation Agreement
+    description: I agree to take part in the above-named project.

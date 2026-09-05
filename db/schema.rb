@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_26_131426) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_04_073224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -181,8 +181,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_26_131426) do
   create_table "user_consents", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "consent_form_version_id", null: false
-    t.string "status"
-    t.datetime "agreed_at"
     t.datetime "revoked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

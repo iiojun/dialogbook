@@ -8,6 +8,6 @@ class UserConsent < ApplicationRecord
   accepts_nested_attributes_for :user_consent_items
 
   scope :for_consent_form, ->(consent_form) {
-    where(consent_form_version: consent_form.consent_form_versions)
+    where(consent_form_version: consent_form&.consent_form_versions)
   }
 end

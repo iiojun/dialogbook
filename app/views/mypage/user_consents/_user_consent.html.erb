@@ -12,6 +12,7 @@
   <td class="text-end">
     <%= link_to "show", mypage_consent_form_version_path(
                           uc.consent_form_version),
+                        data: { turbo: false },
                         class: "btn btn-success btn-sm" %></td>
   <td class="text-end">
     <% if uc.revoked_at.present? %>

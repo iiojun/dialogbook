@@ -29,11 +29,13 @@ class Mypage::UsersController < Mypage::ApplicationController
 
       @consent = @school&.project.consent_form
       version = @consent&.published_version
-      if (version.present? && version.review_required?(@user))
+      if (@user.is_student? &&
+          version.present? && version.review_required?(@user))
         # show the consent form requesting student's response
         flash[:sticky] = "A new consent form is available. " \
           "Please review and indicate your consent. " \
-          "#{view_context.link_to("[Review it]", mypage_consent_forms_path)}"
+          "#{view_context.link_to("[Review it]", mypage_consent_forms_path,
+                                  data: { turbo: false })}"
       end
       @user_consents = current_user.user_consents.for_consent_form(@consent)
     end

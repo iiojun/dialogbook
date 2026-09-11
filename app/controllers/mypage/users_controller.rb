@@ -27,7 +27,7 @@ class Mypage::UsersController < Mypage::ApplicationController
       # preparing user's scores for every lesson
       @scores = @user.prepare_scores&.order("created_at asc")
 
-      @consent = @school&.project.consent_form
+      @consent = @school&.project&.consent_form
       version = @consent&.published_version
       if (@user.is_student? &&
           version.present? && version.review_required?(@user))

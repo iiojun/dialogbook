@@ -1,0 +1,26 @@
+<div class="dropdown mb-3">
+  <button class="btn btn-outline-secondary btn-sm dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown">
+    Translate this page
+  </button>
+
+  <div class="dropdown-menu p-2">
+    <div id="google_translate_element"></div>
+  </div>
+</div>
+
+<script>
+  window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: "en",
+        includedLanguages: "ja,zh-CN,zh-TW,ko,th,vi,fr,de,es",
+        autoDisplay: false
+      },
+      "google_translate_element"
+    );
+  };
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

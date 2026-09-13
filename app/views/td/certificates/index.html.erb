@@ -8,7 +8,7 @@
       <%= render "tableheader" %>
       <% n_cert = 0 %>
       <% @users.each { |user| %>
-        <% cert = user.certificate_for(user.school) %>
+        <% cert = user.certificate_for(current_user.school) %>
         <%= render "user", user: user, cert: cert %>
         <% n_cert += cert ? 1 : 0 %>
       <% } %>

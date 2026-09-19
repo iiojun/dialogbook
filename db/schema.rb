@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_04_073224) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_18_040127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "certificate_designs", force: :cascade do |t|
+    t.bigint "school_id", null: false
+    t.string "name"
+    t.binary "background_pdf"
+    t.jsonb "settings"
+    t.boolean "in_use", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_certificate_designs_on_school_id", unique: true, where: "(in_use = true)"
+  end
 
   create_table "certificates", force: :cascade do |t|
     t.bigint "user_school_id", null: false
@@ -214,6 +225,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_073224) do
     t.index ["school_id"], name: "index_users_on_school_id"
   end
 
+  add_foreign_key "certificate_designs", "schools"
   add_foreign_key "certificates", "user_schools"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"

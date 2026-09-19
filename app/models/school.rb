@@ -4,6 +4,7 @@ class School < ApplicationRecord
   has_many :users, through: :user_schools
   has_many :certificates, through: :user_schools
   has_many :lessons, dependent: :destroy
+  has_many :certificate_designs, dependent: :destroy
 
   validates :time_zone, presence: true
 

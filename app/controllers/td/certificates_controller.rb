@@ -73,7 +73,8 @@ class Td::CertificatesController < Td::ApplicationController
 
     if certificates.length > 0
       send_data(
-        pdf = BulkCertificatePdfGenerator.new(certificates).generate,
+        pdf = BulkCertificatePdfGenerator
+                .new(certificates, current_user.school).generate,
         filename: "certificates.pdf",
         type: "application/pdf",
         disposition: "attachment"

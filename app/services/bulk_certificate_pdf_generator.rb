@@ -1,6 +1,8 @@
 class BulkCertificatePdfGenerator
-  def initialize(certificates)
+  def initialize(certificates, school)
     @certificates = certificates
+    @school = school
+    @design = school.certificate_designs&.find_by(in_use: true)
   end
 
   def generate
@@ -9,7 +11,7 @@ class BulkCertificatePdfGenerator
     @certificates.find_each do |certificate|
       pdf_binary =
         CertificatePdfGenerator
-          .new(certificate)
+          .new(certificate, @design)
           .generate
 
       combined_pdf << CombinePDF.parse(pdf_binary)

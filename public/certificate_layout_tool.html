@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificate Layout Editor</title>
+<style>
+  :root {
+    --bg: #f5f4f0; --panel: #ffffff; --text: #1f1f1d; --muted: #6b6a66;
+    --border: #d9d7d0; --accent: #2f5fd0; --accent-text: #ffffff;
+    --name: #d0342c; --date: #1f8a4c; --stage: #e6e4dd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1b1a; --panel: #262624; --text: #ecebe6; --muted: #a3a29b;
+      --border: #3d3c38; --accent: #6d94f2; --accent-text: #10131a;
+      --name: #ff6b62; --date: #4cc985; --stage: #141413;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1b1a; --panel: #262624; --text: #ecebe6; --muted: #a3a29b;
+    --border: #3d3c38; --accent: #6d94f2; --accent-text: #10131a;
+    --name: #ff6b62; --date: #4cc985; --stage: #141413;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 14px; font-size: 13px; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px; margin-bottom: 12px;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: flex-end; }
+  .grp { display: flex; flex-direction: column; gap: 4px; }
+  .grp > label, .fieldtitle { font-size: 12px; color: var(--muted); }
+  .fieldset { flex: 1 1 320px; min-width: 280px; }
+  .fieldset h2 { font-size: 14px; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  input[type=text], input[type=number], select {
+    background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 8px; font: inherit; min-width: 0;
+  }
+  input[type=number] { width: 84px; }
+  input[type=text] { width: 150px; }
+  select { width: 150px; }
+  button {
+    font: inherit; cursor: pointer; border-radius: 6px; padding: 7px 14px;
+    border: 1px solid var(--border); background: var(--panel); color: var(--text);
+  }
+  button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  .filebtn input { display: none; }
+  .stage {
+    background: var(--stage); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; overflow-x: auto; text-align: center;
+  }
+  .canvaswrap { position: relative; display: inline-block; line-height: 0; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+  canvas { display: block; }
+  #overlay { position: absolute; left: 0; top: 0; touch-action: none; outline: none; }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  pre, textarea {
+    width: 100%; margin: 0; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px; padding: 10px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px;
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  .status { font-size: 12px; color: var(--muted); min-height: 18px; margin-top: 6px; }
+  .err { color: var(--name); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Certificate Layout Editor</h1>
+  <p class="sub">Load a background PDF, position the name and date fields by dragging or entering values, and save the layout as JSON. Coordinates are in PDF points with the origin at the bottom-left.</p>
+
+  <div class="panel">
+    <div class="row">
+      <div class="grp">
+        <span class="fieldtitle">Background PDF</span>
+        <label class="filebtn"><button type="button" id="pickBtn">Choose background.pdf…</button>
+          <input type="file" id="file" accept="application/pdf,.pdf"></label>
+      </div>
+      <div class="grp">
+        <span class="fieldtitle">Page size</span>
+        <span id="pageInfo">842 × 595 pt (no PDF loaded: blank placeholder)</span>
+      </div>
+    </div>
+    <div class="status" id="loadStatus"></div>
+  </div>
+
+  <div class="row" style="align-items: stretch;">
+    <div class="panel fieldset" id="namePanel">
+      <h2><span class="dot" style="background:var(--name)"></span>Name field (horizontally centered)</h2>
+      <div class="row">
+        <div class="grp"><label for="nameText">Preview text</label><input type="text" id="nameText"></div>
+        <div class="grp"><label for="nameFont">Font</label><select id="nameFont"></select></div>
+        <div class="grp"><label for="nameSize">Size</label><input type="number" id="nameSize" min="1" step="1"></div>
+        <div class="grp"><label for="nameY">y (baseline)</label><input type="number" id="nameY" step="1"></div>
+      </div>
+    </div>
+    <div class="panel fieldset" id="datePanel">
+      <h2><span class="dot" style="background:var(--date)"></span>Date field (x is the left edge)</h2>
+      <div class="row">
+        <div class="grp"><label for="dateText">Preview text</label><input type="text" id="dateText"></div>
+        <div class="grp"><label for="dateFont">Font</label><select id="dateFont"></select></div>
+        <div class="grp"><label for="dateSize">Size</label><input type="number" id="dateSize" min="1" step="1"></div>
+        <div class="grp"><label for="dateX">x</label><input type="number" id="dateX" step="1"></div>
+        <div class="grp"><label for="dateY">y (baseline)</label><input type="number" id="dateY" step="1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="canvaswrap" id="cwrap">
+      <canvas id="pdfCanvas"></canvas>
+      <canvas id="overlay" tabindex="0" aria-label="Layout editor"></canvas>
+    </div>
+    <div class="hint">Drag the text to move it (the name field moves vertically only). After clicking, use the arrow keys to nudge by 1 pt, or Shift + arrow keys for 10 pt.</div>
+  </div>
+
+  <div class="panel" style="margin-top:12px;">
+    <div class="row" style="justify-content: space-between; align-items:center; margin-bottom:8px;">
+      <span class="fieldtitle">Contents of settings.json (included in package.zip together with background.pdf)</span>
+      <div class="row" style="gap:8px;">
+        <button type="button" id="copyBtn">Copy JSON</button>
+        <button type="button" id="dlBtn" class="primary" disabled>Download package.zip</button>
+      </div>
+    </div>
+    <textarea id="jsonOut" readonly></textarea>
+    <div class="status" id="dlStatus"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var FONTS = {
+    "Helvetica":            { css: "Helvetica, Arial, sans-serif", weight: "normal", style: "normal" },
+    "Helvetica-Bold":       { css: "Helvetica, Arial, sans-serif", weight: "bold",   style: "normal" },
+    "Helvetica-Oblique":    { css: "Helvetica, Arial, sans-serif", weight: "normal", style: "italic" },
+    "Times-Roman":          { css: "'Times New Roman', Times, serif", weight: "normal", style: "normal" },
+    "Times-Bold":           { css: "'Times New Roman', Times, serif", weight: "bold", style: "normal" },
+    "Times-Italic":         { css: "'Times New Roman', Times, serif", weight: "normal", style: "italic" },
+    "Courier":              { css: "'Courier New', Courier, monospace", weight: "normal", style: "normal" },
+    "Courier-Bold":         { css: "'Courier New', Courier, monospace", weight: "bold", style: "normal" }
+  };
+
+  var today = new Date();
+  var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+
+  var st = {
+    W: 842, H: 595, s: 1,
+    pdf: null, page: null, pdfBytes: null, renderId: 0,
+    sel: "name", drag: null, hover: null,
+    name: { font: "Helvetica", size: 36, y: 280, text: "Taro Yamada" },
+    date: { font: "Helvetica", size: 20, x: 455, y: 145,
+            text: today.getFullYear() + "-" + pad(today.getMonth() + 1) + "-" + pad(today.getDate()) }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pdfCanvas = $("pdfCanvas"), overlay = $("overlay");
+  var octx = overlay.getContext("2d");
+
+  // ---- populate font selects
+  ["nameFont", "dateFont"].forEach(function (id) {
+    var sel = $(id);
+    Object.keys(FONTS).forEach(function (k) {
+      var o = document.createElement("option"); o.value = k; o.textContent = k; sel.appendChild(o);
+    });
+  });
+
+  // ---- helpers
+  function cssFont(f, sizePx) {
+    var d = FONTS[f] || FONTS.Helvetica;
+    return d.style + " " + d.weight + " " + sizePx + "px " + d.css;
+  }
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "#f00";
+  }
+  function fmt(v) { return Math.round(v * 100) / 100; }
+
+  function getBox(key) {
+    var f = st[key], s = st.s;
+    octx.save();
+    octx.font = cssFont(f.font, f.size * s);
+    var w = octx.measureText(f.text || " ").width;
+    octx.restore();
+    var left = key === "name" ? (st.W / 2) * s - w / 2 : f.x * s;
+    var base = (st.H - f.y) * s;
+    return { left: left, right: left + w, top: base - f.size * s * 0.85, bottom: base + f.size * s * 0.25, base: base, w: w };
+  }
+
+  // ---- drawing
+  function drawOverlay() {
+    var dpr = window.devicePixelRatio || 1;
+    octx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    octx.clearRect(0, 0, st.W * st.s, st.H * st.s);
+
+    // centre guide while dragging name
+    if (st.drag && st.drag.key === "name") {
+      octx.save();
+      octx.strokeStyle = cssVar("--name"); octx.globalAlpha = 0.5; octx.setLineDash([4, 4]);
+      octx.beginPath(); octx.moveTo(st.W * st.s / 2, 0); octx.lineTo(st.W * st.s / 2, st.H * st.s); octx.stroke();
+      octx.restore();
+    }
+
+    ["name", "date"].forEach(function (key) {
+      var f = st[key], b = getBox(key);
+      var color = cssVar(key === "name" ? "--name" : "--date");
+      octx.save();
+      octx.font = cssFont(f.font, f.size * st.s);
+      octx.textBaseline = "alphabetic";
+      octx.textAlign = "left";
+      octx.fillStyle = "#111";
+      octx.fillText(f.text || "", b.left, b.base);
+      // box + baseline
+      var active = st.sel === key, hot = st.hover === key || (st.drag && st.drag.key === key);
+      octx.strokeStyle = color;
+      octx.lineWidth = active ? 1.5 : 1;
+      octx.setLineDash(active || hot ? [] : [3, 3]);
+      octx.globalAlpha = active || hot ? 1 : 0.6;
+      octx.strokeRect(b.left - 3, b.top, b.w + 6, b.bottom - b.top);
+      // baseline anchor marker
+      var ax = key === "name" ? (b.left + b.right) / 2 : b.left;
+      octx.setLineDash([]);
+      octx.fillStyle = color;
+      octx.beginPath(); octx.arc(ax, b.base, 3, 0, Math.PI * 2); octx.fill();
+      octx.restore();
+    });
+  }
+
+  function sizeCanvases() {
+    var dpr = window.devicePixelRatio || 1;
+    var w = st.W * st.s, h = st.H * st.s;
+    [pdfCanvas, overlay].forEach(function (c) {
+      c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+      c.style.width = w + "px"; c.style.height = h + "px";
+    });
+  }
+
+  function fitScale() {
+    var avail = $("stage").clientWidth - 26;
+    return Math.max(0.2, Math.min(2, avail / st.W));
+  }
+
+  async function renderPage() {
+    st.s = fitScale();
+    sizeCanvases();
+    var dpr = window.devicePixelRatio || 1;
+    var ctx = pdfCanvas.getContext("2d");
+    var id = ++st.renderId;
+    if (st.page) {
+      var vp = st.page.getViewport({ scale: st.s * dpr });
+      try {
+        await st.page.render({ canvasContext: ctx, viewport: vp }).promise;
+      } catch (e) { /* superseded render */ }
+    } else {
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+    }
+    drawOverlay();
+  }
+
+  // ---- inputs <-> state
+  function syncInputs() {
+    $("nameText").value = st.name.text; $("nameFont").value = st.name.font;
+    $("nameSize").value = st.name.size; $("nameY").value = fmt(st.name.y);
+    $("dateText").value = st.date.text; $("dateFont").value = st.date.font;
+    $("dateSize").value = st.date.size; $("dateX").value = fmt(st.date.x); $("dateY").value = fmt(st.date.y);
+    $("namePanel").style.outline = st.sel === "name" ? "2px solid var(--name)" : "none";
+    $("datePanel").style.outline = st.sel === "date" ? "2px solid var(--date)" : "none";
+  }
+
+  function jsonText() {
+    var n = st.name, d = st.date;
+    return '{"name" : {"font" : ' + JSON.stringify(n.font) + ', "size" : ' + fmt(n.size) + ', "y" : ' + fmt(n.y) + '},\n' +
+           ' "date" : {"font" : ' + JSON.stringify(d.font) + ', "size" : ' + fmt(d.size) +
+           ', "x" : ' + fmt(d.x) + ', "y" : ' + fmt(d.y) + '}}';
+  }
+
+  function refresh(skipInputs) {
+    if (!skipInputs) syncInputs();
+    $("jsonOut").value = jsonText();
+    drawOverlay();
+  }
+
+  function num(id, fallback) {
+    var v = parseFloat($(id).value);
+    return isFinite(v) ? v : fallback;
+  }
+
+  function bind(id, fn) {
+    var el = $(id);
+    var h = function () { fn(); refresh(true); };
+    el.addEventListener("input", h);
+    el.addEventListener("change", h);
+    el.addEventListener("focus", function () {
+      if (id.indexOf("name") === 0) st.sel = "name"; else st.sel = "date";
+      syncInputs(); drawOverlay();
+    });
+  }
+  bind("nameText", function () { st.name.text = $("nameText").value; });
+  bind("nameFont", function () { st.name.font = $("nameFont").value; });
+  bind("nameSize", function () { st.name.size = Math.max(1, num("nameSize", st.name.size)); });
+  bind("nameY",    function () { st.name.y = num("nameY", st.name.y); });
+  bind("dateText", function () { st.date.text = $("dateText").value; });
+  bind("dateFont", function () { st.date.font = $("dateFont").value; });
+  bind("dateSize", function () { st.date.size = Math.max(1, num("dateSize", st.date.size)); });
+  bind("dateX",    function () { st.date.x = num("dateX", st.date.x); });
+  bind("dateY",    function () { st.date.y = num("dateY", st.date.y); });
+
+  // ---- pointer interaction
+  function pos(e) {
+    var r = overlay.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * (st.W * st.s / r.width), y: (e.clientY - r.top) * (st.H * st.s / r.height) };
+  }
+  function hit(p) {
+    var keys = st.sel === "date" ? ["date", "name"] : ["name", "date"];
+    for (var i = 0; i < keys.length; i++) {
+      var b = getBox(keys[i]);
+      if (p.x >= b.left - 6 && p.x <= b.right + 6 && p.y >= b.top - 4 && p.y <= b.bottom + 4) return keys[i];
+    }
+    return null;
+  }
+
+  overlay.addEventListener("pointerdown", function (e) {
+    var p = pos(e), k = hit(p);
+    overlay.focus();
+    if (!k) return;
+    st.sel = k;
+    var b = getBox(k);
+    st.drag = { key: k, dx: p.x - b.left, dy: p.y - b.base };
+    overlay.setPointerCapture(e.pointerId);
+    refresh();
+    e.preventDefault();
+  });
+  overlay.addEventListener("pointermove", function (e) {
+    var p = pos(e);
+    if (st.drag) {
+      var k = st.drag.key, s = st.s;
+      st[k].y = Math.round(st.H - (p.y - st.drag.dy) / s);
+      if (k === "date") st.date.x = Math.round((p.x - st.drag.dx) / s);
+      refresh();
+    } else {
+      var h = hit(p);
+      if (h !== st.hover) { st.hover = h; drawOverlay(); }
+      overlay.style.cursor = h ? (h === "name" ? "ns-resize" : "move") : "default";
+    }
+  });
+  function endDrag() { if (st.drag) { st.drag = null; drawOverlay(); } }
+  overlay.addEventListener("pointerup", endDrag);
+  overlay.addEventListener("pointercancel", endDrag);
+  overlay.addEventListener("pointerleave", function () { if (!st.drag && st.hover) { st.hover = null; drawOverlay(); } });
+
+  overlay.addEventListener("keydown", function (e) {
+    var step = e.shiftKey ? 10 : 1, k = st.sel, f = st[k], used = true;
+    if (e.key === "ArrowUp") f.y += step;
+    else if (e.key === "ArrowDown") f.y -= step;
+    else if (e.key === "ArrowLeft" && k === "date") f.x -= step;
+    else if (e.key === "ArrowRight" && k === "date") f.x += step;
+    else if (e.key === "Tab") { used = false; }
+    else used = false;
+    if (used) { e.preventDefault(); refresh(); }
+  });
+
+  // ---- PDF loading
+  function setLoadStatus(msg, isErr) {
+    var el = $("loadStatus"); el.textContent = msg || ""; el.className = "status" + (isErr ? " err" : "");
+  }
+
+  async function loadPdf(file) {
+    if (!window.pdfjsLib) { setLoadStatus("Could not load pdf.js.", true); return; }
+    try {
+      setLoadStatus("Loading…");
+      var buf = await file.arrayBuffer();
+      var raw = new Uint8Array(buf.slice(0)); // keep the original PDF bytes (separate copy from the buffer passed to pdf.js)
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      var pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      var page = await pdf.getPage(1);
+      var vp = page.getViewport({ scale: 1 });
+      st.pdf = pdf; st.page = page; st.pdfBytes = raw; st.W = vp.width; st.H = vp.height;
+      $("dlBtn").disabled = false;
+      $("pageInfo").textContent = fmt(st.W) + " × " + fmt(st.H) + " pt (" + file.name + (pdf.numPages > 1 ? ", using page 1 only" : "") + ")";
+      setLoadStatus("");
+      await renderPage();
+      refresh();
+    } catch (err) {
+      setLoadStatus("Could not load the PDF: " + (err && err.message ? err.message : err), true);
+    }
+  }
+
+  $("pickBtn").addEventListener("click", function () { $("file").click(); });
+  $("file").addEventListener("change", function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (f) loadPdf(f);
+  });
+  var stage = $("stage");
+  stage.addEventListener("dragover", function (e) { e.preventDefault(); });
+  stage.addEventListener("drop", function (e) {
+    e.preventDefault();
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f && /pdf$/i.test(f.name)) loadPdf(f);
+  });
+
+  var rt;
+  window.addEventListener("resize", function () {
+    clearTimeout(rt); rt = setTimeout(renderPage, 150);
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", drawOverlay);
+  }
+
+  // ---- export
+  var dlStatus = $("dlStatus");
+  function setDl(msg, isErr) { dlStatus.textContent = msg || ""; dlStatus.className = "status" + (isErr ? " err" : ""); }
+
+  // ---- minimal ZIP writer (store, no compression)
+  var crcTable = (function () {
+    var t = [];
+    for (var n = 0; n < 256; n++) {
+      var c = n;
+      for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+  function crc32(u8) {
+    var c = 0xFFFFFFFF;
+    for (var i = 0; i < u8.length; i++) c = crcTable[(c ^ u8[i]) & 255] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+  function makeZip(files) {
+    var enc = new TextEncoder(), parts = [], central = [], offset = 0, cdSize = 0;
+    var now = new Date();
+    var dosTime = (now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1);
+    var dosDate = ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
+    files.forEach(function (f) {
+      var nm = enc.encode(f.name), crc = crc32(f.data), sz = f.data.length;
+      var lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true);
+      lh.setUint16(8, 0, true); lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true);
+      lh.setUint32(14, crc, true); lh.setUint32(18, sz, true); lh.setUint32(22, sz, true);
+      lh.setUint16(26, nm.length, true); lh.setUint16(28, 0, true);
+      parts.push(lh.buffer, nm, f.data);
+      var ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true);
+      ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true); ch.setUint16(12, dosTime, true);
+      ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true); ch.setUint32(20, sz, true);
+      ch.setUint32(24, sz, true); ch.setUint16(28, nm.length, true); ch.setUint16(30, 0, true);
+      ch.setUint16(32, 0, true); ch.setUint16(34, 0, true); ch.setUint16(36, 0, true);
+      ch.setUint32(38, 0, true); ch.setUint32(42, offset, true);
+      central.push(ch.buffer, nm);
+      cdSize += 46 + nm.length;
+      offset += 30 + nm.length + sz;
+    });
+    var eo = new DataView(new ArrayBuffer(22));
+    eo.setUint32(0, 0x06054b50, true); eo.setUint16(4, 0, true); eo.setUint16(6, 0, true);
+    eo.setUint16(8, files.length, true); eo.setUint16(10, files.length, true);
+    eo.setUint32(12, cdSize, true); eo.setUint32(16, offset, true); eo.setUint16(20, 0, true);
+    return new Blob(parts.concat(central, [eo.buffer]), { type: "application/zip" });
+  }
+
+  function saveBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    // revoke after the browser has had time to start the download
+    setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+  }
+
+  $("dlBtn").addEventListener("click", function () {
+    if (!st.pdfBytes) { setDl("Please load a background PDF first.", true); return; }
+    try {
+      var zip = makeZip([
+        { name: "background.pdf", data: st.pdfBytes },
+        { name: "settings.json", data: new TextEncoder().encode(jsonText() + "\n") }
+      ]);
+      saveBlob(zip, "package.zip");
+      setDl("package.zip has been generated. Check your browser's downloads.");
+    } catch (e) {
+      setDl("Could not create package.zip: " + (e && e.message ? e.message : e), true);
+    }
+  });
+
+  $("copyBtn").addEventListener("click", async function () {
+    try {
+      await navigator.clipboard.writeText(jsonText());
+      setDl("Copied.");
+    } catch (e) {
+      $("jsonOut").focus(); $("jsonOut").select();
+      setDl("Automatic copy failed. Please copy the selected text manually.");
+    }
+  });
+
+  // ---- init
+  syncInputs();
+  renderPage().then(function () { refresh(); });
+})();
+</script>
+</body>
+</html>

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   # Teacher's Dashboard
   namespace :td do
+    get "certificate_designs/index"
+    get "certificate_designs/create"
     patch "/users/approve",  to: "users#approve"
     patch "/users/withdraw", to: "users#withdraw"
     resources :users,      except: [:new, :show]
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
     post "/certificates/bulk_issue",  to: "certificates#bulk_issue"
     get "/certificates/download_all", to: "certificates#download_all"
     resources :certificates, except: [:new, :show]
+    resources :certificate_designs, only: [:create]
 
     # consent management
     post "/consent_forms/load_default", to: "consent_forms#load_default"

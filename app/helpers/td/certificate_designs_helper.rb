@@ -1,0 +1,2 @@
+module Td::CertificateDesignsHelper
+end

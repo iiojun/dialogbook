@@ -1,0 +1,24 @@
+<h2>Certificate Designs</h2>
+<div class="card mb-4">
+  <div class="card-body meeting-body">
+    <h5 class="card-title">Upload Certificate Design</h5>
+    <%= form_with(model: CertificateDesign.new,
+                  url: td_certificate_designs_path,
+                  multipart: true) do |form| %>
+      <div class="mb-3">
+        <%= form.label :name, "Design name", class: "form-label" %>
+        <%= form.text_field :name,
+              class: "form-control",
+              required: true %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :package, "Design package", class: "form-label" %>
+        <%= form.file_field :package,
+              class: "form-control",
+              accept: ".zip",
+              required: true %>
+      </div>
+      <%= form.submit "Upload", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_18_040127) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_23_011336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -142,6 +142,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_18_040127) do
     t.index ["lesson_id"], name: "index_rubrics_on_lesson_id"
   end
 
+  create_table "school_sites", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.decimal "latitude", precision: 10, scale: 7
+    t.decimal "longitude", precision: 10, scale: 7
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "time_zone"
+  end
+
   create_table "schools", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "name"
@@ -154,7 +164,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_18_040127) do
     t.string "time_zone", default: "UTC", null: false
     t.decimal "latitude", precision: 10, scale: 7
     t.decimal "longitude", precision: 10, scale: 7
+    t.bigint "school_site_id"
     t.index ["project_id"], name: "index_schools_on_project_id"
+    t.index ["school_site_id"], name: "index_schools_on_school_site_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -241,6 +253,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_18_040127) do
   add_foreign_key "posts", "users"
   add_foreign_key "rubrics", "lessons"
   add_foreign_key "schools", "projects"
+  add_foreign_key "schools", "school_sites"
   add_foreign_key "scores", "rubrics"
   add_foreign_key "scores", "users"
   add_foreign_key "todos", "projects"

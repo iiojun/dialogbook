@@ -1,5 +1,6 @@
 class School < ApplicationRecord
   belongs_to :project
+  belongs_to :school_site, optional: true
   has_many :user_schools, dependent: :destroy
   has_many :users, through: :user_schools
   has_many :certificates, through: :user_schools

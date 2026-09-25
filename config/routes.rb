@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     resources :users,    only: [:destroy, :edit, :update]
     resources :certificates, only: [:index]
     resources :school_sites, except: [:new, :show]
+    get "schools_map/index", to: "schools_map#index"
   end
 
   # Helper apps

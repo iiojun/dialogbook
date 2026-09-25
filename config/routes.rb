@@ -61,7 +61,6 @@ Rails.application.routes.draw do
 
   # Administration
   namespace :admin do
-    root "projects#index"
     resources :projects, except: [:new, :show]
     resources :schools,  only: [:create, :destroy, :edit, :update]
     resources :users,    only: [:destroy, :edit, :update]

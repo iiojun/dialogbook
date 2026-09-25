@@ -16,7 +16,7 @@ class Admin::ProjectsController < Admin::ApplicationController
       Project.create(name: name, year: year, memo: memo)
       flash[:notice] = "a project was added."
     end
-    redirect_to admin_root_path
+    redirect_to admin_projects_path
   end
 
   def destroy
@@ -26,7 +26,7 @@ class Admin::ProjectsController < Admin::ApplicationController
     rescue ActiveRecord::InvalidForeignKey
       flash[:alert] = "the project could not be deleted because it is in use."
     end
-    redirect_to admin_root_path
+    redirect_to admin_projects_path
   end
 
   def edit
@@ -48,7 +48,7 @@ class Admin::ProjectsController < Admin::ApplicationController
     else
       pj.update(p)
       flash[:notice] = "a project was updated."
-      redirect_to admin_root_path
+      redirect_to admin_projects_path
     end
   end
 

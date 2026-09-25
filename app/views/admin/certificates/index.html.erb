@@ -1,4 +1,7 @@
-<%= render "nav" %>
+<%= render "shared/breadcrumbs",
+      items: [["Mypage", root_path],
+              ["[Admin] Issued Certificates", nil]] %>
+
 <h1>Dialogbook's Dashboard</h1>
 <% if @certificates != nil %>
 <h2>Certificates list</h2>

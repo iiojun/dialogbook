@@ -1,4 +1,8 @@
-<%= render "nav2" %>
+<%= render "shared/breadcrumbs",
+      items: [["MyPage", root_path],
+              ["[Admin] Schools", admin_school_sites_path],
+              ["School", nil]] %>
+
 <h1>School Dashboard</h1>
 <h2>School information</h2>
 <p>This school's TimeZone is 

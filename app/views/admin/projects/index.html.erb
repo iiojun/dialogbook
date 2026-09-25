@@ -1,4 +1,7 @@
-<%= render "nav" %>
+<%= render "shared/breadcrumbs",
+      items: [["Mypage", root_path], 
+              ["[Admin] Projects", nil]] %>
+
 <h1>Dialogbook's Dashboard</h1>
 <% if @projects != nil %>
 <h2>Project list</h2>

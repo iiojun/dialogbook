@@ -1,4 +1,9 @@
-<%= render "nav", project: @school.project %>
+<%= render "shared/breadcrumbs",
+      items: [["Mypage", root_path],
+              ["[Admin] Projects", admin_root_path],
+              ["Project", @school ? edit_admin_project_path(@school.project) : "Project"],
+              ["Class", nil]] %>
+
 <h1>Class Dashboard</h1>
 <h2>Class information</h2>
 <p>

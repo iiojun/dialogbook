@@ -1,4 +1,8 @@
-<%= render "nav" %>
+<%= render "shared/breadcrumbs",
+      items: [["Mypage", root_path],
+              ["[Admin] Projects", admin_root_path],
+              ["Project", nil]] %>
+
 <h1>Project Dashboard</h1>
 <h2>Project information</h2>
 <%= render "admin/projects/form", model: @project, label: "Update" %>

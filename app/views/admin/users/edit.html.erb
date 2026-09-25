@@ -1,4 +1,10 @@
-<%= render "nav", school: @school %>
+<%= render "shared/breadcrumbs", 
+      items: [["Mypage", root_path],
+              ["[Admin] Projects", admin_root_path],
+              ["Project", @school ? edit_admin_project_path(@school.project) : "Project"],
+              ["Class", @school ? edit_admin_school_path(@school) : "Class"],
+              ["User", nil]] %>
+
 <h1>User Management</h1>
 <h2>Edit the user</h2>
 <p>

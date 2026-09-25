@@ -1,4 +1,7 @@
-<%= render "nav" %>
+<%= render "shared/breadcrumbs",
+      items: [["MyPage", root_path],
+              ["[Admin] Schools", nil]] %>
+
 <h1>Dialogbook's Dashboard</h1>
 <% if @school_sites != nil %>
 <h2>School list</h2>

@@ -7,6 +7,14 @@ class SchoolSite < ApplicationRecord
   before_validation :geocode_and_update_time_zone, \
       if: :will_save_change_to_address?
 
+  enum :site_type, {
+    university: 0,
+    high_school: 1,
+    junior_high_school: 2,
+    elementary_school: 3,
+    other: 4
+  }
+
   def determine_time_zone
     return "UTC" if latitude.blank? || longitude.blank?
     Array(WhereTZ.lookup(latitude, longitude)).uniq.first || "UTC"
@@ -19,5 +27,4 @@ class SchoolSite < ApplicationRecord
     geocode
     self.time_zone = determine_time_zone
   end
-
 end

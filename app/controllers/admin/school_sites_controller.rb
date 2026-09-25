@@ -33,7 +33,7 @@ class Admin::SchoolSitesController < Admin::ApplicationController
       flash[:alert] = "School address is required."
     else
       s.update!(p)
-      flash[:notice] = "A school was added."
+      flash[:notice] = "A school was updated."
     end
     redirect_to admin_school_sites_path
   end
@@ -51,7 +51,7 @@ class Admin::SchoolSitesController < Admin::ApplicationController
   private
   def school_site_params
     params.require(:school_site)
-          .permit(:name, :address, :type, :latitude, :longitude)
+          .permit(:name, :address, :site_type, :latitude, :longitude)
   end
 
 end

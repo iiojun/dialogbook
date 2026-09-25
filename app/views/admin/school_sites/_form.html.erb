@@ -6,6 +6,10 @@
                <%= f.text_field :name, class: "form-control" %></td></tr>
        <tr><td><%= f.label "address" %>&nbsp;</td>
            <td><%= f.text_field :address, class: "form-control" %></td></tr>
+       <tr><td><%= f.label :site_type, "Type" %>&nbsp;</td>
+           <td><%= f.select :site_type,
+                 SchoolSite.site_types.keys.map { |type| [type.humanize, type] },
+                 {}, class: "form-select", style: "width: auto;" %></td></tr>
     </table>
     <% unless label == "Register" %>
       <br />

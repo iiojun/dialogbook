@@ -3,4 +3,19 @@
               ["[Admin] Map", nil]] %>
 
 <h1>Dialogbook's Dashboard</h1>
-<p>Find me in app/views/admin/schools_map/index.html.erb</p>
+<h2>Participating Schools Map</h2>
+<p>
+[Legend] <span style="color: #e74c3c;">University</span>,
+         <span style="color: #3498db;">High school</span>,
+         <span style="color: #2ecc71;">Junior high school</span>,
+         <span style="color: #f1c40f;">Elementary school</span>, and
+         <span style="color: #95a5a6;">Other</span>.
+</p>
+<div
+  data-controller="schools-map"
+  style="height: 700px;">
+</div>
+<script type="application/json" id="school-sites-data">
+  <%= raw @school_sites.to_json(
+            only: [:id, :name, :latitude, :longitude, :site_type]) %>
+</script>

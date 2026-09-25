@@ -5,9 +5,9 @@ class Admin::SchoolsController < Admin::ApplicationController
     name = p[:name]
     addr = p[:address]
     if name == ""
-      flash[:alert] = "school name is required."
+      flash[:alert] = "Class name is required."
     elsif addr == ""
-      flash[:alert] = "school address is required."
+      flash[:alert] = "Class address is required."
     else
       s = School.create(p.except(:pid))
       pj.schools << s          # add to the project
@@ -17,7 +17,7 @@ class Admin::SchoolsController < Admin::ApplicationController
         us.registered = true
         us.save
       }
-      flash[:notice] = "a school was added."
+      flash[:notice] = "A class was added."
     end
     redirect_to edit_admin_project_path(pj)
   end
@@ -48,10 +48,10 @@ class Admin::SchoolsController < Admin::ApplicationController
     paid = p[:paid]
 
     if name == ""
-      flash[:alert] = "school name is required."
+      flash[:alert] = "Class name is required."
       redirect_to edit_admin_school_path(s)
     elsif addr == ""
-      flash[:alert] = "school address is required."
+      flash[:alert] = "Class address is required."
       redirect_to edit_admin_school_path(s)
     else
       s.update(p)

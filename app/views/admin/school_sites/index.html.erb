@@ -1,0 +1,39 @@
+<%= render "nav" %>
+<h1>Dialogbook's Dashboard</h1>
+<% if @school_sites != nil %>
+<h2>School list</h2>
+<p>
+  <% if @school_sites.length == 0 %>
+    No schools
+  <% else %>
+    <table class="table table-sm table-striped">
+      <tr>
+        <th>School</th>
+        <th>Address</th>
+        <th width="15%">Time zone</th>
+        <th width="1%">Edit</th>
+        <th width="1%">Delete</th>
+      </tr>
+      <% @school_sites.each { |s| %>
+      <tr>
+        <td><%= s.name %></td>
+        <td><%= s.address %></td>
+        <td><%= s.time_zone %></td>
+        <td>
+          <%= link_to "edit", edit_admin_school_site_path(s),
+                class: "btn btn-sm btn-success" %>
+        </td>
+        <td>
+          <%= link_to "delete", admin_school_site_path(s),
+                class: "btn btn-sm btn-secondary",
+                data: { turbo_confirm: "Are you sure?",
+                        turbo_method: :delete } %>
+        </td>
+      </tr>
+      <% } %>
+    </table>
+  <% end %>
+</p>
+<% end %>
+<h2>Register a new school</h2>
+<%= render "form", model: SchoolSite.new, label: "Register" %>

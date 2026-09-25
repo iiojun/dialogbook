@@ -61,12 +61,12 @@ Rails.application.routes.draw do
 
   # Administration
   namespace :admin do
-    get "certificates/index"
     root "projects#index"
     resources :projects, except: [:new, :show]
     resources :schools,  only: [:create, :destroy, :edit, :update]
     resources :users,    only: [:destroy, :edit, :update]
     resources :certificates, only: [:index]
+    resources :school_sites, except: [:new, :show]
   end
 
   # Helper apps

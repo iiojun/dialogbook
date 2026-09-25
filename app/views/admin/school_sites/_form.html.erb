@@ -1,0 +1,20 @@
+<p>
+  <%= form_with model: [:admin, model] do |f| %>
+    <table>
+       <tr><td class="text-start" width="10%" ><%= f.label "name" %>&nbsp;</td>
+           <td>
+               <%= f.text_field :name, class: "form-control" %></td></tr>
+       <tr><td><%= f.label "address" %>&nbsp;</td>
+           <td><%= f.text_field :address, class: "form-control" %></td></tr>
+    </table>
+    <% unless label == "Register" %>
+      <br />
+      <div data-controller="map" style="height:400px">
+        <div id="map"></div>
+        <%= f.hidden_field :latitude, data: {map_target:"latitude"} %>
+        <%= f.hidden_field :longitude, data: {map_target:"longitude"} %>
+      </div>
+    <% end %>
+    <%= f.submit label, class: "btn btn-primary mt-3" %>
+  <% end %>
+</p>

@@ -1,0 +1,7 @@
+<%= render "nav2" %>
+<h1>School Dashboard</h1>
+<h2>School information</h2>
+<p>This school's TimeZone is 
+  <b><span class="text-primary"><%= @school_site.time_zone %></span></b>
+</p>
+<%= render "form", model: @school_site, label: "Update" %>

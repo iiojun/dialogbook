@@ -7,13 +7,9 @@ class School < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :certificate_designs, dependent: :destroy
 
-  validates :time_zone, presence: true
+  delegate :time_zone, to: :school_site
 
   after_create :set_code
-
-  geocoded_by :address
-  after_validation :geocode_and_update_time_zone, \
-      if: :will_save_change_to_address?
 
   def set_code
     update_column(:code, short_hash_base62(self.id.to_s))
@@ -32,18 +28,5 @@ class School < ApplicationRecord
       num /= 62
     end
     s.reverse
-  end
-
-  def determine_time_zone
-    return "UTC" if latitude.blank? || longitude.blank?
-    Array(WhereTZ.lookup(latitude, longitude)).uniq.first || "UTC"
-
-    rescue StandardError => e
-      Rails.logger.warn("Failed to determine time zone for School #{id}: #{e.message}")
-  end
-
-  def geocode_and_update_time_zone
-    geocode
-    self.time_zone = determine_time_zone
   end
 end

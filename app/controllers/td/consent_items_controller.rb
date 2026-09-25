@@ -28,7 +28,6 @@ class Td::ConsentItemsController < Td::ApplicationController
       flash[:notice] = "The consent item was updated."
     end
     redirect_to td_consent_forms_path
-
   end
 
   def destroy

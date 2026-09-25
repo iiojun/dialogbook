@@ -10,6 +10,17 @@
            <td><%= f.select :site_type,
                  SchoolSite.site_types.keys.map { |type| [type.humanize, type] },
                  {}, class: "form-select", style: "width: auto;" %></td></tr>
+       <tr><td><%= f.label :year_of_first_participation, "YoFP" %>&nbsp;</td>
+           <td>
+             <% if label == "Register" %>
+               <%= f.text_field :year_of_first_participation, class: "form-control", 
+                       value: Date.today.year, style: "width: 100px;" %></td>
+             <% else %>
+               <%= f.text_field :year_of_first_participation,
+                       class: "form-control", style: "width: 100px;" %></td>
+             <% end %>
+           </tr>
+
     </table>
     <% unless label == "Register" %>
       <br />

@@ -44,7 +44,7 @@ class Td::MeetingsController < Td::ApplicationController
       return
     end
 
-    @meeting.update!(name: name, memo: memo, 
+    @meeting.update!(name: name, memo: memo,
                      start_date: sdat, teacher_only: toly)
     flash[:notice] = "The meeting was successfully updated."
     redirect_to td_meetings_path

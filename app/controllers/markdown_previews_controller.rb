@@ -6,4 +6,3 @@ class MarkdownPreviewsController < ApplicationController
     )
   end
 end
-

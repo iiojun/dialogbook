@@ -15,7 +15,6 @@ class Td::ConsentFormsController < Td::ApplicationController
       flash[:alert] = "A Consent Form already exists."
     end
     redirect_to td_consent_forms_path
-
   end
 
   def new_version

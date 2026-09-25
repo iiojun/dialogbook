@@ -7,8 +7,7 @@
        <tr><td><%= f.label "year" %>&nbsp;</td>
            <td>
              <% if label == "Register" %>
-               <%= f.text_field :year, class: "form-control",
-                     value: Date.today.year %></td>
+               <%= f.text_field :year, class: "form-control", value: Date.today.year %></td>
              <% else %>
                <%= f.text_field :year, class: "form-control" %></td>
              <% end %>

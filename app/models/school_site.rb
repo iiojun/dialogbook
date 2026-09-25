@@ -3,6 +3,14 @@ class SchoolSite < ApplicationRecord
 
   validates :time_zone, presence: true
 
+  validates :year_of_first_participation,
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 2020,
+              less_than_or_equal_to: Time.current.year
+            },
+            allow_blank: true
+
   geocoded_by :address
   before_validation :geocode_and_update_time_zone, \
       if: :will_save_change_to_address?

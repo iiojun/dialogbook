@@ -3,7 +3,7 @@
 EARTH_RADIUS_M = 6_371_000
 DISTANCE_THRESHOLD_M = 500
 
-DRY_RUN = false
+DRY_RUN = true
 
 def distance_in_meters(lat1, lon1, lat2, lon2)
   lat1 = lat1.to_f * Math::PI / 180
@@ -38,14 +38,11 @@ School.find_each do |school|
       )
     end
 
-  distance = if school_site
-               distance_in_meters(
-                 school.latitude,
-                 school.longitude,
-                 school_site.latitude,
-                 school_site.longitude
-               )
-             end
+  distance = \
+    if school_site
+      distance_in_meters(school.latitude, school.longitude,
+                         school_site.latitude, school_site.longitude)
+    end
 
   if school_site && distance <= DISTANCE_THRESHOLD_M
     puts "School ##{school.id} #{school.name}"

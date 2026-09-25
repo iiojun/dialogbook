@@ -38,3 +38,12 @@
 
 # Auth0 secrets
 config/auth0.yml
+
+# Other secrets
+config/credentials.yml.enc
+
+# Ignore dump file
+dump.rdb
+
+# Ignore gems
+vendor/bundle

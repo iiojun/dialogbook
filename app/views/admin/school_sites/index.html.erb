@@ -15,6 +15,7 @@
         <th>Address</th>
         <th width="10%">Time zone</th>
         <th width="10%">Type</th>
+        <th width="5%">YoFP</th>
         <th width="1%">Edit</th>
         <th width="1%">Delete</th>
       </tr>
@@ -24,6 +25,7 @@
         <td><%= s.address %></td>
         <td><%= s.time_zone %></td>
         <td><%= s.site_type.humanize %></td>
+        <td><%= s.year_of_first_participation %></td>
         <td>
           <%= link_to "edit", edit_admin_school_site_path(s),
                 class: "btn btn-sm btn-success" %>
@@ -41,4 +43,5 @@
 </p>
 <% end %>
 <h2>Register a new school</h2>
-<%= render "form", model: SchoolSite.new, label: "Register" %>
+<%= render "form", model: SchoolSite.new(site_type: :university),
+                   label: "Register" %>

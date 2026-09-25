@@ -21,8 +21,8 @@
     <span class="text-primary">
       <%= @school.name %> (<%= @school.project.year %>)</span>
 
-<!--
     <% if @school.latitude.present? && @school.longitude.present? %>
+      &nbsp;
       <%= link_to "🌍",
           "https://www.google.com/maps?q=#{@school.latitude},#{@school.longitude}",
           target: "_blank",
@@ -30,7 +30,6 @@
           title: "Open location in Google Maps",
           aria: { label: "Open location in Google Maps" } %>
     <% end %>
--->
   </div>
 <div data-controller="tab-persist">
   <ul class="nav nav-tabs" role="tablist">

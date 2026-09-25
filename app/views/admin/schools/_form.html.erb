@@ -1,23 +1,24 @@
 <p>
   <%= form_with model: [:admin, model] do |f| %>
-    <table>
+    <table class="mb-2">
        <tr><td class="text-start" width="10%" ><%= f.label "name" %>&nbsp;</td>
-           <td>
-               <%= f.text_field :name, class: "form-control" %></td></tr>
-       <tr><td><%= f.label "address" %>&nbsp;</td>
-           <td><%= f.text_field :address, class: "form-control" %></td></tr>
+           <td><%= f.text_field :name, class: "form-control" %></td></tr>
+       <tr><td><%= f.label :school_site_id, "School" %>&nbsp;</td>
+           <td><%= f.collection_select :school_site_id,
+                            SchoolSite.order(:name),
+                            :id,
+                            :name,
+                            { prompt: "Select a school site" },
+                            { class: "form-select" } %></td></tr>
        <tr><td><%= f.label "memo" %>&nbsp;</td>
            <td><%= f.text_field :memo, class: "form-control" %></td></tr>
        <tr><td><%= f.label "paid" %>&nbsp;</td>
            <td><%= f.check_box :paid %>&nbsp; Participation fee received</td></tr>
     </table>
-    <br />
-    <div data-controller="map" style="height:400px">
-      <div id="map"></div>
-      <%= f.hidden_field :latitude, data: {map_target:"latitude"} %>
-      <%= f.hidden_field :longitude, data: {map_target:"longitude"} %>
-    </div>
-    <%= f.hidden_field :pid, { value: pid } %>
+    <p class="mb-0">
+    If you cannot find the school for this class, please add it first using the school administration function.
+    </p>
+    <%= f.hidden_field :project_id, { value: project_id } %>
     <%= f.submit label, class: "btn btn-primary mt-3" %>
   <% end %>
 </p>

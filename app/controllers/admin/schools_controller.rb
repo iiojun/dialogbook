@@ -1,7 +1,7 @@
 class Admin::SchoolsController < Admin::ApplicationController
   def create
     p = school_params
-    pj = Project.find(p[:pid])
+    pj = Project.find(p[:project_id])
     name = p[:name]
     addr = p[:address]
     if name == ""
@@ -9,7 +9,7 @@ class Admin::SchoolsController < Admin::ApplicationController
     elsif addr == ""
       flash[:alert] = "Class address is required."
     else
-      s = School.create(p.except(:pid))
+      s = School.create(p.except(:project_id))
       pj.schools << s          # add to the project
       User.admins&.each { |a|  # add to admins
         a.schools << s
@@ -40,8 +40,8 @@ class Admin::SchoolsController < Admin::ApplicationController
   def update
     s = School.find(params[:id])
 
-    # to conduct s.update(p) w/o errors, :pid has to be removed from the hash
-    p = school_params.except(:pid)
+    # to conduct s.update(p) w/o errors, :project_id has to be removed from the hash
+    p = school_params.except(:project_id)
     name = p[:name]
     addr = p[:address]
     memo = p[:memo]
@@ -62,7 +62,7 @@ class Admin::SchoolsController < Admin::ApplicationController
 
   private
   def school_params
-    params.require(:school).permit(:name, :address, :memo, 
-                                   :latitude, :longitude, :paid, :pid)
+    params.require(:school).permit(:name, :memo, :paid,
+                                   :school_site_id, :project_id)
   end
 end

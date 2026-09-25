@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_25_013311) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_25_022345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -156,15 +156,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_25_013311) do
   create_table "schools", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "name"
-    t.string "address"
     t.string "code"
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "paid", default: false
-    t.string "time_zone", default: "UTC", null: false
-    t.decimal "latitude", precision: 10, scale: 7
-    t.decimal "longitude", precision: 10, scale: 7
     t.bigint "school_site_id"
     t.index ["project_id"], name: "index_schools_on_project_id"
     t.index ["school_site_id"], name: "index_schools_on_school_site_id"

@@ -1,5 +1,10 @@
-<%= render "nav", lesson: @rubric.lesson, title: "Edit Rubric" %>
-<h1>Edit a Rubric Item</h1>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Lessons", td_lessons_path],
+              ["Lesson", edit_td_lesson_path(@rubric.lesson)],
+              ["Question", nil]] %>
+
+<h1>Edit a Question Item</h1>
 <%= form_with model: [:td, @rubric] do |f| %>
   <table class="table table-sm table-striped">
     <tr>

@@ -1,4 +1,6 @@
-<%= render "td/nav", title: "Lessons (Questions) Management" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Lessons", nil]] %>
+
 <h1>Lessons List</h1>
 <p>
 <% if @lessons&.length == 0 %>

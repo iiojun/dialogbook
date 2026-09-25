@@ -1,3 +1,8 @@
-<%= render "td/meetings/nav", meeting: @note.meeting, title: "Edit Note" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Activities", td_meetings_path],
+              ["Activity", edit_td_meeting_path(@note.meeting)],
+              ["Note", nil]] %>
+
 <h1>Edit a Note</h1>
 <%= render "form", model: @note, label: "Update" %>

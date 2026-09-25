@@ -1,4 +1,7 @@
-<%= render "td/nav", title: "Consent Form" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Consent Form", nil]] %>
+
 <% if @consent.nil? %>
   <%= render "initial" %>
 <% else %>

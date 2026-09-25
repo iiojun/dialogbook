@@ -1,4 +1,7 @@
-<%= render "mypage/consent_forms/nav" %>
+<%= render "shared/breadcrumbs",
+      items: [["MyPage", root_path],
+              ["Consent Form", nil]] %>
+
 <h1>Consent Form</h1>
 <p>version: <%= @version.version %></p>
 <div class="card mb-3">

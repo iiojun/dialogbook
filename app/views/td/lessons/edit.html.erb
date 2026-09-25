@@ -1,4 +1,7 @@
-<%= render "nav", title: "Edit Lesson" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Lessons", td_lessons_path],
+              ["Lesson", nil]] %>
 
 <h1>Edit a Lesson</h1>
 <%= render "form", lesson: @lesson, label: "update" %>

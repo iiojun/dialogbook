@@ -1,4 +1,8 @@
-<%= render "td/nav2", title: "User's Roles" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Users", td_users_path],
+              ["User", nil]] %>
+
 <h1>Edit User's Roles</h1>
 <p>
   Set <%= @user.name %>'s role. 

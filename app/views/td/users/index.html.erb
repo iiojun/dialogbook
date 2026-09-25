@@ -1,4 +1,6 @@
-<%= render "td/nav", title: "Users Management" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Users", nil]] %>
+
 <h1>Users List</h1>
 <h2>Approved</h2>
 <%= render "table", users: @users_app.order(id: :asc), btn: :withdraw %>

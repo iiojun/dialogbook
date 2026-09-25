@@ -1,4 +1,6 @@
-<%= render "td/nav", title: "Activities Management" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Activities", nil]] %>
+
 <h1>Upcoming Activities</h1>
 <p>
 <% if @meetings&.length == 0 %>

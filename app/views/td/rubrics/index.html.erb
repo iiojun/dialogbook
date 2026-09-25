@@ -1,4 +1,8 @@
-<%= render "nav", lesson: nil, title: "Self Scoring" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Lessons", td_lessons_path],
+              ["Self Scoring", nil]] %>
+
 <h1>Self Scoring</h1>
 <table class="table table-responsive table-bordered table-sm table-striped">
   <tr><th width="15%">Names \ Items</th> 

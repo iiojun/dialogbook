@@ -1,3 +1,7 @@
-<%= render "nav", todo: nil, title: "Edit ToDo" %>
-<h1>Edit a ToDo Item</h1>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Check List", td_todos_path],
+              ["Check Item", nil]] %>
+
+<h1>Edit a Check Item</h1>
 <%= render "form", todo: @todo, label: "update" %>

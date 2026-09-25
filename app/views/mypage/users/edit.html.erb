@@ -1,18 +1,9 @@
 <% if @user.name != nil %>
-<nav aria-label="breadcrumbs">
-  <ol class="breadcrumb mb-1 bg-white">
-    <li class="breadcrumb-item">
-      <% if @user.name == nil %>
-        MyPage
-      <% else %>
-        <%= link_to "MyPage", mypage_user_path(@user) %>
-      <% end %></li> 
-    <li class="breadcrumb-item">
-      [edit my profile]
-    </li>
-  </ol>
-</nav>
-<h1>Edit My Profile</h1>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", mypage_user_path(@user)],
+              ["Profile", nil]] %>
+
+<h1>My Profile</h1>
 <% else %>
 <h1>Enter Your Name</h1>
 <% end %>

@@ -1,4 +1,8 @@
-<%= render "nav", consent_item: @consent_item, title: "Edit Consent Item" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Consent Form", td_consent_forms_path],
+              ["Consent Item, nil]] %>
+
 <h1>Edit a Consent Item</h1>
 <%= render "form", consent_item: @consent_item, 
                    consent_form: @consent_item.consent_form_version, label: "update" %>

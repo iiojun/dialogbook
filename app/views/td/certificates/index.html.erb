@@ -1,4 +1,6 @@
-<%= render "td/nav", title: "Issue Certificates" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Certificates", nil]] %>
+
 <h1>Certificates</h1>
 <div class="mb-3">
   <% if current_user.school.paid %>

@@ -1,5 +1,6 @@
-<%= render "td/nav", title: "All Comments" %>
-<h1 class="mb-3">All Comments in My Class</h1>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Class Comments", nil]] %>
+<h1 class="mb-3">Class Comments</h1>
 <% if @posts&.length == 0 %>
   No comments posted in this class.
 <% else %>

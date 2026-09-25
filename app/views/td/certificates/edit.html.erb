@@ -1,4 +1,8 @@
-<%= render "nav_cert_edit", title: "Edit Certificate" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path],
+              ["Certificates", td_certificates_path],
+              ["Name on Certificate", nil]] %>
+
 <h1>Edit User's Name for Certificate</h1>
 <p>
   You can modify <%= @cert.user_school.user.name %>'s name that should be on the certificate.

@@ -1,4 +1,6 @@
-<%= render "td/nav", title: "Check List" %>
+<%= render "shared/breadcrumbs",
+      items: [["My Page", root_path], ["Check List", nil]] %>
+
 <h1>Check (ToDo) List</h1>
 <p>
 <% if @todos&.length == 0 %>

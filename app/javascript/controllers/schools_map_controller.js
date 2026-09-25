@@ -3,7 +3,7 @@ import L from "leaflet"
 
 export default class extends Controller {
   connect() {
-    this.map = L.map(this.element).setView([20, 0], 2)
+    this.map = L.map(this.element).setView([20, 120], 4)
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors"

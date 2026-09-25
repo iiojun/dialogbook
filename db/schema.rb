@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_25_040608) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_25_091301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -151,6 +151,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_25_040608) do
     t.datetime "updated_at", null: false
     t.string "time_zone"
     t.integer "site_type", default: 4, null: false
+    t.integer "year_of_first_participation"
   end
 
   create_table "schools", force: :cascade do |t|

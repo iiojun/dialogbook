@@ -711,10 +711,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <div class="layout">
   <aside>
     <section>
-      <h2>Data</h2>
-      <div class="status" id="status">Loading from API…</div>
-    </section>
-    <section>
       <h2>Site type</h2>
       <div id="legend"></div>
     </section>
@@ -774,9 +770,10 @@ function colorFor(type){
 }
 
 function setStatus(msg, isErr){
-  const el=document.getElementById('status');
-  el.textContent = msg;
-  el.style.color = isErr ? '#a24e4e' : '';
+  console.log(msg);
+  // const el=document.getElementById('status');
+  // el.textContent = msg;
+  // el.style.color = isErr ? '#a24e4e' : '';
 }
 
 function normalize(raw){

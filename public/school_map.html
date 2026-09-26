@@ -851,8 +851,8 @@ function updateLegendCounts(yearVal){
 function setupSlider(){
   const slider = document.getElementById('yearSlider');
   slider.min = YEAR_START; slider.max = CURRENT_YEAR; slider.value = CURRENT_YEAR;
-  document.getElementById('yearMinLbl').textContent = `through ${YEAR_START}`;
-  document.getElementById('yearNowLbl').textContent = 'through current';
+  document.getElementById('yearMinLbl').textContent = `${YEAR_START}`;
+  document.getElementById('yearNowLbl').textContent = 'Current';
   updateYearStatus();
   slider.oninput = ()=>{ updateYearStatus(); render(); };
 }
@@ -861,7 +861,7 @@ function updateYearStatus(){
   const slider = document.getElementById('yearSlider');
   const v = Number(slider.value);
   document.getElementById('yearStatus').textContent =
-    v>=CURRENT_YEAR ? `Showing through current (${v})` : `Showing through ${v}`;
+    v>=CURRENT_YEAR ? `Showing schools that participated through current (${v})` : `Showing schools that participated through ${v}`;
 }
 
 function render(){

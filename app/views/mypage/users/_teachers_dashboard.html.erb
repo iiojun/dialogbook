@@ -64,16 +64,10 @@
                  #{content_tag :span, '[admin] Schools', 
                      class: 'text-primary'} &raquo;".html_safe,
             admin_school_sites_path, class: 'list-group-item list-group-item-action' %>
-    <%= link_to "#{octicon 'globe', height: 24, 
-                           class: 'right left', 'aria-label': 'download'} &nbsp;
-                 #{content_tag :span, '[admin] Map', 
-                     class: 'text-primary'} &raquo;".html_safe,
-            admin_schools_map_index_path, class: 'list-group-item list-group-item-action' %>
     <%= link_to "#{octicon 'trophy', height: 24, 
                            class: 'right left', 'aria-label': 'download'} &nbsp;
                  #{content_tag :span, '[admin] Issued certificates', 
                      class: 'text-primary'} &raquo;".html_safe,
             admin_certificates_path, class: 'list-group-item list-group-item-action' %>
   <% end %>
-</div>
 </div>

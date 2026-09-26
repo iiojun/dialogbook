@@ -861,7 +861,7 @@ function updateYearStatus(){
   const slider = document.getElementById('yearSlider');
   const v = Number(slider.value);
   document.getElementById('yearStatus').textContent =
-    v>=CURRENT_YEAR ? `Showing schools that participated through current (${v})` : `Showing schools that participated through ${v}`;
+    v>=CURRENT_YEAR ? `Showing through current (${v})` : `Showing through ${v}`;
 }
 
 function render(){

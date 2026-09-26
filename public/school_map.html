@@ -812,7 +812,7 @@ function loadData(rawArr){
 function fitToData(){
   if(allData.length===0) return;
   const bounds = L.latLngBounds(allData.map(d=>[d.latitude, d.longitude]));
-  map.fitBounds(bounds.pad(0.2));
+  map.fitBounds(bounds.pad(0.0));
 }
 
 let legendCountEls = {};

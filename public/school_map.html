@@ -852,7 +852,7 @@ function setupSlider(){
   const slider = document.getElementById('yearSlider');
   slider.min = YEAR_START; slider.max = CURRENT_YEAR; slider.value = CURRENT_YEAR;
   document.getElementById('yearMinLbl').textContent = `${YEAR_START}`;
-  document.getElementById('yearNowLbl').textContent = 'Current';
+  document.getElementById('yearNowLbl').textContent = 'current';
   updateYearStatus();
   slider.oninput = ()=>{ updateYearStatus(); render(); };
 }

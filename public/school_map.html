@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Site Explorer (Map)</title>
+<title>Participating School Explorer (Map)</title>
 <style>
 /* required styles */
 
@@ -706,8 +706,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 </head>
 <body>
 <header>
-  <h1>Site Explorer (Map)</h1>
-  <p>Live data — real map tiles. Open this file via a local web server.</p>
+  <h1>Participating School Explorer (Map)</h1>
 </header>
 <div class="layout">
   <aside>
@@ -753,6 +752,21 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
+
+const TYPE_ORDER = ['university','high_school','junior_high_school','elementary_school','other'];
+function humanize(s){
+  if(s===undefined || s===null || s==='') return 'Unspecified';
+  const t = String(s).replace(/_/g,' ');
+  return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+}
+function orderTypes(types){
+  return types.slice().sort((a,b)=>{
+    const ia = TYPE_ORDER.indexOf(a), ib = TYPE_ORDER.indexOf(b);
+    const ra = ia===-1 ? TYPE_ORDER.length : ia, rb = ib===-1 ? TYPE_ORDER.length : ib;
+    if(ra!==rb) return ra-rb;
+    return String(a).localeCompare(String(b));
+  });
+}
 
 function colorFor(type){
   if(!colorMap[type]) colorMap[type] = RESOLVED_PALETTE[Object.keys(colorMap).length % RESOLVED_PALETTE.length];
@@ -802,7 +816,7 @@ function fitToData(){
 }
 
 function buildLegend(){
-  const types = [...new Set(allData.map(d=>d.site_type ?? 'unspecified'))];
+  const types = orderTypes([...new Set(allData.map(d=>d.site_type ?? 'unspecified'))]);
   const legend = document.getElementById('legend');
   legend.innerHTML='';
   types.forEach(t=>{
@@ -810,7 +824,7 @@ function buildLegend(){
     const count = allData.filter(d=>(d.site_type??'unspecified')===t).length;
     const item=document.createElement('div');
     item.className='legend-item';
-    item.innerHTML = `<span class="swatch" style="background:${color}"></span><span>${t}</span><span class="count">${count}</span>`;
+    item.innerHTML = `<span class="swatch" style="background:${color}"></span><span>${humanize(t)}</span><span class="count">${count}</span>`;
     item.addEventListener('click', ()=>{
       if(hiddenTypes.has(t)) hiddenTypes.delete(t); else hiddenTypes.add(t);
       item.classList.toggle('off');
@@ -848,7 +862,7 @@ function render(){
     const marker = L.circleMarker([d.latitude, d.longitude], {
       radius:7, fillColor:colorFor(type), color:'#fff', weight:1.5, fillOpacity:0.9
     }).addTo(map);
-    marker.bindPopup(`<b>${d.name??'(unnamed)'}</b><br>Type: ${d.site_type??'-'}<br>First participation: ${d.YoFP}`);
+    marker.bindPopup(`<b>${d.name??'(unnamed)'}</b><br>Type: ${humanize(d.site_type)}<br>First participation: ${d.YoFP}`);
     markers.push({marker, data:d});
   });
 }

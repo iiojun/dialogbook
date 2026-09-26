@@ -71,4 +71,9 @@ Rails.application.routes.draw do
 
   # Helper apps
   post "markdown/preview", to: "markdown_previews#show"
+
+  # School list API
+  namespace :api, { format: "json" } do
+    resources :school_sites,    only: [:index]
+  end
 end

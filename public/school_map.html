@@ -815,22 +815,36 @@ function fitToData(){
   map.fitBounds(bounds.pad(0.2));
 }
 
+let legendCountEls = {};
+
 function buildLegend(){
   const types = orderTypes([...new Set(allData.map(d=>d.site_type ?? 'unspecified'))]);
   const legend = document.getElementById('legend');
   legend.innerHTML='';
+  legendCountEls = {};
   types.forEach(t=>{
     const color = colorFor(t);
-    const count = allData.filter(d=>(d.site_type??'unspecified')===t).length;
     const item=document.createElement('div');
     item.className='legend-item';
-    item.innerHTML = `<span class="swatch" style="background:${color}"></span><span>${humanize(t)}</span><span class="count">${count}</span>`;
+    item.innerHTML = `<span class="swatch" style="background:${color}"></span><span>${humanize(t)}</span><span class="count">0</span>`;
     item.addEventListener('click', ()=>{
       if(hiddenTypes.has(t)) hiddenTypes.delete(t); else hiddenTypes.add(t);
       item.classList.toggle('off');
       render();
     });
     legend.appendChild(item);
+    legendCountEls[t] = item.querySelector('.count');
+  });
+}
+
+function updateLegendCounts(yearVal){
+  const tally = {};
+  allData.forEach(d=>{
+    const type = d.site_type ?? 'unspecified';
+    if(d.YoFP<=yearVal) tally[type] = (tally[type]||0)+1;
+  });
+  Object.keys(legendCountEls).forEach(t=>{
+    legendCountEls[t].textContent = tally[t]||0;
   });
 }
 
@@ -854,6 +868,7 @@ function render(){
   markers.forEach(m=>map.removeLayer(m.marker));
   markers = [];
   const yearVal = Number(document.getElementById('yearSlider').value);
+  updateLegendCounts(yearVal);
 
   allData.forEach(d=>{
     const type = d.site_type ?? 'unspecified';

@@ -1,15 +1,29 @@
 <p>
+  <div data-controller="school-site-autocomplete"
+       data-school-site-autocomplete-school-sites-value="<%= json_escape(SchoolSite.order(:name).to_json) %>"
+       class="position-relative">
   <%= form_with model: [:admin, model] do |f| %>
     <table class="mb-2">
        <tr><td class="text-start" width="10%" ><%= f.label "name" %>&nbsp;</td>
-           <td><%= f.text_field :name, class: "form-control" %></td></tr>
+           <td><%= f.text_field :name, class: "form-control",
+                   data: {
+                     school_site_autocomplete_target: "name",
+                     action: "input->school-site-autocomplete#updateSubmitState"
+                   } %></td></tr>
        <tr><td><%= f.label :school_site_id, "School" %>&nbsp;</td>
-           <td><%= f.collection_select :school_site_id,
-                            SchoolSite.order(:name),
-                            :id,
-                            :name,
-                            { prompt: "Select a school site" },
-                            { class: "form-select" } %></td></tr>
+           <td><input type="text"
+                   class="form-control"
+                   value="<%= model.school_site&.name %>"
+                   autocomplete="off"
+                   placeholder="Type school name..."
+                   data-school-site-autocomplete-target="input"
+                   data-action="input->school-site-autocomplete#search">
+            <%= f.hidden_field :school_site_id,
+                  data: { school_site_autocomplete_target: "hidden" } %>
+            <div data-school-site-autocomplete-target="results"
+                 class="list-group position-absolute w-auto">
+            </div></td></tr>
+
        <tr><td><%= f.label "memo" %>&nbsp;</td>
            <td><%= f.text_field :memo, class: "form-control" %></td></tr>
        <tr><td><%= f.label "paid" %>&nbsp;</td>
@@ -19,6 +33,10 @@
     If you cannot find the school for this class, please add it first using the school administration function.
     </p>
     <%= f.hidden_field :project_id, { value: project_id } %>
-    <%= f.submit label, class: "btn btn-primary mt-3" %>
+    <%= f.submit label, 
+          class: "btn btn-primary mt-3",
+          disabled: model.school_site_id.blank?,
+          data: { school_site_autocomplete_target: "submit" } %>
   <% end %>
+  </div>
 </p>

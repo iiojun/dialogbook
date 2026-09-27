@@ -7,6 +7,8 @@ class School < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :certificate_designs, dependent: :destroy
 
+  validates :school_site_id, presence: true
+
   delegate :time_zone, :latitude, :longitude, to: :school_site
 
   after_create :set_code

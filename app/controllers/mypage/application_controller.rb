@@ -5,6 +5,7 @@ class Mypage::ApplicationController < ApplicationController
   private
 
   # only my-own-page can be accessible
+  # but an administrator can access any user's mypage
   def only_my_page_can_be_accessible!
     @user = (params.has_key?(:id)) ? User.find(params[:id]) : current_user
     redirect_to mypage_user_path(current_user) \

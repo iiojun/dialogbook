@@ -63,12 +63,12 @@ consent_items:
     description: I agree that my data may be used for scientific research and made publicly available as an open dataset.
 
   - position: 9
-    title: Identifiable Photographs
-    description: I agree that photographs in which I can be identified may be used for research purposes and for promoting the school.
-
-  - position: 10
     title: Non-identifiable Photographs
     description: I agree that photographs may be used in a way that does not allow me to be identified.
+
+  - position: 10
+    title: Identifiable Photographs
+    description: I agree that photographs in which I can be identified may be used for research purposes and for promoting the school.
 
   - position: 11
     title: Participation Agreement

@@ -36,6 +36,9 @@ class Td::ConsentItemsController < Td::ApplicationController
     redirect_to td_consent_forms_path
   end
 
+  def consent_status
+  end
+
   private
   def set_item
     @consent_item = ConsentItem.find(params[:id])

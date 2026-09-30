@@ -1,0 +1,28 @@
+wb = xlsx_package.workbook
+
+item_table = [] 
+
+header = ["Names \ Items"]
+items = @published_version.consent_items
+items.each_with_index do |item, i| 
+  header.push(item.title)
+  item_table[i] = item
+end
+
+user_consents = @published_version.user_consents
+
+wb.add_worksheet(name: "Consent items") do |sheet|
+  sheet.add_row(header)
+  user_consents.each do |uc|
+    status_hash = {}
+    uc.user_consent_items.each do |ucitem|
+      status_hash[ucitem.consent_item_id] = 
+        ucitem.agreed_at.nil? ? "Not agreed" : "Agreed"
+    end
+    status = [uc.user.name]
+    item_table.each do |item|
+      status.push(status_hash[item.id])
+    end
+    sheet.add_row(status) 
+  end
+end

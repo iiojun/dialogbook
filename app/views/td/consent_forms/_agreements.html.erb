@@ -1,4 +1,10 @@
-<table class="table table-sm table-striped mb-5">
+<table class="table table-sm table-striped mb-3">
   <%= render "tableheader" %>
   <%= render partial: "user", collection: @students %>
 </table>
+<h2>Consent details</h2>
+  <%= link_to "excel file download",
+              td_consent_forms_status_path(format: :xlsx),
+              class: "btn btn-primary mb-5" %>
+
+

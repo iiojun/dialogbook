@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :consent_forms, only: [:index]
     resources :consent_form_versions, except: [:new, :index, :show]
     resources :consent_items, except: [:new, :index, :show]
+    get "/consent_forms/status", to: "consent_forms#status_to_excel"
 
     namespace :api, { format: "json" } do
       resources :users,    only: [:index]

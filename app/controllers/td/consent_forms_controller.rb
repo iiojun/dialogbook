@@ -26,9 +26,17 @@ class Td::ConsentFormsController < Td::ApplicationController
     redirect_to td_consent_forms_path
   end
 
-  def user_review
-  end
+  def status_to_excel
+    @consent = current_user.school.project.consent_form
+    @students = current_user.school.users.where(role: "student")
+    @published_version = @consent&.published_version
 
-  def user_consent
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        response.headers["Content-Disposition"] =
+            "attachment; filename=ConsentItems_#{Date.today}.xlsx"
+      end
+    end
   end
 end
